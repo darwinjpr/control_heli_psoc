@@ -1,6 +1,6 @@
-C:\Users\Darwin\Desktop\matlab lab control\Proyecto\Workspace01\Design01.cydsn\Design01.cyprj|314f9035-6a1a-41cc-85b6-0ccbd61d2114
-C:\Program Files (x86)\Cypress\PSoC Creator\4.2\PSoC Creator\psoc\content\default\CyAnnotationLibrary\CyAnnotationLibrary.cylib\CyAnnotationLibrary.cyprj|303cff6f-6b50-41b1-80a8-b3f9e49176ae
-C:\Users\Darwin\Documents\PSoC Creator\4.2\Downloads ( 4.2).cylib\Downloads ( 4.2).cyprj|49122c6a-3bec-40d2-9850-ab1d16919e27
-C:\Program Files (x86)\Cypress\PSoC Creator\4.2\PSoC Creator\psoc\content\cycomponentlibraryupdates\CyComponentLibraryUpdates.cylib\CyComponentLibraryUpdates.cyprj|10cd365b-78fd-43de-9c16-3679da87a6c1
-C:\Program Files (x86)\Cypress\PSoC Creator\4.2\PSoC Creator\psoc\content\cycomponentlibrary\CyComponentLibrary.cylib\CyComponentLibrary.cyprj|955c934e-be95-409d-8381-155ef8b226bb
-C:\Program Files (x86)\Cypress\PSoC Creator\4.2\PSoC Creator\psoc\content\cyprimitives\CyPrimitives.cylib\CyPrimitives.cyprj|2b7db055-cb90-4f3f-8993-542d28939751
+C:\Users\Darwin\Documents\git\control_heli_psoc\Workspace01\Design01.cydsn\Design01.cyprj|6a392657-8c38-4caa-858c-07973cf8516d
+C:\Program Files (x86)\Cypress\PSoC Creator\4.2\PSoC Creator\psoc\content\default\CyAnnotationLibrary\CyAnnotationLibrary.cylib\CyAnnotationLibrary.cyprj|d4d37bde-fa31-47cb-9078-31018066070d
+C:\Users\Darwin\Documents\PSoC Creator\4.2\Downloads ( 4.2).cylib\Downloads ( 4.2).cyprj|b89f564e-856d-4c3c-b452-6740ad6dd18e
+C:\Program Files (x86)\Cypress\PSoC Creator\4.2\PSoC Creator\psoc\content\cycomponentlibraryupdates\CyComponentLibraryUpdates.cylib\CyComponentLibraryUpdates.cyprj|a78a8107-51b7-43ec-8e70-0469fd3f3c0b
+C:\Program Files (x86)\Cypress\PSoC Creator\4.2\PSoC Creator\psoc\content\cycomponentlibrary\CyComponentLibrary.cylib\CyComponentLibrary.cyprj|3e70f0c6-4ce3-4c7c-af89-69ba485c2516
+C:\Program Files (x86)\Cypress\PSoC Creator\4.2\PSoC Creator\psoc\content\cyprimitives\CyPrimitives.cylib\CyPrimitives.cyprj|3461a07f-065c-44cf-b235-a4e9992537ec

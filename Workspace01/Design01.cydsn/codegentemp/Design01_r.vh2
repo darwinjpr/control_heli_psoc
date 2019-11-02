@@ -1,5 +1,5 @@
 -- Project:   Design01
--- Generated: 10/30/2019 18:58:11
+-- Generated: 11/01/2019 23:56:15
 -- PSoC Creator  4.2
 
 ENTITY Design01 IS
@@ -18,7 +18,9 @@ ENTITY Design01 IS
         Disminuir(0)_PAD : IN std_ulogic;
         MOTOR(0)_PAD : OUT std_ulogic;
         encoder_A(0)_PAD : IN std_ulogic;
-        encoder_B(0)_PAD : IN std_ulogic);
+        encoder_B(0)_PAD : IN std_ulogic;
+        Pin_1(0)_PAD : OUT std_ulogic;
+        Pin_2(0)_PAD : OUT std_ulogic);
     ATTRIBUTE voltage_VDDABUF OF __DEFAULT__ : ENTITY IS 5e0;
     ATTRIBUTE voltage_VDDA OF __DEFAULT__ : ENTITY IS 5e0;
     ATTRIBUTE voltage_VUSB OF __DEFAULT__ : ENTITY IS 5e0;
@@ -52,16 +54,22 @@ ARCHITECTURE __DEFAULT__ OF Design01 IS
     SIGNAL Net_10_local : bit;
     SIGNAL Net_1224 : bit;
     SIGNAL Net_1232 : bit;
-    ATTRIBUTE placement_force OF Net_1232 : SIGNAL IS "U(2,5,B)0";
+    ATTRIBUTE placement_force OF Net_1232 : SIGNAL IS "U(2,5,B)1";
     SIGNAL Net_1233 : bit;
-    ATTRIBUTE placement_force OF Net_1233 : SIGNAL IS "U(2,5,A)3";
+    ATTRIBUTE placement_force OF Net_1233 : SIGNAL IS "U(2,3,A)2";
     SIGNAL Net_1234 : bit;
     SIGNAL Net_1236 : bit;
     SIGNAL Net_1243 : bit;
-    ATTRIBUTE placement_force OF Net_1243 : SIGNAL IS "U(2,5,A)2";
+    ATTRIBUTE placement_force OF Net_1243 : SIGNAL IS "U(3,2,A)2";
     SIGNAL Net_1245 : bit;
-    SIGNAL Net_1246 : bit;
-    SIGNAL Net_1278 : bit;
+    ATTRIBUTE placement_force OF Net_1245 : SIGNAL IS "U(2,4,B)3";
+    SIGNAL Net_1295 : bit;
+    ATTRIBUTE placement_force OF Net_1295 : SIGNAL IS "U(2,5,B)3";
+    SIGNAL Net_1301 : bit;
+    SIGNAL Net_1302 : bit;
+    SIGNAL Net_1303 : bit;
+    SIGNAL Pin_1(0)__PA : bit;
+    SIGNAL Pin_2(0)__PA : bit;
     SIGNAL Reset_PWM(0)__PA : bit;
     SIGNAL Reset_pin(0)__PA : bit;
     SIGNAL \\\LCD:LCDPort(0)\\__PA\ : bit;
@@ -81,14 +89,14 @@ ARCHITECTURE __DEFAULT__ OF Design01 IS
     SIGNAL \PWM_Motor:PWMUDB:control_6\ : bit;
     SIGNAL \PWM_Motor:PWMUDB:control_7\ : bit;
     SIGNAL \PWM_Motor:PWMUDB:prevCompare1\ : bit;
-    ATTRIBUTE placement_force OF \PWM_Motor:PWMUDB:prevCompare1\ : SIGNAL IS "U(2,4,A)1";
+    ATTRIBUTE placement_force OF \PWM_Motor:PWMUDB:prevCompare1\ : SIGNAL IS "U(2,2,A)0";
     SIGNAL \PWM_Motor:PWMUDB:runmode_enable\ : bit;
-    ATTRIBUTE placement_force OF \PWM_Motor:PWMUDB:runmode_enable\ : SIGNAL IS "U(2,5,A)0";
+    ATTRIBUTE placement_force OF \PWM_Motor:PWMUDB:runmode_enable\ : SIGNAL IS "U(2,2,A)3";
     SIGNAL \QuadDec:Cnt16:CounterUDB:sC16:counterdp:u0.ce0__sig\ : bit;
     SIGNAL \PWM_Motor:PWMUDB:status_0\ : bit;
-    ATTRIBUTE placement_force OF \PWM_Motor:PWMUDB:status_0\ : SIGNAL IS "U(2,4,A)3";
+    ATTRIBUTE placement_force OF \PWM_Motor:PWMUDB:status_0\ : SIGNAL IS "U(2,2,B)0";
     SIGNAL \PWM_Motor:PWMUDB:status_2\ : bit;
-    ATTRIBUTE placement_force OF \PWM_Motor:PWMUDB:status_2\ : SIGNAL IS "U(2,4,A)0";
+    ATTRIBUTE placement_force OF \PWM_Motor:PWMUDB:status_2\ : SIGNAL IS "U(2,2,A)2";
     SIGNAL \PWM_Motor:PWMUDB:status_3\ : bit;
     SIGNAL \PWM_Motor:PWMUDB:tc_i\ : bit;
     SIGNAL \QuadDec:Cnt16:CounterUDB:cmp_out_i\ : bit;
@@ -101,69 +109,67 @@ ARCHITECTURE __DEFAULT__ OF Design01 IS
     SIGNAL \QuadDec:Cnt16:CounterUDB:control_6\ : bit;
     SIGNAL \QuadDec:Cnt16:CounterUDB:control_7\ : bit;
     SIGNAL \QuadDec:Cnt16:CounterUDB:count_enable\ : bit;
-    ATTRIBUTE placement_force OF \QuadDec:Cnt16:CounterUDB:count_enable\ : SIGNAL IS "U(3,2,A)0";
+    ATTRIBUTE placement_force OF \QuadDec:Cnt16:CounterUDB:count_enable\ : SIGNAL IS "U(3,4,A)3";
     SIGNAL \QuadDec:Cnt16:CounterUDB:count_stored_i\ : bit;
-    ATTRIBUTE placement_force OF \QuadDec:Cnt16:CounterUDB:count_stored_i\ : SIGNAL IS "U(3,2,A)1";
+    ATTRIBUTE placement_force OF \QuadDec:Cnt16:CounterUDB:count_stored_i\ : SIGNAL IS "U(3,4,B)0";
     SIGNAL \QuadDec:Cnt16:CounterUDB:overflow\ : bit;
     SIGNAL \QuadDec:Cnt16:CounterUDB:overflow_reg_i\ : bit;
-    ATTRIBUTE placement_force OF \QuadDec:Cnt16:CounterUDB:overflow_reg_i\ : SIGNAL IS "U(3,5,A)0";
+    ATTRIBUTE placement_force OF \QuadDec:Cnt16:CounterUDB:overflow_reg_i\ : SIGNAL IS "U(3,5,B)3";
     SIGNAL \QuadDec:Cnt16:CounterUDB:prevCompare\ : bit;
-    ATTRIBUTE placement_force OF \QuadDec:Cnt16:CounterUDB:prevCompare\ : SIGNAL IS "U(3,4,A)1";
+    ATTRIBUTE placement_force OF \QuadDec:Cnt16:CounterUDB:prevCompare\ : SIGNAL IS "U(2,3,A)1";
     SIGNAL \QuadDec:Cnt16:CounterUDB:reload\ : bit;
-    ATTRIBUTE placement_force OF \QuadDec:Cnt16:CounterUDB:reload\ : SIGNAL IS "U(3,3,B)0";
+    ATTRIBUTE placement_force OF \QuadDec:Cnt16:CounterUDB:reload\ : SIGNAL IS "U(2,4,B)0";
     SIGNAL \QuadDec:Cnt16:CounterUDB:status_0\ : bit;
-    ATTRIBUTE placement_force OF \QuadDec:Cnt16:CounterUDB:status_0\ : SIGNAL IS "U(3,3,A)0";
+    ATTRIBUTE placement_force OF \QuadDec:Cnt16:CounterUDB:status_0\ : SIGNAL IS "U(2,4,A)3";
     SIGNAL \QuadDec:Cnt16:CounterUDB:status_1\ : bit;
     SIGNAL \QuadDec:Cnt16:CounterUDB:status_2\ : bit;
-    ATTRIBUTE placement_force OF \QuadDec:Cnt16:CounterUDB:status_2\ : SIGNAL IS "U(3,4,A)2";
+    ATTRIBUTE placement_force OF \QuadDec:Cnt16:CounterUDB:status_2\ : SIGNAL IS "U(3,5,A)1";
     SIGNAL \QuadDec:Cnt16:CounterUDB:status_3\ : bit;
-    ATTRIBUTE placement_force OF \QuadDec:Cnt16:CounterUDB:status_3\ : SIGNAL IS "U(3,2,A)3";
+    ATTRIBUTE placement_force OF \QuadDec:Cnt16:CounterUDB:status_3\ : SIGNAL IS "U(2,5,B)0";
     SIGNAL \QuadDec:Cnt16:CounterUDB:status_5\ : bit;
     SIGNAL \QuadDec:Cnt16:CounterUDB:status_6\ : bit;
     SIGNAL \QuadDec:Cnt16:CounterUDB:underflow_reg_i\ : bit;
-    ATTRIBUTE placement_force OF \QuadDec:Cnt16:CounterUDB:underflow_reg_i\ : SIGNAL IS "U(3,3,B)1";
+    ATTRIBUTE placement_force OF \QuadDec:Cnt16:CounterUDB:underflow_reg_i\ : SIGNAL IS "U(2,5,B)2";
     SIGNAL \QuadDec:Net_1203\ : bit;
-    ATTRIBUTE placement_force OF \QuadDec:Net_1203\ : SIGNAL IS "U(3,2,A)2";
-    SIGNAL \QuadDec:Net_1203_split\ : bit;
-    ATTRIBUTE placement_force OF \QuadDec:Net_1203_split\ : SIGNAL IS "U(3,2,B)0";
+    ATTRIBUTE placement_force OF \QuadDec:Net_1203\ : SIGNAL IS "U(3,4,A)2";
     SIGNAL \QuadDec:Net_1251\ : bit;
-    ATTRIBUTE placement_force OF \QuadDec:Net_1251\ : SIGNAL IS "U(2,3,A)2";
+    ATTRIBUTE placement_force OF \QuadDec:Net_1251\ : SIGNAL IS "U(2,4,B)1";
     SIGNAL \QuadDec:Net_1251_split\ : bit;
-    ATTRIBUTE placement_force OF \QuadDec:Net_1251_split\ : SIGNAL IS "U(2,4,B)0";
+    ATTRIBUTE placement_force OF \QuadDec:Net_1251_split\ : SIGNAL IS "U(2,5,A)0";
     SIGNAL \QuadDec:Net_1260\ : bit;
-    ATTRIBUTE placement_force OF \QuadDec:Net_1260\ : SIGNAL IS "U(2,3,A)3";
+    ATTRIBUTE placement_force OF \QuadDec:Net_1260\ : SIGNAL IS "U(3,4,B)1";
     SIGNAL \QuadDec:Net_1275\ : bit;
-    ATTRIBUTE placement_force OF \QuadDec:Net_1275\ : SIGNAL IS "U(3,5,B)0";
+    ATTRIBUTE placement_force OF \QuadDec:Net_1275\ : SIGNAL IS "U(2,3,B)1";
     SIGNAL \QuadDec:Net_530\ : bit;
-    ATTRIBUTE placement_force OF \QuadDec:Net_530\ : SIGNAL IS "U(3,5,A)3";
+    ATTRIBUTE placement_force OF \QuadDec:Net_530\ : SIGNAL IS "U(3,3,B)0";
     SIGNAL \QuadDec:Net_611\ : bit;
-    ATTRIBUTE placement_force OF \QuadDec:Net_611\ : SIGNAL IS "U(3,5,B)2";
+    ATTRIBUTE placement_force OF \QuadDec:Net_611\ : SIGNAL IS "U(3,3,A)0";
     SIGNAL \QuadDec:bQuadDec:error\ : bit;
-    ATTRIBUTE placement_force OF \QuadDec:bQuadDec:error\ : SIGNAL IS "U(3,3,B)2";
+    ATTRIBUTE placement_force OF \QuadDec:bQuadDec:error\ : SIGNAL IS "U(2,3,A)3";
     SIGNAL \QuadDec:bQuadDec:quad_A_delayed_0\ : bit;
-    ATTRIBUTE placement_force OF \QuadDec:bQuadDec:quad_A_delayed_0\ : SIGNAL IS "U(2,5,B)1";
+    ATTRIBUTE placement_force OF \QuadDec:bQuadDec:quad_A_delayed_0\ : SIGNAL IS "U(3,3,B)1";
     SIGNAL \QuadDec:bQuadDec:quad_A_delayed_1\ : bit;
-    ATTRIBUTE placement_force OF \QuadDec:bQuadDec:quad_A_delayed_1\ : SIGNAL IS "U(3,5,A)2";
+    ATTRIBUTE placement_force OF \QuadDec:bQuadDec:quad_A_delayed_1\ : SIGNAL IS "U(3,3,B)2";
     SIGNAL \QuadDec:bQuadDec:quad_A_delayed_2\ : bit;
-    ATTRIBUTE placement_force OF \QuadDec:bQuadDec:quad_A_delayed_2\ : SIGNAL IS "U(3,5,A)1";
+    ATTRIBUTE placement_force OF \QuadDec:bQuadDec:quad_A_delayed_2\ : SIGNAL IS "U(3,3,B)3";
     SIGNAL \QuadDec:bQuadDec:quad_A_filt\ : bit;
-    ATTRIBUTE placement_force OF \QuadDec:bQuadDec:quad_A_filt\ : SIGNAL IS "U(3,5,B)1";
+    ATTRIBUTE placement_force OF \QuadDec:bQuadDec:quad_A_filt\ : SIGNAL IS "U(3,3,A)1";
     SIGNAL \QuadDec:bQuadDec:quad_B_delayed_0\ : bit;
-    ATTRIBUTE placement_force OF \QuadDec:bQuadDec:quad_B_delayed_0\ : SIGNAL IS "U(3,4,A)3";
+    ATTRIBUTE placement_force OF \QuadDec:bQuadDec:quad_B_delayed_0\ : SIGNAL IS "U(3,5,B)0";
     SIGNAL \QuadDec:bQuadDec:quad_B_delayed_1\ : bit;
-    ATTRIBUTE placement_force OF \QuadDec:bQuadDec:quad_B_delayed_1\ : SIGNAL IS "U(3,4,B)1";
+    ATTRIBUTE placement_force OF \QuadDec:bQuadDec:quad_B_delayed_1\ : SIGNAL IS "U(3,5,B)2";
     SIGNAL \QuadDec:bQuadDec:quad_B_delayed_2\ : bit;
-    ATTRIBUTE placement_force OF \QuadDec:bQuadDec:quad_B_delayed_2\ : SIGNAL IS "U(3,4,B)0";
+    ATTRIBUTE placement_force OF \QuadDec:bQuadDec:quad_B_delayed_2\ : SIGNAL IS "U(3,5,B)1";
     SIGNAL \QuadDec:bQuadDec:quad_B_filt\ : bit;
-    ATTRIBUTE placement_force OF \QuadDec:bQuadDec:quad_B_filt\ : SIGNAL IS "U(3,4,A)0";
+    ATTRIBUTE placement_force OF \QuadDec:bQuadDec:quad_B_filt\ : SIGNAL IS "U(3,5,A)2";
     SIGNAL \QuadDec:bQuadDec:state_0\ : bit;
-    ATTRIBUTE placement_force OF \QuadDec:bQuadDec:state_0\ : SIGNAL IS "U(2,2,B)1";
+    ATTRIBUTE placement_force OF \QuadDec:bQuadDec:state_0\ : SIGNAL IS "U(2,3,B)3";
     SIGNAL \QuadDec:bQuadDec:state_1\ : bit;
-    ATTRIBUTE placement_force OF \QuadDec:bQuadDec:state_1\ : SIGNAL IS "U(2,3,B)3";
+    ATTRIBUTE placement_force OF \QuadDec:bQuadDec:state_1\ : SIGNAL IS "U(3,2,B)1";
     SIGNAL \Timer:Net_261\ : bit;
-    SIGNAL \Timer:Net_51\ : bit;
+    SIGNAL \Timer:Net_57\ : bit;
     SIGNAL __ONE__ : bit;
-    ATTRIBUTE placement_force OF __ONE__ : SIGNAL IS "U(1,2,A)1";
+    ATTRIBUTE placement_force OF __ONE__ : SIGNAL IS "U(1,1,B)1";
     ATTRIBUTE POWER OF __ONE__ : SIGNAL IS true;
     SIGNAL __ZERO__ : bit;
     ATTRIBUTE GROUND OF __ZERO__ : SIGNAL IS true;
@@ -199,8 +205,6 @@ ARCHITECTURE __DEFAULT__ OF Design01 IS
     SIGNAL \QuadDec:Cnt16:CounterUDB:sC16:counterdp:u0.cfbo__sig\ : bit;
     SIGNAL \QuadDec:Cnt16:CounterUDB:sC16:counterdp:u1.sor__sig\ : bit;
     SIGNAL \QuadDec:Cnt16:CounterUDB:sC16:counterdp:u1.cmsbo__sig\ : bit;
-    ATTRIBUTE lib_model OF \QuadDec:Net_1203_split\ : LABEL IS "macrocell1";
-    ATTRIBUTE Location OF \QuadDec:Net_1203_split\ : LABEL IS "U(3,2)";
     ATTRIBUTE Location OF ClockBlock : LABEL IS "F(Clock,0)";
     ATTRIBUTE lib_model OF \LCD:LCDPort(0)\ : LABEL IS "iocell1";
     ATTRIBUTE Location OF \LCD:LCDPort(0)\ : LABEL IS "P2[0]";
@@ -221,109 +225,117 @@ ARCHITECTURE __DEFAULT__ OF Design01 IS
     ATTRIBUTE lib_model OF Aumentar(0) : LABEL IS "iocell9";
     ATTRIBUTE Location OF Aumentar(0) : LABEL IS "P6[1]";
     ATTRIBUTE lib_model OF LED(0) : LABEL IS "iocell10";
-    ATTRIBUTE Location OF LED(0) : LABEL IS "P6[3]";
+    ATTRIBUTE Location OF LED(0) : LABEL IS "P3[7]";
     ATTRIBUTE lib_model OF Reset_PWM(0) : LABEL IS "iocell11";
     ATTRIBUTE Location OF Reset_PWM(0) : LABEL IS "P0[7]";
     ATTRIBUTE lib_model OF Disminuir(0) : LABEL IS "iocell12";
     ATTRIBUTE Location OF Disminuir(0) : LABEL IS "P15[5]";
     ATTRIBUTE lib_model OF MOTOR(0) : LABEL IS "iocell13";
-    ATTRIBUTE Location OF MOTOR(0) : LABEL IS "P12[4]";
+    ATTRIBUTE Location OF MOTOR(0) : LABEL IS "P3[6]";
     ATTRIBUTE lib_model OF encoder_A(0) : LABEL IS "iocell14";
     ATTRIBUTE Location OF encoder_A(0) : LABEL IS "P0[0]";
     ATTRIBUTE lib_model OF encoder_B(0) : LABEL IS "iocell15";
     ATTRIBUTE Location OF encoder_B(0) : LABEL IS "P0[1]";
-    ATTRIBUTE lib_model OF \PWM_Motor:PWMUDB:status_2\ : LABEL IS "macrocell2";
-    ATTRIBUTE Location OF \PWM_Motor:PWMUDB:status_2\ : LABEL IS "U(2,4)";
-    ATTRIBUTE lib_model OF Net_1232 : LABEL IS "macrocell3";
+    ATTRIBUTE lib_model OF Pin_1(0) : LABEL IS "iocell16";
+    ATTRIBUTE Location OF Pin_1(0) : LABEL IS "P6[3]";
+    ATTRIBUTE lib_model OF Pin_2(0) : LABEL IS "iocell17";
+    ATTRIBUTE Location OF Pin_2(0) : LABEL IS "P6[2]";
+    ATTRIBUTE lib_model OF \PWM_Motor:PWMUDB:status_2\ : LABEL IS "macrocell1";
+    ATTRIBUTE Location OF \PWM_Motor:PWMUDB:status_2\ : LABEL IS "U(2,2)";
+    ATTRIBUTE lib_model OF Net_1232 : LABEL IS "macrocell2";
     ATTRIBUTE Location OF Net_1232 : LABEL IS "U(2,5)";
-    ATTRIBUTE lib_model OF Net_1233 : LABEL IS "macrocell4";
-    ATTRIBUTE Location OF Net_1233 : LABEL IS "U(2,5)";
-    ATTRIBUTE lib_model OF \QuadDec:Cnt16:CounterUDB:reload\ : LABEL IS "macrocell5";
-    ATTRIBUTE Location OF \QuadDec:Cnt16:CounterUDB:reload\ : LABEL IS "U(3,3)";
-    ATTRIBUTE lib_model OF \QuadDec:Cnt16:CounterUDB:status_0\ : LABEL IS "macrocell6";
-    ATTRIBUTE Location OF \QuadDec:Cnt16:CounterUDB:status_0\ : LABEL IS "U(3,3)";
-    ATTRIBUTE lib_model OF \QuadDec:Cnt16:CounterUDB:status_2\ : LABEL IS "macrocell7";
-    ATTRIBUTE Location OF \QuadDec:Cnt16:CounterUDB:status_2\ : LABEL IS "U(3,4)";
-    ATTRIBUTE lib_model OF \QuadDec:Cnt16:CounterUDB:status_3\ : LABEL IS "macrocell8";
-    ATTRIBUTE Location OF \QuadDec:Cnt16:CounterUDB:status_3\ : LABEL IS "U(3,2)";
-    ATTRIBUTE lib_model OF \QuadDec:Cnt16:CounterUDB:count_enable\ : LABEL IS "macrocell9";
-    ATTRIBUTE Location OF \QuadDec:Cnt16:CounterUDB:count_enable\ : LABEL IS "U(3,2)";
-    ATTRIBUTE lib_model OF \QuadDec:Net_530\ : LABEL IS "macrocell10";
-    ATTRIBUTE Location OF \QuadDec:Net_530\ : LABEL IS "U(3,5)";
-    ATTRIBUTE lib_model OF \QuadDec:Net_611\ : LABEL IS "macrocell11";
-    ATTRIBUTE Location OF \QuadDec:Net_611\ : LABEL IS "U(3,5)";
-    ATTRIBUTE lib_model OF __ONE__ : LABEL IS "macrocell12";
-    ATTRIBUTE Location OF __ONE__ : LABEL IS "U(1,2)";
+    ATTRIBUTE lib_model OF Net_1233 : LABEL IS "macrocell3";
+    ATTRIBUTE Location OF Net_1233 : LABEL IS "U(2,3)";
+    ATTRIBUTE lib_model OF \QuadDec:Cnt16:CounterUDB:reload\ : LABEL IS "macrocell4";
+    ATTRIBUTE Location OF \QuadDec:Cnt16:CounterUDB:reload\ : LABEL IS "U(2,4)";
+    ATTRIBUTE lib_model OF \QuadDec:Cnt16:CounterUDB:status_0\ : LABEL IS "macrocell5";
+    ATTRIBUTE Location OF \QuadDec:Cnt16:CounterUDB:status_0\ : LABEL IS "U(2,4)";
+    ATTRIBUTE lib_model OF \QuadDec:Cnt16:CounterUDB:status_2\ : LABEL IS "macrocell6";
+    ATTRIBUTE Location OF \QuadDec:Cnt16:CounterUDB:status_2\ : LABEL IS "U(3,5)";
+    ATTRIBUTE lib_model OF \QuadDec:Cnt16:CounterUDB:status_3\ : LABEL IS "macrocell7";
+    ATTRIBUTE Location OF \QuadDec:Cnt16:CounterUDB:status_3\ : LABEL IS "U(2,5)";
+    ATTRIBUTE lib_model OF \QuadDec:Cnt16:CounterUDB:count_enable\ : LABEL IS "macrocell8";
+    ATTRIBUTE Location OF \QuadDec:Cnt16:CounterUDB:count_enable\ : LABEL IS "U(3,4)";
+    ATTRIBUTE lib_model OF \QuadDec:Net_530\ : LABEL IS "macrocell9";
+    ATTRIBUTE Location OF \QuadDec:Net_530\ : LABEL IS "U(3,3)";
+    ATTRIBUTE lib_model OF \QuadDec:Net_611\ : LABEL IS "macrocell10";
+    ATTRIBUTE Location OF \QuadDec:Net_611\ : LABEL IS "U(3,3)";
+    ATTRIBUTE lib_model OF Net_1295 : LABEL IS "macrocell11";
+    ATTRIBUTE Location OF Net_1295 : LABEL IS "U(2,5)";
+    ATTRIBUTE lib_model OF Net_1245 : LABEL IS "macrocell12";
+    ATTRIBUTE Location OF Net_1245 : LABEL IS "U(2,4)";
+    ATTRIBUTE lib_model OF __ONE__ : LABEL IS "macrocell13";
+    ATTRIBUTE Location OF __ONE__ : LABEL IS "U(1,1)";
     ATTRIBUTE lib_model OF \PWM_Motor:PWMUDB:genblk1:ctrlreg\ : LABEL IS "controlcell1";
-    ATTRIBUTE Location OF \PWM_Motor:PWMUDB:genblk1:ctrlreg\ : LABEL IS "U(2,5)";
+    ATTRIBUTE Location OF \PWM_Motor:PWMUDB:genblk1:ctrlreg\ : LABEL IS "U(2,2)";
     ATTRIBUTE lib_model OF \PWM_Motor:PWMUDB:genblk8:stsreg\ : LABEL IS "statusicell1";
-    ATTRIBUTE Location OF \PWM_Motor:PWMUDB:genblk8:stsreg\ : LABEL IS "U(2,4)";
+    ATTRIBUTE Location OF \PWM_Motor:PWMUDB:genblk8:stsreg\ : LABEL IS "U(2,2)";
     ATTRIBUTE lib_model OF \PWM_Motor:PWMUDB:sP16:pwmdp:u0\ : LABEL IS "datapathcell1";
-    ATTRIBUTE Location OF \PWM_Motor:PWMUDB:sP16:pwmdp:u0\ : LABEL IS "U(3,4)";
+    ATTRIBUTE Location OF \PWM_Motor:PWMUDB:sP16:pwmdp:u0\ : LABEL IS "U(3,2)";
     ATTRIBUTE lib_model OF \PWM_Motor:PWMUDB:sP16:pwmdp:u1\ : LABEL IS "datapathcell2";
-    ATTRIBUTE Location OF \PWM_Motor:PWMUDB:sP16:pwmdp:u1\ : LABEL IS "U(2,4)";
+    ATTRIBUTE Location OF \PWM_Motor:PWMUDB:sP16:pwmdp:u1\ : LABEL IS "U(2,2)";
     ATTRIBUTE Location OF isr_Aumentar : LABEL IS "[IntrContainer=(0)][IntrId=(0)]";
     ATTRIBUTE Location OF isr_Disminuir : LABEL IS "[IntrContainer=(0)][IntrId=(1)]";
     ATTRIBUTE lib_model OF \QuadDec:Cnt16:CounterUDB:sCTRLReg:ctrlreg\ : LABEL IS "controlcell2";
-    ATTRIBUTE Location OF \QuadDec:Cnt16:CounterUDB:sCTRLReg:ctrlreg\ : LABEL IS "U(3,2)";
+    ATTRIBUTE Location OF \QuadDec:Cnt16:CounterUDB:sCTRLReg:ctrlreg\ : LABEL IS "U(3,4)";
     ATTRIBUTE lib_model OF \QuadDec:Cnt16:CounterUDB:sSTSReg:stsreg\ : LABEL IS "statusicell2";
-    ATTRIBUTE Location OF \QuadDec:Cnt16:CounterUDB:sSTSReg:stsreg\ : LABEL IS "U(3,2)";
+    ATTRIBUTE Location OF \QuadDec:Cnt16:CounterUDB:sSTSReg:stsreg\ : LABEL IS "U(2,5)";
     ATTRIBUTE lib_model OF \QuadDec:Cnt16:CounterUDB:sC16:counterdp:u0\ : LABEL IS "datapathcell3";
-    ATTRIBUTE Location OF \QuadDec:Cnt16:CounterUDB:sC16:counterdp:u0\ : LABEL IS "U(2,3)";
+    ATTRIBUTE Location OF \QuadDec:Cnt16:CounterUDB:sC16:counterdp:u0\ : LABEL IS "U(3,4)";
     ATTRIBUTE lib_model OF \QuadDec:Cnt16:CounterUDB:sC16:counterdp:u1\ : LABEL IS "datapathcell4";
-    ATTRIBUTE Location OF \QuadDec:Cnt16:CounterUDB:sC16:counterdp:u1\ : LABEL IS "U(3,3)";
-    ATTRIBUTE lib_model OF \QuadDec:bQuadDec:quad_A_delayed_0\ : LABEL IS "macrocell13";
-    ATTRIBUTE Location OF \QuadDec:bQuadDec:quad_A_delayed_0\ : LABEL IS "U(2,5)";
-    ATTRIBUTE lib_model OF \QuadDec:bQuadDec:quad_A_delayed_1\ : LABEL IS "macrocell14";
-    ATTRIBUTE Location OF \QuadDec:bQuadDec:quad_A_delayed_1\ : LABEL IS "U(3,5)";
-    ATTRIBUTE lib_model OF \QuadDec:bQuadDec:quad_A_delayed_2\ : LABEL IS "macrocell15";
-    ATTRIBUTE Location OF \QuadDec:bQuadDec:quad_A_delayed_2\ : LABEL IS "U(3,5)";
-    ATTRIBUTE lib_model OF \QuadDec:bQuadDec:quad_B_delayed_0\ : LABEL IS "macrocell16";
-    ATTRIBUTE Location OF \QuadDec:bQuadDec:quad_B_delayed_0\ : LABEL IS "U(3,4)";
-    ATTRIBUTE lib_model OF \QuadDec:bQuadDec:quad_B_delayed_1\ : LABEL IS "macrocell17";
-    ATTRIBUTE Location OF \QuadDec:bQuadDec:quad_B_delayed_1\ : LABEL IS "U(3,4)";
-    ATTRIBUTE lib_model OF \QuadDec:bQuadDec:quad_B_delayed_2\ : LABEL IS "macrocell18";
-    ATTRIBUTE Location OF \QuadDec:bQuadDec:quad_B_delayed_2\ : LABEL IS "U(3,4)";
+    ATTRIBUTE Location OF \QuadDec:Cnt16:CounterUDB:sC16:counterdp:u1\ : LABEL IS "U(2,4)";
+    ATTRIBUTE lib_model OF \QuadDec:bQuadDec:quad_A_delayed_0\ : LABEL IS "macrocell14";
+    ATTRIBUTE Location OF \QuadDec:bQuadDec:quad_A_delayed_0\ : LABEL IS "U(3,3)";
+    ATTRIBUTE lib_model OF \QuadDec:bQuadDec:quad_A_delayed_1\ : LABEL IS "macrocell15";
+    ATTRIBUTE Location OF \QuadDec:bQuadDec:quad_A_delayed_1\ : LABEL IS "U(3,3)";
+    ATTRIBUTE lib_model OF \QuadDec:bQuadDec:quad_A_delayed_2\ : LABEL IS "macrocell16";
+    ATTRIBUTE Location OF \QuadDec:bQuadDec:quad_A_delayed_2\ : LABEL IS "U(3,3)";
+    ATTRIBUTE lib_model OF \QuadDec:bQuadDec:quad_B_delayed_0\ : LABEL IS "macrocell17";
+    ATTRIBUTE Location OF \QuadDec:bQuadDec:quad_B_delayed_0\ : LABEL IS "U(3,5)";
+    ATTRIBUTE lib_model OF \QuadDec:bQuadDec:quad_B_delayed_1\ : LABEL IS "macrocell18";
+    ATTRIBUTE Location OF \QuadDec:bQuadDec:quad_B_delayed_1\ : LABEL IS "U(3,5)";
+    ATTRIBUTE lib_model OF \QuadDec:bQuadDec:quad_B_delayed_2\ : LABEL IS "macrocell19";
+    ATTRIBUTE Location OF \QuadDec:bQuadDec:quad_B_delayed_2\ : LABEL IS "U(3,5)";
     ATTRIBUTE lib_model OF \QuadDec:bQuadDec:Stsreg\ : LABEL IS "statusicell3";
-    ATTRIBUTE Location OF \QuadDec:bQuadDec:Stsreg\ : LABEL IS "U(3,5)";
-    ATTRIBUTE Location OF isr_Ts : LABEL IS "[IntrContainer=(0)][IntrId=(17)]";
+    ATTRIBUTE Location OF \QuadDec:bQuadDec:Stsreg\ : LABEL IS "U(3,3)";
+    ATTRIBUTE Location OF isr_Ts : LABEL IS "[IntrContainer=(0)][IntrId=(2)]";
     ATTRIBUTE Location OF \Timer:TimerHW\ : LABEL IS "F(Timer,0)";
-    ATTRIBUTE lib_model OF \PWM_Motor:PWMUDB:runmode_enable\ : LABEL IS "macrocell19";
-    ATTRIBUTE Location OF \PWM_Motor:PWMUDB:runmode_enable\ : LABEL IS "U(2,5)";
-    ATTRIBUTE lib_model OF \PWM_Motor:PWMUDB:prevCompare1\ : LABEL IS "macrocell20";
-    ATTRIBUTE Location OF \PWM_Motor:PWMUDB:prevCompare1\ : LABEL IS "U(2,4)";
-    ATTRIBUTE lib_model OF \PWM_Motor:PWMUDB:status_0\ : LABEL IS "macrocell21";
-    ATTRIBUTE Location OF \PWM_Motor:PWMUDB:status_0\ : LABEL IS "U(2,4)";
-    ATTRIBUTE lib_model OF Net_1243 : LABEL IS "macrocell22";
-    ATTRIBUTE Location OF Net_1243 : LABEL IS "U(2,5)";
-    ATTRIBUTE lib_model OF \QuadDec:Net_1251\ : LABEL IS "macrocell23";
-    ATTRIBUTE Location OF \QuadDec:Net_1251\ : LABEL IS "U(2,3)";
-    ATTRIBUTE lib_model OF \QuadDec:Cnt16:CounterUDB:overflow_reg_i\ : LABEL IS "macrocell24";
+    ATTRIBUTE lib_model OF \PWM_Motor:PWMUDB:runmode_enable\ : LABEL IS "macrocell20";
+    ATTRIBUTE Location OF \PWM_Motor:PWMUDB:runmode_enable\ : LABEL IS "U(2,2)";
+    ATTRIBUTE lib_model OF \PWM_Motor:PWMUDB:prevCompare1\ : LABEL IS "macrocell21";
+    ATTRIBUTE Location OF \PWM_Motor:PWMUDB:prevCompare1\ : LABEL IS "U(2,2)";
+    ATTRIBUTE lib_model OF \PWM_Motor:PWMUDB:status_0\ : LABEL IS "macrocell22";
+    ATTRIBUTE Location OF \PWM_Motor:PWMUDB:status_0\ : LABEL IS "U(2,2)";
+    ATTRIBUTE lib_model OF Net_1243 : LABEL IS "macrocell23";
+    ATTRIBUTE Location OF Net_1243 : LABEL IS "U(3,2)";
+    ATTRIBUTE lib_model OF \QuadDec:Net_1251\ : LABEL IS "macrocell24";
+    ATTRIBUTE Location OF \QuadDec:Net_1251\ : LABEL IS "U(2,4)";
+    ATTRIBUTE lib_model OF \QuadDec:Cnt16:CounterUDB:overflow_reg_i\ : LABEL IS "macrocell25";
     ATTRIBUTE Location OF \QuadDec:Cnt16:CounterUDB:overflow_reg_i\ : LABEL IS "U(3,5)";
-    ATTRIBUTE lib_model OF \QuadDec:Cnt16:CounterUDB:underflow_reg_i\ : LABEL IS "macrocell25";
-    ATTRIBUTE Location OF \QuadDec:Cnt16:CounterUDB:underflow_reg_i\ : LABEL IS "U(3,3)";
-    ATTRIBUTE lib_model OF \QuadDec:Net_1275\ : LABEL IS "macrocell26";
-    ATTRIBUTE Location OF \QuadDec:Net_1275\ : LABEL IS "U(3,5)";
-    ATTRIBUTE lib_model OF \QuadDec:Cnt16:CounterUDB:prevCompare\ : LABEL IS "macrocell27";
-    ATTRIBUTE Location OF \QuadDec:Cnt16:CounterUDB:prevCompare\ : LABEL IS "U(3,4)";
-    ATTRIBUTE lib_model OF \QuadDec:Net_1251_split\ : LABEL IS "macrocell28";
-    ATTRIBUTE Location OF \QuadDec:Net_1251_split\ : LABEL IS "U(2,4)";
-    ATTRIBUTE lib_model OF \QuadDec:Cnt16:CounterUDB:count_stored_i\ : LABEL IS "macrocell29";
-    ATTRIBUTE Location OF \QuadDec:Cnt16:CounterUDB:count_stored_i\ : LABEL IS "U(3,2)";
-    ATTRIBUTE lib_model OF \QuadDec:Net_1203\ : LABEL IS "macrocell30";
-    ATTRIBUTE Location OF \QuadDec:Net_1203\ : LABEL IS "U(3,2)";
-    ATTRIBUTE lib_model OF \QuadDec:bQuadDec:quad_A_filt\ : LABEL IS "macrocell31";
-    ATTRIBUTE Location OF \QuadDec:bQuadDec:quad_A_filt\ : LABEL IS "U(3,5)";
-    ATTRIBUTE lib_model OF \QuadDec:bQuadDec:quad_B_filt\ : LABEL IS "macrocell32";
-    ATTRIBUTE Location OF \QuadDec:bQuadDec:quad_B_filt\ : LABEL IS "U(3,4)";
-    ATTRIBUTE lib_model OF \QuadDec:Net_1260\ : LABEL IS "macrocell33";
-    ATTRIBUTE Location OF \QuadDec:Net_1260\ : LABEL IS "U(2,3)";
-    ATTRIBUTE lib_model OF \QuadDec:bQuadDec:error\ : LABEL IS "macrocell34";
-    ATTRIBUTE Location OF \QuadDec:bQuadDec:error\ : LABEL IS "U(3,3)";
-    ATTRIBUTE lib_model OF \QuadDec:bQuadDec:state_1\ : LABEL IS "macrocell35";
-    ATTRIBUTE Location OF \QuadDec:bQuadDec:state_1\ : LABEL IS "U(2,3)";
-    ATTRIBUTE lib_model OF \QuadDec:bQuadDec:state_0\ : LABEL IS "macrocell36";
-    ATTRIBUTE Location OF \QuadDec:bQuadDec:state_0\ : LABEL IS "U(2,2)";
+    ATTRIBUTE lib_model OF \QuadDec:Cnt16:CounterUDB:underflow_reg_i\ : LABEL IS "macrocell26";
+    ATTRIBUTE Location OF \QuadDec:Cnt16:CounterUDB:underflow_reg_i\ : LABEL IS "U(2,5)";
+    ATTRIBUTE lib_model OF \QuadDec:Net_1275\ : LABEL IS "macrocell27";
+    ATTRIBUTE Location OF \QuadDec:Net_1275\ : LABEL IS "U(2,3)";
+    ATTRIBUTE lib_model OF \QuadDec:Cnt16:CounterUDB:prevCompare\ : LABEL IS "macrocell28";
+    ATTRIBUTE Location OF \QuadDec:Cnt16:CounterUDB:prevCompare\ : LABEL IS "U(2,3)";
+    ATTRIBUTE lib_model OF \QuadDec:Net_1251_split\ : LABEL IS "macrocell29";
+    ATTRIBUTE Location OF \QuadDec:Net_1251_split\ : LABEL IS "U(2,5)";
+    ATTRIBUTE lib_model OF \QuadDec:Cnt16:CounterUDB:count_stored_i\ : LABEL IS "macrocell30";
+    ATTRIBUTE Location OF \QuadDec:Cnt16:CounterUDB:count_stored_i\ : LABEL IS "U(3,4)";
+    ATTRIBUTE lib_model OF \QuadDec:Net_1203\ : LABEL IS "macrocell31";
+    ATTRIBUTE Location OF \QuadDec:Net_1203\ : LABEL IS "U(3,4)";
+    ATTRIBUTE lib_model OF \QuadDec:bQuadDec:quad_A_filt\ : LABEL IS "macrocell32";
+    ATTRIBUTE Location OF \QuadDec:bQuadDec:quad_A_filt\ : LABEL IS "U(3,3)";
+    ATTRIBUTE lib_model OF \QuadDec:bQuadDec:quad_B_filt\ : LABEL IS "macrocell33";
+    ATTRIBUTE Location OF \QuadDec:bQuadDec:quad_B_filt\ : LABEL IS "U(3,5)";
+    ATTRIBUTE lib_model OF \QuadDec:Net_1260\ : LABEL IS "macrocell34";
+    ATTRIBUTE Location OF \QuadDec:Net_1260\ : LABEL IS "U(3,4)";
+    ATTRIBUTE lib_model OF \QuadDec:bQuadDec:error\ : LABEL IS "macrocell35";
+    ATTRIBUTE Location OF \QuadDec:bQuadDec:error\ : LABEL IS "U(2,3)";
+    ATTRIBUTE lib_model OF \QuadDec:bQuadDec:state_1\ : LABEL IS "macrocell36";
+    ATTRIBUTE Location OF \QuadDec:bQuadDec:state_1\ : LABEL IS "U(3,2)";
+    ATTRIBUTE lib_model OF \QuadDec:bQuadDec:state_0\ : LABEL IS "macrocell37";
+    ATTRIBUTE Location OF \QuadDec:bQuadDec:state_0\ : LABEL IS "U(2,3)";
     COMPONENT clockblockcell
         PORT (
             dclk_0 : OUT std_ulogic;
@@ -619,21 +631,6 @@ ARCHITECTURE __DEFAULT__ OF Design01 IS
             irq : OUT std_ulogic);
     END COMPONENT;
 BEGIN
-
-    \QuadDec:Net_1203_split\:macrocell
-        GENERIC MAP(
-            eqn_main => "(!main_0 * main_1 * main_4 * !main_5 * !main_6) + (!main_0 * !main_2 * !main_3 * !main_4 * !main_5 * main_6) + (!main_0 * !main_2 * !main_3 * !main_4 * main_5 * !main_6) + (!main_0 * !main_2 * main_3 * !main_4 * main_5 * main_6) + (!main_0 * main_2 * !main_3 * !main_4 * main_5 * main_6) + (!main_0 * main_2 * main_3 * !main_4 * !main_5 * main_6) + (!main_0 * main_2 * main_3 * !main_4 * main_5 * !main_6) + (main_2 * !main_3 * !main_4 * !main_5 * !main_6)",
-            regmode => 0,
-            clken_mode => 1)
-        PORT MAP(
-            q => \QuadDec:Net_1203_split\,
-            main_0 => \QuadDec:Net_1260\,
-            main_1 => \QuadDec:Net_1203\,
-            main_2 => \QuadDec:bQuadDec:quad_A_filt\,
-            main_3 => \QuadDec:bQuadDec:quad_B_filt\,
-            main_4 => \QuadDec:bQuadDec:error\,
-            main_5 => \QuadDec:bQuadDec:state_1\,
-            main_6 => \QuadDec:bQuadDec:state_0\);
 
     ClockBlock:clockblockcell
         PORT MAP(
@@ -1485,7 +1482,7 @@ BEGIN
         PORT MAP(
             pa_out => encoder_A(0)__PA,
             oe => open,
-            fb => Net_1245,
+            fb => Net_1302,
             pad_in => encoder_A(0)_PAD,
             in_clock => open,
             in_clock_en => '1',
@@ -1576,8 +1573,192 @@ BEGIN
         PORT MAP(
             pa_out => encoder_B(0)__PA,
             oe => open,
-            fb => Net_1246,
+            fb => Net_1301,
             pad_in => encoder_B(0)_PAD,
+            in_clock => open,
+            in_clock_en => '1',
+            in_reset => '0',
+            out_clock => open,
+            out_clock_en => '1',
+            out_reset => '0');
+
+    Pin_1:logicalport
+        GENERIC MAP(
+            drive_mode => "110",
+            ibuf_enabled => "1",
+            id => "7526c9e2-819a-40aa-8e41-3a8ba0baef7f",
+            init_dr_st => "0",
+            input_buffer_sel => "00",
+            input_clk_en => 0,
+            input_sync => "1",
+            input_sync_mode => "0",
+            intr_mode => "00",
+            invert_in_clock => 0,
+            invert_in_clock_en => 0,
+            invert_in_reset => 0,
+            invert_out_clock => 0,
+            invert_out_clock_en => 0,
+            invert_out_reset => 0,
+            io_voltage => "",
+            layout_mode => "CONTIGUOUS",
+            oe_conn => "0",
+            oe_reset => 0,
+            oe_sync => "0",
+            output_clk_en => 0,
+            output_clock_mode => "0",
+            output_conn => "1",
+            output_mode => "0",
+            output_reset => 0,
+            output_sync => "0",
+            ovt_hyst_trim => "0",
+            ovt_needed => "0",
+            ovt_slew_control => "00",
+            pa_in_clock => -1,
+            pa_in_clock_en => -1,
+            pa_in_reset => -1,
+            pa_out_clock => -1,
+            pa_out_clock_en => -1,
+            pa_out_reset => -1,
+            pin_aliases => "",
+            pin_mode => "O",
+            por_state => 4,
+            port_alias_group => "",
+            port_alias_required => 0,
+            sio_group_cnt => 0,
+            sio_hifreq => "00000000",
+            sio_hyst => "1",
+            sio_ibuf => "00000000",
+            sio_info => "00",
+            sio_obuf => "00000000",
+            sio_refsel => "00000000",
+            sio_vohsel => "00000000",
+            sio_vtrip => "00000000",
+            slew_rate => "0",
+            spanning => 0,
+            sw_only => 0,
+            use_annotation => "0",
+            vtrip => "10",
+            width => 1,
+            in_clk_inv => 0,
+            in_clken_inv => 0,
+            in_clken_mode => 1,
+            in_rst_inv => 0,
+            out_clk_inv => 0,
+            out_clken_inv => 0,
+            out_clken_mode => 1,
+            out_rst_inv => 0)
+        PORT MAP(
+            in_clock_en => open,
+            in_reset => open,
+            out_clock_en => open,
+            out_reset => open);
+
+    Pin_1(0):iocell
+        GENERIC MAP(
+            in_sync_mode => 0,
+            out_sync_mode => 0,
+            oe_sync_mode => 0,
+            logicalport => "Pin_1",
+            logicalport_pin_id => 0,
+            io_capabilities => "0000000000000000000000000000000000000000000000000000000000000101")
+        PORT MAP(
+            pa_out => Pin_1(0)__PA,
+            oe => open,
+            pin_input => Net_1245,
+            pad_out => Pin_1(0)_PAD,
+            pad_in => Pin_1(0)_PAD,
+            in_clock => open,
+            in_clock_en => '1',
+            in_reset => '0',
+            out_clock => open,
+            out_clock_en => '1',
+            out_reset => '0');
+
+    Pin_2:logicalport
+        GENERIC MAP(
+            drive_mode => "110",
+            ibuf_enabled => "1",
+            id => "8bb17a5f-6c3b-4203-b108-1cec550fd44c",
+            init_dr_st => "0",
+            input_buffer_sel => "00",
+            input_clk_en => 0,
+            input_sync => "1",
+            input_sync_mode => "0",
+            intr_mode => "00",
+            invert_in_clock => 0,
+            invert_in_clock_en => 0,
+            invert_in_reset => 0,
+            invert_out_clock => 0,
+            invert_out_clock_en => 0,
+            invert_out_reset => 0,
+            io_voltage => "",
+            layout_mode => "CONTIGUOUS",
+            oe_conn => "0",
+            oe_reset => 0,
+            oe_sync => "0",
+            output_clk_en => 0,
+            output_clock_mode => "0",
+            output_conn => "1",
+            output_mode => "0",
+            output_reset => 0,
+            output_sync => "0",
+            ovt_hyst_trim => "0",
+            ovt_needed => "0",
+            ovt_slew_control => "00",
+            pa_in_clock => -1,
+            pa_in_clock_en => -1,
+            pa_in_reset => -1,
+            pa_out_clock => -1,
+            pa_out_clock_en => -1,
+            pa_out_reset => -1,
+            pin_aliases => "",
+            pin_mode => "O",
+            por_state => 4,
+            port_alias_group => "",
+            port_alias_required => 0,
+            sio_group_cnt => 0,
+            sio_hifreq => "00000000",
+            sio_hyst => "1",
+            sio_ibuf => "00000000",
+            sio_info => "00",
+            sio_obuf => "00000000",
+            sio_refsel => "00000000",
+            sio_vohsel => "00000000",
+            sio_vtrip => "00000000",
+            slew_rate => "0",
+            spanning => 0,
+            sw_only => 0,
+            use_annotation => "0",
+            vtrip => "10",
+            width => 1,
+            in_clk_inv => 0,
+            in_clken_inv => 0,
+            in_clken_mode => 1,
+            in_rst_inv => 0,
+            out_clk_inv => 0,
+            out_clken_inv => 0,
+            out_clken_mode => 1,
+            out_rst_inv => 0)
+        PORT MAP(
+            in_clock_en => open,
+            in_reset => open,
+            out_clock_en => open,
+            out_reset => open);
+
+    Pin_2(0):iocell
+        GENERIC MAP(
+            in_sync_mode => 0,
+            out_sync_mode => 0,
+            oe_sync_mode => 0,
+            logicalport => "Pin_2",
+            logicalport_pin_id => 0,
+            io_capabilities => "0000000000000000000000000000000000000000000000000000000000000101")
+        PORT MAP(
+            pa_out => Pin_2(0)__PA,
+            oe => open,
+            pin_input => Net_1295,
+            pad_out => Pin_2(0)_PAD,
+            pad_in => Pin_2(0)_PAD,
             in_clock => open,
             in_clock_en => '1',
             in_reset => '0',
@@ -1686,6 +1867,24 @@ BEGIN
             main_0 => \QuadDec:Net_1275\,
             main_1 => \QuadDec:Net_1251\,
             main_2 => \QuadDec:Cnt16:CounterUDB:prevCompare\);
+
+    Net_1295:macrocell
+        GENERIC MAP(
+            eqn_main => "(!main_0)",
+            regmode => 0,
+            clken_mode => 1)
+        PORT MAP(
+            q => Net_1295,
+            main_0 => Net_1301);
+
+    Net_1245:macrocell
+        GENERIC MAP(
+            eqn_main => "(!main_0)",
+            regmode => 0,
+            clken_mode => 1)
+        PORT MAP(
+            q => Net_1245,
+            main_0 => Net_1302);
 
     __ONE__:macrocell
         GENERIC MAP(
@@ -1996,7 +2195,7 @@ BEGIN
         PORT MAP(
             q => \QuadDec:bQuadDec:quad_A_delayed_0\,
             clock_0 => Net_10,
-            main_0 => Net_1245);
+            main_0 => Net_1302);
 
     \QuadDec:bQuadDec:quad_A_delayed_1\:macrocell
         GENERIC MAP(
@@ -2029,7 +2228,7 @@ BEGIN
         PORT MAP(
             q => \QuadDec:bQuadDec:quad_B_delayed_0\,
             clock_0 => Net_10,
-            main_0 => Net_1246);
+            main_0 => Net_1301);
 
     \QuadDec:bQuadDec:quad_B_delayed_1\:macrocell
         GENERIC MAP(
@@ -2075,7 +2274,7 @@ BEGIN
             int_type => "00",
             is_nmi => 0)
         PORT MAP(
-            interrupt => Net_1278,
+            interrupt => Net_1303,
             clock => ClockBlock_BUS_CLK);
 
     \Timer:TimerHW\:timercell
@@ -2087,9 +2286,9 @@ BEGIN
             enable => __ONE__,
             capture => open,
             timer_reset => open,
-            tc => \Timer:Net_51\,
+            tc => Net_1303,
             cmp => \Timer:Net_261\,
-            irq => Net_1278);
+            irq => \Timer:Net_57\);
 
     \PWM_Motor:PWMUDB:runmode_enable\:macrocell
         GENERIC MAP(
@@ -2232,19 +2431,20 @@ BEGIN
 
     \QuadDec:Net_1203\:macrocell
         GENERIC MAP(
-            eqn_main => "(!main_0 * main_1 * !main_2 * !main_3 * !main_4) + (main_5)",
+            eqn_main => "(!main_0 * main_1 * main_4 * !main_5 * !main_6) + (!main_0 * !main_2 * !main_3 * !main_4 * !main_5 * main_6) + (!main_2 * main_3 * !main_4 * !main_5 * !main_6)",
             regmode => 1,
             clk_inv => '0',
             clken_mode => 1)
         PORT MAP(
             q => \QuadDec:Net_1203\,
             clock_0 => Net_10,
-            main_0 => \QuadDec:bQuadDec:quad_A_filt\,
-            main_1 => \QuadDec:bQuadDec:quad_B_filt\,
-            main_2 => \QuadDec:bQuadDec:error\,
-            main_3 => \QuadDec:bQuadDec:state_1\,
-            main_4 => \QuadDec:bQuadDec:state_0\,
-            main_5 => \QuadDec:Net_1203_split\);
+            main_0 => \QuadDec:Net_1260\,
+            main_1 => \QuadDec:Net_1203\,
+            main_2 => \QuadDec:bQuadDec:quad_A_filt\,
+            main_3 => \QuadDec:bQuadDec:quad_B_filt\,
+            main_4 => \QuadDec:bQuadDec:error\,
+            main_5 => \QuadDec:bQuadDec:state_1\,
+            main_6 => \QuadDec:bQuadDec:state_0\);
 
     \QuadDec:bQuadDec:quad_A_filt\:macrocell
         GENERIC MAP(

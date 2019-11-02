@@ -12,17 +12,17 @@
 #include "project.h"
 
 /* Declaración de variables */
-int16 control=10;
-int16 counter=0;
+int16 control=120;
+int counter=0;
 
 /* Métodos de interrupción */
 
 CY_ISR(AumentarInt)
 {
-    if(control<100)
+    if(control<200)
     {
         control=control+1;
-        PWM_Motor_WriteCompare(control*20);
+        PWM_Motor_WriteCompare(control);
         Reset_PWM_Write(1);
         Reset_PWM_Write(0);
         
@@ -45,10 +45,10 @@ CY_ISR(AumentarInt)
 
 CY_ISR(DisminuirInt)
 {
-    if(control>1)
+    if(control>100)
     {
         control=control-1;
-        PWM_Motor_WriteCompare(control*20);
+        PWM_Motor_WriteCompare(control);
         Reset_PWM_Write(1);
         Reset_PWM_Write(0);
         
@@ -94,7 +94,7 @@ int main(void)
     QuadDec_Start();
     Timer_Start();
     
-    QuadDec_SetCounter(0);
+    /*QuadDec_SetCounter(0);*/
     
     LCD_Position(0,0);
     LCD_PrintString("control:");

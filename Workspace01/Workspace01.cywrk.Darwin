@@ -13,14 +13,22 @@
 <v>Output</v>
 </TreeKeys>
 <TreeStates>
-<CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237 type_name="CyDesigner.Common.Base.Controls.CyTreeViewState" version="1" SelectedNodeId="Workspace01\Design01">
+<CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237 type_name="CyDesigner.Common.Base.Controls.CyTreeViewState" version="1" SelectedNodeId="Workspace01\Design01\Design01.cydwr">
 <ExpandedNodeIds>
 <v>Workspace01</v>
+<v>Workspace01\Design01</v>
 <v>Workspace01\Design01\TopDesign</v>
+<v>Workspace01\Design01\Source Files</v>
 </ExpandedNodeIds>
 <VisibleNodeIds>
 <v>Workspace01</v>
 <v>Workspace01\Design01</v>
+<v>Workspace01\Design01\TopDesign</v>
+<v>Workspace01\Design01\Design01.cydwr</v>
+<v>Workspace01\Design01\Header Files</v>
+<v>Workspace01\Design01\Source Files</v>
+<v>Workspace01\Design01\Source Files\main.c</v>
+<v>Workspace01\Design01\Generated_Source</v>
 </VisibleNodeIds>
 </CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237>
 <CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237 type_name="CyDesigner.Common.Base.Controls.CyTreeViewState" version="1" SelectedNodeId="">
@@ -69,6 +77,8 @@
 <v>Workspace01\Design01\CortexM3\ARM_GCC_541\Debug\Listing Files\LED.lst</v>
 <v>Workspace01\Design01\CortexM3\ARM_GCC_541\Debug\Listing Files\main.lst</v>
 <v>Workspace01\Design01\CortexM3\ARM_GCC_541\Debug\Listing Files\MOTOR.lst</v>
+<v>Workspace01\Design01\CortexM3\ARM_GCC_541\Debug\Listing Files\Pin_1.lst</v>
+<v>Workspace01\Design01\CortexM3\ARM_GCC_541\Debug\Listing Files\Pin_2.lst</v>
 <v>Workspace01\Design01\CortexM3\ARM_GCC_541\Debug\Listing Files\PWM_Motor.lst</v>
 <v>Workspace01\Design01\CortexM3\ARM_GCC_541\Debug\Listing Files\PWM_Motor_PM.lst</v>
 <v>Workspace01\Design01\CortexM3\ARM_GCC_541\Debug\Listing Files\QuadDec.lst</v>
@@ -145,18 +155,14 @@
 </userData>
 </CyGuid_fdba8dfd-b15b-4469-9bbb-9e40c3e70997>
 <Unloaded />
-<OpenDocs>
-<name v=".\Design01.cydsn\TopDesign\TopDesign.cysch" />
-<name v=".\Design01.cydsn\main.c" />
-<name v=".\Design01.cydsn\Design01.cydwr" />
-</OpenDocs>
+<OpenDocs />
 <OpenDocsLayout><![CDATA[<?xml version="1.0"?><!--
 
   Actipro Docking/MDI for WinForms
   Copyright (c) 2001-2016 Actipro Software LLC.  All rights reserved.
   http://www.actiprosoftware.com
 
---><DocumentLayout Version="1.0"><LayoutData><TabbedMdiRootContainer Orientation="Horizontal"><TabbedMdiContainer Size="1897, 563" SelectedTabbedMdiWindow="98a3b70f-d01d-4033-870f-39bb20ad8670"><ToolWindow Key="Start Page:bd4649ab-da6b-4d04-a663-c722b8bf99db:Start Page" Guid="b29a3133-9434-450e-8827-ab77638af4c0" /><DocumentWindow Key="C:\Users\Darwin\Desktop\matlab lab control\Proyecto\Workspace01\Design01.cydsn\TopDesign\TopDesign.cysch" Guid="7e99d9d3-a46b-4edc-9a22-c778c7ff4f1c" /><DocumentWindow Key="C:\Users\Darwin\Desktop\matlab lab control\Proyecto\Workspace01\Design01.cydsn\main.c" Guid="98a3b70f-d01d-4033-870f-39bb20ad8670" /><DocumentWindow Key="C:\Users\Darwin\Desktop\matlab lab control\Proyecto\Workspace01\Design01.cydsn\Design01.cydwr" Guid="8a7c60b3-ddbb-4c0f-89cb-3cfd3583d720" /><ToolWindow Key="CyWorkSpaceExplorer:99392a55-ec98-49fc-92ba-eec97acaad89:Workspace Explorer" Guid="a4756fb9-a280-4070-9d09-c1fe612f8843" /></TabbedMdiContainer></TabbedMdiRootContainer><FloatingContainers /></LayoutData></DocumentLayout>]]></OpenDocsLayout>
+--><DocumentLayout Version="1.0"><LayoutData><TabbedMdiRootContainer Orientation="Horizontal"><TabbedMdiContainer Size="1897, 563" SelectedTabbedMdiWindow="b29a3133-9434-450e-8827-ab77638af4c0"><ToolWindow Key="Start Page:bd4649ab-da6b-4d04-a663-c722b8bf99db:Start Page" Guid="b29a3133-9434-450e-8827-ab77638af4c0" /><ToolWindow Key="CyWorkSpaceExplorer:99392a55-ec98-49fc-92ba-eec97acaad89:Workspace Explorer" Guid="a4756fb9-a280-4070-9d09-c1fe612f8843" /></TabbedMdiContainer></TabbedMdiRootContainer><FloatingContainers /></LayoutData></DocumentLayout>]]></OpenDocsLayout>
 <config v="" />
 <AutoUpdate v="true" />
 </CyGuid_843a90a4-0c4b-4e44-991d-05e7fb117a21>

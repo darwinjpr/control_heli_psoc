@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\Darwin\AppData\Local\Temp\ccQ2IQ9w.s 			page 1
+ARM GAS  C:\Users\Darwin\AppData\Local\Temp\ccDph88G.s 			page 1
 
 
    1              		.syntax unified
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\Darwin\AppData\Local\Temp\ccQ2IQ9w.s 			page 1
   28:Generated_Source\PSoC5/QuadDec.c **** /*******************************************************************************
   29:Generated_Source\PSoC5/QuadDec.c **** * Function Name: QuadDec_Init
   30:Generated_Source\PSoC5/QuadDec.c **** ********************************************************************************
-ARM GAS  C:\Users\Darwin\AppData\Local\Temp\ccQ2IQ9w.s 			page 2
+ARM GAS  C:\Users\Darwin\AppData\Local\Temp\ccDph88G.s 			page 2
 
 
   31:Generated_Source\PSoC5/QuadDec.c **** *
@@ -118,7 +118,7 @@ ARM GAS  C:\Users\Darwin\AppData\Local\Temp\ccQ2IQ9w.s 			page 1
   68:Generated_Source\PSoC5/QuadDec.c **** *
   69:Generated_Source\PSoC5/QuadDec.c **** *******************************************************************************/
   70:Generated_Source\PSoC5/QuadDec.c **** void QuadDec_Enable(void) 
-ARM GAS  C:\Users\Darwin\AppData\Local\Temp\ccQ2IQ9w.s 			page 3
+ARM GAS  C:\Users\Darwin\AppData\Local\Temp\ccDph88G.s 			page 3
 
 
   71:Generated_Source\PSoC5/QuadDec.c **** {
@@ -178,7 +178,7 @@ ARM GAS  C:\Users\Darwin\AppData\Local\Temp\ccQ2IQ9w.s 			page 1
  125:Generated_Source\PSoC5/QuadDec.c ****         QuadDec_Cnt16_Start();
  126:Generated_Source\PSoC5/QuadDec.c ****         QuadDec_Cnt16_WriteCounter(QuadDec_COUNTER_INIT_VALUE);
  127:Generated_Source\PSoC5/QuadDec.c ****     #endif /* QuadDec_COUNTER_SIZE == QuadDec_COUNTER_SIZE_8_BIT */
-ARM GAS  C:\Users\Darwin\AppData\Local\Temp\ccQ2IQ9w.s 			page 4
+ARM GAS  C:\Users\Darwin\AppData\Local\Temp\ccDph88G.s 			page 4
 
 
  128:Generated_Source\PSoC5/QuadDec.c ****     
@@ -238,7 +238,7 @@ ARM GAS  C:\Users\Darwin\AppData\Local\Temp\ccQ2IQ9w.s 			page 1
  170:Generated_Source\PSoC5/QuadDec.c ****     enableInterrupts = CyEnterCriticalSection();
   57              		.loc 1 170 0
   58 0006 FFF7FEFF 		bl	CyEnterCriticalSection
-ARM GAS  C:\Users\Darwin\AppData\Local\Temp\ccQ2IQ9w.s 			page 5
+ARM GAS  C:\Users\Darwin\AppData\Local\Temp\ccDph88G.s 			page 5
 
 
   59              	.LVL1:
@@ -259,7 +259,7 @@ ARM GAS  C:\Users\Darwin\AppData\Local\Temp\ccQ2IQ9w.s 			page 1
   69              	.L5:
   70 001a 00BF     		.align	2
   71              	.L4:
-  72 001c 91640040 		.word	1073767569
+  72 001c 95640040 		.word	1073767573
   73              		.cfi_endproc
   74              	.LFE3:
   75              		.size	QuadDec_Stop, .-QuadDec_Stop
@@ -298,7 +298,7 @@ ARM GAS  C:\Users\Darwin\AppData\Local\Temp\ccQ2IQ9w.s 			page 1
  200:Generated_Source\PSoC5/QuadDec.c **** *
  201:Generated_Source\PSoC5/QuadDec.c **** *******************************************************************************/
  202:Generated_Source\PSoC5/QuadDec.c **** int16 QuadDec_GetCounter(void) 
-ARM GAS  C:\Users\Darwin\AppData\Local\Temp\ccQ2IQ9w.s 			page 6
+ARM GAS  C:\Users\Darwin\AppData\Local\Temp\ccDph88G.s 			page 6
 
 
  203:Generated_Source\PSoC5/QuadDec.c **** {
@@ -358,7 +358,7 @@ ARM GAS  C:\Users\Darwin\AppData\Local\Temp\ccQ2IQ9w.s 			page 1
  107              		.thumb
  108              		.thumb_func
  109              		.type	QuadDec_SetCounter, %function
-ARM GAS  C:\Users\Darwin\AppData\Local\Temp\ccQ2IQ9w.s 			page 7
+ARM GAS  C:\Users\Darwin\AppData\Local\Temp\ccDph88G.s 			page 7
 
 
  110              	QuadDec_SetCounter:
@@ -418,7 +418,7 @@ ARM GAS  C:\Users\Darwin\AppData\Local\Temp\ccQ2IQ9w.s 			page 1
  131              	.L9:
  267:Generated_Source\PSoC5/QuadDec.c ****         }
  268:Generated_Source\PSoC5/QuadDec.c ****         else
-ARM GAS  C:\Users\Darwin\AppData\Local\Temp\ccQ2IQ9w.s 			page 8
+ARM GAS  C:\Users\Darwin\AppData\Local\Temp\ccDph88G.s 			page 8
 
 
  269:Generated_Source\PSoC5/QuadDec.c ****         {
@@ -478,7 +478,7 @@ ARM GAS  C:\Users\Darwin\AppData\Local\Temp\ccQ2IQ9w.s 			page 1
  303:Generated_Source\PSoC5/QuadDec.c **** *    Bit      Description
  304:Generated_Source\PSoC5/QuadDec.c **** *     0        Counter overflow.
  305:Generated_Source\PSoC5/QuadDec.c **** *     1        Counter underflow.
-ARM GAS  C:\Users\Darwin\AppData\Local\Temp\ccQ2IQ9w.s 			page 9
+ARM GAS  C:\Users\Darwin\AppData\Local\Temp\ccDph88G.s 			page 9
 
 
  306:Generated_Source\PSoC5/QuadDec.c **** *     2        Counter reset due to index, if index input is used.
@@ -503,7 +503,7 @@ ARM GAS  C:\Users\Darwin\AppData\Local\Temp\ccQ2IQ9w.s 			page 1
  163              	.L14:
  164 000a 00BF     		.align	2
  165              	.L13:
- 166 000c 61640040 		.word	1073767521
+ 166 000c 65640040 		.word	1073767525
  167              		.cfi_endproc
  168              	.LFE6:
  169              		.size	QuadDec_GetEvents, .-QuadDec_GetEvents
@@ -538,7 +538,7 @@ ARM GAS  C:\Users\Darwin\AppData\Local\Temp\ccQ2IQ9w.s 			page 1
  178              		.loc 1 333 0
  179              		.cfi_startproc
  180              		@ args = 0, pretend = 0, frame = 0
-ARM GAS  C:\Users\Darwin\AppData\Local\Temp\ccQ2IQ9w.s 			page 10
+ARM GAS  C:\Users\Darwin\AppData\Local\Temp\ccDph88G.s 			page 10
 
 
  181              		@ frame_needed = 0, uses_anonymous_args = 0
@@ -558,7 +558,7 @@ ARM GAS  C:\Users\Darwin\AppData\Local\Temp\ccQ2IQ9w.s 			page 1
  188              	.L17:
  189 0006 00BF     		.align	2
  190              	.L16:
- 191 0008 81640040 		.word	1073767553
+ 191 0008 85640040 		.word	1073767557
  192              		.cfi_endproc
  193              	.LFE7:
  194              		.size	QuadDec_SetInterruptMask, .-QuadDec_SetInterruptMask
@@ -598,7 +598,7 @@ ARM GAS  C:\Users\Darwin\AppData\Local\Temp\ccQ2IQ9w.s 			page 1
  223 0012 1378     		ldrb	r3, [r2]	@ zero_extendqisi2
  224 0014 43F01003 		orr	r3, r3, #16
  225 0018 1370     		strb	r3, [r2]
-ARM GAS  C:\Users\Darwin\AppData\Local\Temp\ccQ2IQ9w.s 			page 11
+ARM GAS  C:\Users\Darwin\AppData\Local\Temp\ccDph88G.s 			page 11
 
 
   84:Generated_Source\PSoC5/QuadDec.c **** 
@@ -609,7 +609,7 @@ ARM GAS  C:\Users\Darwin\AppData\Local\Temp\ccQ2IQ9w.s 			page 1
  230              	.L21:
  231              		.align	2
  232              	.L20:
- 233 0020 91640040 		.word	1073767569
+ 233 0020 95640040 		.word	1073767573
  234              		.cfi_endproc
  235              	.LFE1:
  236              		.size	QuadDec_Enable, .-QuadDec_Enable
@@ -658,7 +658,7 @@ ARM GAS  C:\Users\Darwin\AppData\Local\Temp\ccQ2IQ9w.s 			page 1
  273              	.L26:
  274              		.align	2
  275              	.L25:
-ARM GAS  C:\Users\Darwin\AppData\Local\Temp\ccQ2IQ9w.s 			page 12
+ARM GAS  C:\Users\Darwin\AppData\Local\Temp\ccDph88G.s 			page 12
 
 
  276 0020 00000000 		.word	.LANCHOR0
@@ -710,7 +710,7 @@ ARM GAS  C:\Users\Darwin\AppData\Local\Temp\ccQ2IQ9w.s 			page 1
  299              	.L29:
  300 000a 00BF     		.align	2
  301              	.L28:
- 302 000c 81640040 		.word	1073767553
+ 302 000c 85640040 		.word	1073767557
  303              		.cfi_endproc
  304              	.LFE8:
  305              		.size	QuadDec_GetInterruptMask, .-QuadDec_GetInterruptMask
@@ -718,7 +718,7 @@ ARM GAS  C:\Users\Darwin\AppData\Local\Temp\ccQ2IQ9w.s 			page 1
  307              		.bss
  308              		.set	.LANCHOR0,. + 0
  309              		.type	QuadDec_initVar, %object
-ARM GAS  C:\Users\Darwin\AppData\Local\Temp\ccQ2IQ9w.s 			page 13
+ARM GAS  C:\Users\Darwin\AppData\Local\Temp\ccDph88G.s 			page 13
 
 
  310              		.size	QuadDec_initVar, 1
@@ -739,7 +739,7 @@ ARM GAS  C:\Users\Darwin\AppData\Local\Temp\ccQ2IQ9w.s 			page 1
  325 000c 00000000 		.4byte	.LASF37
  326 0010 0C       		.byte	0xc
  327 0011 A9010000 		.4byte	.LASF38
- 328 0015 B5020000 		.4byte	.LASF39
+ 328 0015 EB010000 		.4byte	.LASF39
  329 0019 00000000 		.4byte	.Ldebug_ranges0+0
  330 001d 00000000 		.4byte	0
  331 0021 00000000 		.4byte	.Ldebug_line0
@@ -750,19 +750,19 @@ ARM GAS  C:\Users\Darwin\AppData\Local\Temp\ccQ2IQ9w.s 			page 1
  336 002c 03       		.uleb128 0x3
  337 002d 04       		.byte	0x4
  338 002e 07       		.byte	0x7
- 339 002f 02020000 		.4byte	.LASF0
+ 339 002f 4D020000 		.4byte	.LASF0
  340 0033 03       		.uleb128 0x3
  341 0034 08       		.byte	0x8
  342 0035 05       		.byte	0x5
- 343 0036 33020000 		.4byte	.LASF1
+ 343 0036 7E020000 		.4byte	.LASF1
  344 003a 03       		.uleb128 0x3
  345 003b 08       		.byte	0x8
  346 003c 04       		.byte	0x4
- 347 003d 9D020000 		.4byte	.LASF2
+ 347 003d E8020000 		.4byte	.LASF2
  348 0041 03       		.uleb128 0x3
  349 0042 01       		.byte	0x1
  350 0043 06       		.byte	0x6
- 351 0044 A9020000 		.4byte	.LASF3
+ 351 0044 F4020000 		.4byte	.LASF3
  352 0048 03       		.uleb128 0x3
  353 0049 01       		.byte	0x1
  354 004a 08       		.byte	0x8
@@ -770,7 +770,7 @@ ARM GAS  C:\Users\Darwin\AppData\Local\Temp\ccQ2IQ9w.s 			page 1
  356 004f 03       		.uleb128 0x3
  357 0050 02       		.byte	0x2
  358 0051 05       		.byte	0x5
- 359 0052 6C020000 		.4byte	.LASF5
+ 359 0052 B7020000 		.4byte	.LASF5
  360 0056 03       		.uleb128 0x3
  361 0057 02       		.byte	0x2
  362 0058 07       		.byte	0x7
@@ -778,10 +778,10 @@ ARM GAS  C:\Users\Darwin\AppData\Local\Temp\ccQ2IQ9w.s 			page 1
  364 005d 03       		.uleb128 0x3
  365 005e 04       		.byte	0x4
  366 005f 05       		.byte	0x5
-ARM GAS  C:\Users\Darwin\AppData\Local\Temp\ccQ2IQ9w.s 			page 14
+ARM GAS  C:\Users\Darwin\AppData\Local\Temp\ccDph88G.s 			page 14
 
 
- 367 0060 8F020000 		.4byte	.LASF7
+ 367 0060 DA020000 		.4byte	.LASF7
  368 0064 03       		.uleb128 0x3
  369 0065 04       		.byte	0x4
  370 0066 07       		.byte	0x7
@@ -793,13 +793,13 @@ ARM GAS  C:\Users\Darwin\AppData\Local\Temp\ccQ2IQ9w.s 			page 1
  376 0072 03       		.uleb128 0x3
  377 0073 04       		.byte	0x4
  378 0074 07       		.byte	0x7
- 379 0075 2A020000 		.4byte	.LASF10
+ 379 0075 75020000 		.4byte	.LASF10
  380 0079 03       		.uleb128 0x3
  381 007a 01       		.byte	0x1
  382 007b 08       		.byte	0x8
- 383 007c 98020000 		.4byte	.LASF11
+ 383 007c E3020000 		.4byte	.LASF11
  384 0080 04       		.uleb128 0x4
- 385 0081 76020000 		.4byte	.LASF12
+ 385 0081 C1020000 		.4byte	.LASF12
  386 0085 02       		.byte	0x2
  387 0086 E401     		.2byte	0x1e4
  388 0088 48000000 		.4byte	0x48
@@ -827,25 +827,25 @@ ARM GAS  C:\Users\Darwin\AppData\Local\Temp\ccQ2IQ9w.s 			page 1
  410 00b9 04       		.byte	0x4
  411 00ba CA010000 		.4byte	.LASF17
  412 00be 04       		.uleb128 0x4
- 413 00bf 25020000 		.4byte	.LASF18
+ 413 00bf 70020000 		.4byte	.LASF18
  414 00c3 02       		.byte	0x2
  415 00c4 8E02     		.2byte	0x28e
  416 00c6 CA000000 		.4byte	0xca
  417 00ca 05       		.uleb128 0x5
  418 00cb 80000000 		.4byte	0x80
  419 00cf 06       		.uleb128 0x6
- 420 00d0 5F020000 		.4byte	.LASF40
+ 420 00d0 AA020000 		.4byte	.LASF40
  421 00d4 01       		.byte	0x1
  422 00d5 2A       		.byte	0x2a
  423 00d6 00000000 		.4byte	.LFB0
-ARM GAS  C:\Users\Darwin\AppData\Local\Temp\ccQ2IQ9w.s 			page 15
+ARM GAS  C:\Users\Darwin\AppData\Local\Temp\ccDph88G.s 			page 15
 
 
  424 00da 02000000 		.4byte	.LFE0-.LFB0
  425 00de 01       		.uleb128 0x1
  426 00df 9C       		.byte	0x9c
  427 00e0 07       		.uleb128 0x7
- 428 00e1 04030000 		.4byte	.LASF22
+ 428 00e1 00030000 		.4byte	.LASF22
  429 00e5 01       		.byte	0x1
  430 00e6 9D       		.byte	0x9d
  431 00e7 00000000 		.4byte	.LFB3
@@ -897,8 +897,8 @@ ARM GAS  C:\Users\Darwin\AppData\Local\Temp\ccQ2IQ9w.s 			page 1
  477 015a B2020000 		.4byte	0x2b2
  478 015e 00       		.byte	0
  479 015f 0C       		.uleb128 0xc
- 480 0160 7C020000 		.4byte	.LASF23
-ARM GAS  C:\Users\Darwin\AppData\Local\Temp\ccQ2IQ9w.s 			page 16
+ 480 0160 C7020000 		.4byte	.LASF23
+ARM GAS  C:\Users\Darwin\AppData\Local\Temp\ccDph88G.s 			page 16
 
 
  481 0164 01       		.byte	0x1
@@ -934,7 +934,7 @@ ARM GAS  C:\Users\Darwin\AppData\Local\Temp\ccQ2IQ9w.s 			page 1
  511 01b3 01       		.uleb128 0x1
  512 01b4 9C       		.byte	0x9c
  513 01b5 0C       		.uleb128 0xc
- 514 01b6 41020000 		.4byte	.LASF24
+ 514 01b6 8C020000 		.4byte	.LASF24
  515 01ba 01       		.byte	0x1
  516 01bb 4C01     		.2byte	0x14c
  517 01bd 00000000 		.4byte	.LFB7
@@ -943,7 +943,7 @@ ARM GAS  C:\Users\Darwin\AppData\Local\Temp\ccQ2IQ9w.s 			page 1
  520 01c6 9C       		.byte	0x9c
  521 01c7 DA010000 		.4byte	0x1da
  522 01cb 10       		.uleb128 0x10
- 523 01cc 5A020000 		.4byte	.LASF26
+ 523 01cc A5020000 		.4byte	.LASF26
  524 01d0 01       		.byte	0x1
  525 01d1 4C01     		.2byte	0x14c
  526 01d3 80000000 		.4byte	0x80
@@ -958,7 +958,7 @@ ARM GAS  C:\Users\Darwin\AppData\Local\Temp\ccQ2IQ9w.s 			page 1
  535 01e5 24000000 		.4byte	.LFE1-.LFB1
  536 01e9 01       		.uleb128 0x1
  537 01ea 9C       		.byte	0x9c
-ARM GAS  C:\Users\Darwin\AppData\Local\Temp\ccQ2IQ9w.s 			page 17
+ARM GAS  C:\Users\Darwin\AppData\Local\Temp\ccDph88G.s 			page 17
 
 
  538 01eb 2D020000 		.4byte	0x22d
@@ -1016,9 +1016,9 @@ ARM GAS  C:\Users\Darwin\AppData\Local\Temp\ccQ2IQ9w.s 			page 1
  590 0265 DA010000 		.4byte	0x1da
  591 0269 00       		.byte	0
  592 026a 0F       		.uleb128 0xf
- 593 026b 11030000 		.4byte	.LASF30
+ 593 026b 0D030000 		.4byte	.LASF30
  594 026f 01       		.byte	0x1
-ARM GAS  C:\Users\Darwin\AppData\Local\Temp\ccQ2IQ9w.s 			page 18
+ARM GAS  C:\Users\Darwin\AppData\Local\Temp\ccDph88G.s 			page 18
 
 
  595 0270 6801     		.2byte	0x168
@@ -1041,13 +1041,13 @@ ARM GAS  C:\Users\Darwin\AppData\Local\Temp\ccQ2IQ9w.s 			page 1
  612 029a 03       		.byte	0x3
  613 029b 50       		.byte	0x50
  614 029c 14       		.uleb128 0x14
- 615 029d EB010000 		.4byte	.LASF32
- 616 02a1 EB010000 		.4byte	.LASF32
+ 615 029d 36020000 		.4byte	.LASF32
+ 616 02a1 36020000 		.4byte	.LASF32
  617 02a5 04       		.byte	0x4
  618 02a6 7D       		.byte	0x7d
  619 02a7 14       		.uleb128 0x14
- 620 02a8 0F020000 		.4byte	.LASF33
- 621 02ac 0F020000 		.4byte	.LASF33
+ 620 02a8 5A020000 		.4byte	.LASF33
+ 621 02ac 5A020000 		.4byte	.LASF33
  622 02b0 04       		.byte	0x4
  623 02b1 7E       		.byte	0x7e
  624 02b2 14       		.uleb128 0x14
@@ -1078,7 +1078,7 @@ ARM GAS  C:\Users\Darwin\AppData\Local\Temp\ccQ2IQ9w.s 			page 1
  649 0007 03       		.uleb128 0x3
  650 0008 0E       		.uleb128 0xe
  651 0009 1B       		.uleb128 0x1b
-ARM GAS  C:\Users\Darwin\AppData\Local\Temp\ccQ2IQ9w.s 			page 19
+ARM GAS  C:\Users\Darwin\AppData\Local\Temp\ccDph88G.s 			page 19
 
 
  652 000a 0E       		.uleb128 0xe
@@ -1138,7 +1138,7 @@ ARM GAS  C:\Users\Darwin\AppData\Local\Temp\ccQ2IQ9w.s 			page 1
  706 0040 3F       		.uleb128 0x3f
  707 0041 19       		.uleb128 0x19
  708 0042 03       		.uleb128 0x3
-ARM GAS  C:\Users\Darwin\AppData\Local\Temp\ccQ2IQ9w.s 			page 20
+ARM GAS  C:\Users\Darwin\AppData\Local\Temp\ccDph88G.s 			page 20
 
 
  709 0043 0E       		.uleb128 0xe
@@ -1198,7 +1198,7 @@ ARM GAS  C:\Users\Darwin\AppData\Local\Temp\ccQ2IQ9w.s 			page 1
  763 007b 17       		.uleb128 0x17
  764 007c 00       		.byte	0
  765 007d 00       		.byte	0
-ARM GAS  C:\Users\Darwin\AppData\Local\Temp\ccQ2IQ9w.s 			page 21
+ARM GAS  C:\Users\Darwin\AppData\Local\Temp\ccDph88G.s 			page 21
 
 
  766 007e 09       		.uleb128 0x9
@@ -1258,7 +1258,7 @@ ARM GAS  C:\Users\Darwin\AppData\Local\Temp\ccQ2IQ9w.s 			page 1
  820 00b7 3F       		.uleb128 0x3f
  821 00b8 19       		.uleb128 0x19
  822 00b9 03       		.uleb128 0x3
-ARM GAS  C:\Users\Darwin\AppData\Local\Temp\ccQ2IQ9w.s 			page 22
+ARM GAS  C:\Users\Darwin\AppData\Local\Temp\ccDph88G.s 			page 22
 
 
  823 00ba 0E       		.uleb128 0xe
@@ -1318,7 +1318,7 @@ ARM GAS  C:\Users\Darwin\AppData\Local\Temp\ccQ2IQ9w.s 			page 1
  877 00f1 03       		.uleb128 0x3
  878 00f2 0E       		.uleb128 0xe
  879 00f3 3A       		.uleb128 0x3a
-ARM GAS  C:\Users\Darwin\AppData\Local\Temp\ccQ2IQ9w.s 			page 23
+ARM GAS  C:\Users\Darwin\AppData\Local\Temp\ccDph88G.s 			page 23
 
 
  880 00f4 0B       		.uleb128 0xb
@@ -1378,7 +1378,7 @@ ARM GAS  C:\Users\Darwin\AppData\Local\Temp\ccQ2IQ9w.s 			page 1
  934 0130 00       		.byte	0
  935 0131 03       		.uleb128 0x3
  936 0132 0E       		.uleb128 0xe
-ARM GAS  C:\Users\Darwin\AppData\Local\Temp\ccQ2IQ9w.s 			page 24
+ARM GAS  C:\Users\Darwin\AppData\Local\Temp\ccDph88G.s 			page 24
 
 
  937 0133 3A       		.uleb128 0x3a
@@ -1438,7 +1438,7 @@ ARM GAS  C:\Users\Darwin\AppData\Local\Temp\ccQ2IQ9w.s 			page 1
  991 003b F3       		.byte	0xf3
  992 003c 01       		.uleb128 0x1
  993 003d 50       		.byte	0x50
-ARM GAS  C:\Users\Darwin\AppData\Local\Temp\ccQ2IQ9w.s 			page 25
+ARM GAS  C:\Users\Darwin\AppData\Local\Temp\ccDph88G.s 			page 25
 
 
  994 003e 9F       		.byte	0x9f
@@ -1498,7 +1498,7 @@ ARM GAS  C:\Users\Darwin\AppData\Local\Temp\ccQ2IQ9w.s 			page 1
  1048 000c 20000000 		.4byte	.LFE3
  1049 0010 00000000 		.4byte	.LFB4
  1050 0014 0E000000 		.4byte	.LFE4
-ARM GAS  C:\Users\Darwin\AppData\Local\Temp\ccQ2IQ9w.s 			page 26
+ARM GAS  C:\Users\Darwin\AppData\Local\Temp\ccDph88G.s 			page 26
 
 
  1051 0018 00000000 		.4byte	.LFB5
@@ -1558,7 +1558,7 @@ ARM GAS  C:\Users\Darwin\AppData\Local\Temp\ccQ2IQ9w.s 			page 1
  1080              	.LASF28:
  1081 00bd 51756164 		.ascii	"QuadDec_Start\000"
  1081      4465635F 
-ARM GAS  C:\Users\Darwin\AppData\Local\Temp\ccQ2IQ9w.s 			page 27
+ARM GAS  C:\Users\Darwin\AppData\Local\Temp\ccDph88G.s 			page 27
 
 
  1081      53746172 
@@ -1618,7 +1618,7 @@ ARM GAS  C:\Users\Darwin\AppData\Local\Temp\ccQ2IQ9w.s 			page 1
  1102              	.LASF15:
  1103 0179 696E7433 		.ascii	"int32\000"
  1103      3200
-ARM GAS  C:\Users\Darwin\AppData\Local\Temp\ccQ2IQ9w.s 			page 28
+ARM GAS  C:\Users\Darwin\AppData\Local\Temp\ccDph88G.s 			page 28
 
 
  1104              	.LASF29:
@@ -1654,101 +1654,101 @@ ARM GAS  C:\Users\Darwin\AppData\Local\Temp\ccQ2IQ9w.s 			page 1
  1116              	.LASF13:
  1117 01e4 75696E74 		.ascii	"uint16\000"
  1117      313600
- 1118              	.LASF32:
- 1119 01eb 4379456E 		.ascii	"CyEnterCriticalSection\000"
- 1119      74657243 
- 1119      72697469 
- 1119      63616C53 
- 1119      65637469 
- 1120              	.LASF0:
- 1121 0202 756E7369 		.ascii	"unsigned int\000"
- 1121      676E6564 
- 1121      20696E74 
- 1121      00
- 1122              	.LASF33:
- 1123 020f 43794578 		.ascii	"CyExitCriticalSection\000"
- 1123      69744372 
- 1123      69746963 
- 1123      616C5365 
- 1123      6374696F 
- 1124              	.LASF18:
- 1125 0225 72656738 		.ascii	"reg8\000"
- 1125      00
- 1126              	.LASF10:
- 1127 022a 73697A65 		.ascii	"sizetype\000"
- 1127      74797065 
- 1127      00
-ARM GAS  C:\Users\Darwin\AppData\Local\Temp\ccQ2IQ9w.s 			page 29
+ 1118              	.LASF39:
+ 1119 01eb 433A5C55 		.ascii	"C:\\Users\\Darwin\\Documents\\git\\control_heli_pso"
+ 1119      73657273 
+ 1119      5C446172 
+ 1119      77696E5C 
+ 1119      446F6375 
+ 1120 0219 635C576F 		.ascii	"c\\Workspace01\\Design01.cydsn\000"
+ 1120      726B7370 
+ 1120      61636530 
+ 1120      315C4465 
+ 1120      7369676E 
+ 1121              	.LASF32:
+ 1122 0236 4379456E 		.ascii	"CyEnterCriticalSection\000"
+ 1122      74657243 
+ 1122      72697469 
+ 1122      63616C53 
+ 1122      65637469 
+ 1123              	.LASF0:
+ 1124 024d 756E7369 		.ascii	"unsigned int\000"
+ 1124      676E6564 
+ 1124      20696E74 
+ 1124      00
+ 1125              	.LASF33:
+ 1126 025a 43794578 		.ascii	"CyExitCriticalSection\000"
+ARM GAS  C:\Users\Darwin\AppData\Local\Temp\ccDph88G.s 			page 29
 
 
- 1128              	.LASF1:
- 1129 0233 6C6F6E67 		.ascii	"long long int\000"
- 1129      206C6F6E 
- 1129      6720696E 
- 1129      7400
- 1130              	.LASF24:
- 1131 0241 51756164 		.ascii	"QuadDec_SetInterruptMask\000"
- 1131      4465635F 
- 1131      53657449 
- 1131      6E746572 
- 1131      72757074 
- 1132              	.LASF26:
- 1133 025a 6D61736B 		.ascii	"mask\000"
- 1133      00
- 1134              	.LASF40:
- 1135 025f 51756164 		.ascii	"QuadDec_Init\000"
- 1135      4465635F 
- 1135      496E6974 
- 1135      00
- 1136              	.LASF5:
- 1137 026c 73686F72 		.ascii	"short int\000"
- 1137      7420696E 
- 1137      7400
- 1138              	.LASF12:
- 1139 0276 75696E74 		.ascii	"uint8\000"
- 1139      3800
- 1140              	.LASF23:
- 1141 027c 51756164 		.ascii	"QuadDec_SetCounter\000"
- 1141      4465635F 
- 1141      53657443 
- 1141      6F756E74 
- 1141      657200
- 1142              	.LASF7:
- 1143 028f 6C6F6E67 		.ascii	"long int\000"
- 1143      20696E74 
- 1143      00
- 1144              	.LASF11:
- 1145 0298 63686172 		.ascii	"char\000"
- 1145      00
- 1146              	.LASF2:
- 1147 029d 6C6F6E67 		.ascii	"long double\000"
- 1147      20646F75 
- 1147      626C6500 
- 1148              	.LASF3:
- 1149 02a9 7369676E 		.ascii	"signed char\000"
- 1149      65642063 
- 1149      68617200 
- 1150              	.LASF39:
- 1151 02b5 433A5C55 		.ascii	"C:\\Users\\Darwin\\Desktop\\matlab lab control\\Pro"
- 1151      73657273 
- 1151      5C446172 
- 1151      77696E5C 
- 1151      4465736B 
- 1152 02e3 79656374 		.ascii	"yecto\\Workspace01\\Design01.cydsn\000"
- 1152      6F5C576F 
- 1152      726B7370 
- 1152      61636530 
-ARM GAS  C:\Users\Darwin\AppData\Local\Temp\ccQ2IQ9w.s 			page 30
+ 1126      69744372 
+ 1126      69746963 
+ 1126      616C5365 
+ 1126      6374696F 
+ 1127              	.LASF18:
+ 1128 0270 72656738 		.ascii	"reg8\000"
+ 1128      00
+ 1129              	.LASF10:
+ 1130 0275 73697A65 		.ascii	"sizetype\000"
+ 1130      74797065 
+ 1130      00
+ 1131              	.LASF1:
+ 1132 027e 6C6F6E67 		.ascii	"long long int\000"
+ 1132      206C6F6E 
+ 1132      6720696E 
+ 1132      7400
+ 1133              	.LASF24:
+ 1134 028c 51756164 		.ascii	"QuadDec_SetInterruptMask\000"
+ 1134      4465635F 
+ 1134      53657449 
+ 1134      6E746572 
+ 1134      72757074 
+ 1135              	.LASF26:
+ 1136 02a5 6D61736B 		.ascii	"mask\000"
+ 1136      00
+ 1137              	.LASF40:
+ 1138 02aa 51756164 		.ascii	"QuadDec_Init\000"
+ 1138      4465635F 
+ 1138      496E6974 
+ 1138      00
+ 1139              	.LASF5:
+ 1140 02b7 73686F72 		.ascii	"short int\000"
+ 1140      7420696E 
+ 1140      7400
+ 1141              	.LASF12:
+ 1142 02c1 75696E74 		.ascii	"uint8\000"
+ 1142      3800
+ 1143              	.LASF23:
+ 1144 02c7 51756164 		.ascii	"QuadDec_SetCounter\000"
+ 1144      4465635F 
+ 1144      53657443 
+ 1144      6F756E74 
+ 1144      657200
+ 1145              	.LASF7:
+ 1146 02da 6C6F6E67 		.ascii	"long int\000"
+ 1146      20696E74 
+ 1146      00
+ 1147              	.LASF11:
+ 1148 02e3 63686172 		.ascii	"char\000"
+ 1148      00
+ 1149              	.LASF2:
+ 1150 02e8 6C6F6E67 		.ascii	"long double\000"
+ 1150      20646F75 
+ 1150      626C6500 
+ 1151              	.LASF3:
+ 1152 02f4 7369676E 		.ascii	"signed char\000"
+ 1152      65642063 
+ARM GAS  C:\Users\Darwin\AppData\Local\Temp\ccDph88G.s 			page 30
 
 
- 1152      315C4465 
+ 1152      68617200 
  1153              	.LASF22:
- 1154 0304 51756164 		.ascii	"QuadDec_Stop\000"
+ 1154 0300 51756164 		.ascii	"QuadDec_Stop\000"
  1154      4465635F 
  1154      53746F70 
  1154      00
  1155              	.LASF30:
- 1156 0311 51756164 		.ascii	"QuadDec_GetInterruptMask\000"
+ 1156 030d 51756164 		.ascii	"QuadDec_GetInterruptMask\000"
  1156      4465635F 
  1156      47657449 
  1156      6E746572 

@@ -2,7 +2,7 @@
 --	Conversion of Design01.v to vh2:
 --
 --	Cypress Semiconductor - WARP Version 6.3 IR 41
---	Wed Oct 30 18:58:08 2019
+--	Fri Nov 01 23:56:13 2019
 --
 
 USE cypress.cypress.all;
@@ -684,14 +684,14 @@ SIGNAL \QuadDec:Cnt16:CounterUDB:sC16:counterdp:f1_blk_stat_reg_1\ : bit;
 ATTRIBUTE port_state_att of \QuadDec:Cnt16:CounterUDB:sC16:counterdp:f1_blk_stat_reg_1\:SIGNAL IS 2;
 SIGNAL \QuadDec:Net_1290\ : bit;
 SIGNAL \QuadDec:bQuadDec:sync_clock\ : bit;
-SIGNAL Net_1245 : bit;
+SIGNAL Net_1302 : bit;
 SIGNAL \QuadDec:bQuadDec:quad_A_delayed_0\ : bit;
 SIGNAL \QuadDec:bQuadDec:quad_A_delayed_1\ : bit;
 SIGNAL \QuadDec:bQuadDec:quad_A_delayed_2\ : bit;
 SIGNAL \QuadDec:bQuadDec:A_j\ : bit;
 SIGNAL \QuadDec:bQuadDec:A_k\ : bit;
 SIGNAL \QuadDec:bQuadDec:quad_A_filt\ : bit;
-SIGNAL Net_1246 : bit;
+SIGNAL Net_1301 : bit;
 SIGNAL \QuadDec:bQuadDec:quad_B_delayed_0\ : bit;
 SIGNAL \QuadDec:bQuadDec:quad_B_delayed_1\ : bit;
 SIGNAL \QuadDec:bQuadDec:quad_B_delayed_2\ : bit;
@@ -728,15 +728,27 @@ SIGNAL tmpOE__encoder_B_net_0 : bit;
 SIGNAL tmpIO_0__encoder_B_net_0 : bit;
 TERMINAL tmpSIOVREF__encoder_B_net_0 : bit;
 SIGNAL tmpINTERRUPT_0__encoder_B_net_0 : bit;
-SIGNAL Net_1278 : bit;
+SIGNAL Net_1303 : bit;
 SIGNAL Net_1291 : bit;
 SIGNAL \Timer:Net_260\ : bit;
 SIGNAL \Timer:Net_266\ : bit;
 SIGNAL \Timer:Net_51\ : bit;
 SIGNAL \Timer:Net_261\ : bit;
 SIGNAL \Timer:Net_57\ : bit;
-SIGNAL Net_1259 : bit;
+SIGNAL Net_1278 : bit;
 SIGNAL \Timer:Net_102\ : bit;
+SIGNAL tmpOE__Pin_1_net_0 : bit;
+SIGNAL Net_1245 : bit;
+SIGNAL tmpFB_0__Pin_1_net_0 : bit;
+SIGNAL tmpIO_0__Pin_1_net_0 : bit;
+TERMINAL tmpSIOVREF__Pin_1_net_0 : bit;
+SIGNAL tmpINTERRUPT_0__Pin_1_net_0 : bit;
+SIGNAL tmpOE__Pin_2_net_0 : bit;
+SIGNAL Net_1295 : bit;
+SIGNAL tmpFB_0__Pin_2_net_0 : bit;
+SIGNAL tmpIO_0__Pin_2_net_0 : bit;
+TERMINAL tmpSIOVREF__Pin_2_net_0 : bit;
+SIGNAL tmpINTERRUPT_0__Pin_2_net_0 : bit;
 SIGNAL \PWM_Motor:PWMUDB:min_kill_reg\\D\ : bit;
 SIGNAL \PWM_Motor:PWMUDB:prevCapture\\D\ : bit;
 SIGNAL \PWM_Motor:PWMUDB:trig_last\\D\ : bit;
@@ -851,19 +863,17 @@ Net_1233 <= (not Net_1236);
 	OR (not \QuadDec:Net_1260\ and not \QuadDec:bQuadDec:quad_A_filt\ and not \QuadDec:bQuadDec:error\ and not \QuadDec:bQuadDec:state_0\ and \QuadDec:Net_1251\)
 	OR (not \QuadDec:Net_1260\ and not \QuadDec:bQuadDec:error\ and not \QuadDec:bQuadDec:state_1\ and \QuadDec:Net_1251\ and \QuadDec:bQuadDec:quad_B_filt\));
 
-\QuadDec:Net_1203\\D\ <= ((not \QuadDec:Net_1260\ and not \QuadDec:bQuadDec:state_1\ and not \QuadDec:bQuadDec:state_0\ and \QuadDec:Net_1203\ and \QuadDec:bQuadDec:error\)
-	OR (not \QuadDec:Net_1260\ and not \QuadDec:bQuadDec:quad_B_filt\ and not \QuadDec:bQuadDec:error\ and \QuadDec:bQuadDec:quad_A_filt\ and \QuadDec:bQuadDec:state_1\ and \QuadDec:bQuadDec:state_0\)
-	OR (not \QuadDec:Net_1260\ and not \QuadDec:bQuadDec:quad_A_filt\ and not \QuadDec:bQuadDec:error\ and \QuadDec:bQuadDec:quad_B_filt\ and \QuadDec:bQuadDec:state_1\ and \QuadDec:bQuadDec:state_0\)
-	OR (not \QuadDec:Net_1260\ and not \QuadDec:bQuadDec:quad_A_filt\ and not \QuadDec:bQuadDec:quad_B_filt\ and not \QuadDec:bQuadDec:error\ and not \QuadDec:bQuadDec:state_0\ and \QuadDec:bQuadDec:state_1\)
-	OR (not \QuadDec:Net_1260\ and not \QuadDec:bQuadDec:error\ and not \QuadDec:bQuadDec:state_0\ and \QuadDec:bQuadDec:quad_A_filt\ and \QuadDec:bQuadDec:quad_B_filt\ and \QuadDec:bQuadDec:state_1\)
-	OR (not \QuadDec:Net_1260\ and not \QuadDec:bQuadDec:quad_A_filt\ and not \QuadDec:bQuadDec:quad_B_filt\ and not \QuadDec:bQuadDec:error\ and not \QuadDec:bQuadDec:state_1\ and \QuadDec:bQuadDec:state_0\)
-	OR (not \QuadDec:Net_1260\ and not \QuadDec:bQuadDec:error\ and not \QuadDec:bQuadDec:state_1\ and \QuadDec:bQuadDec:quad_A_filt\ and \QuadDec:bQuadDec:quad_B_filt\ and \QuadDec:bQuadDec:state_0\)
-	OR (not \QuadDec:bQuadDec:quad_B_filt\ and not \QuadDec:bQuadDec:error\ and not \QuadDec:bQuadDec:state_1\ and not \QuadDec:bQuadDec:state_0\ and \QuadDec:bQuadDec:quad_A_filt\)
+\QuadDec:Net_1203\\D\ <= ((not \QuadDec:Net_1260\ and not \QuadDec:bQuadDec:quad_A_filt\ and not \QuadDec:bQuadDec:quad_B_filt\ and not \QuadDec:bQuadDec:error\ and not \QuadDec:bQuadDec:state_1\ and \QuadDec:bQuadDec:state_0\)
+	OR (not \QuadDec:Net_1260\ and not \QuadDec:bQuadDec:state_1\ and not \QuadDec:bQuadDec:state_0\ and \QuadDec:Net_1203\ and \QuadDec:bQuadDec:error\)
 	OR (not \QuadDec:bQuadDec:quad_A_filt\ and not \QuadDec:bQuadDec:error\ and not \QuadDec:bQuadDec:state_1\ and not \QuadDec:bQuadDec:state_0\ and \QuadDec:bQuadDec:quad_B_filt\));
 
 \QuadDec:Net_530\ <= ((not \QuadDec:Net_1264\ and \QuadDec:Net_1275\ and \QuadDec:Net_1251\));
 
 \QuadDec:Net_611\ <= ((not \QuadDec:Net_1251\ and not \QuadDec:Net_1264\ and \QuadDec:Net_1275\));
+
+Net_1295 <= (not Net_1301);
+
+Net_1245 <= (not Net_1302);
 
 \LCD:LCDPort\:cy_psoc3_pins_v1_10
 	GENERIC MAP(id=>"36e9f33d-e08c-4db5-89c8-0d02db2365c2/ed092b9b-d398-4703-be89-cebf998501f6",
@@ -1791,7 +1801,7 @@ MOTOR:cy_psoc3_pins_v1_10
 		enable=>one,
 		clock_out=>\QuadDec:bQuadDec:sync_clock\);
 \QuadDec:bQuadDec:genblk1:DelayA1\:cy_dff
-	PORT MAP(d=>Net_1245,
+	PORT MAP(d=>Net_1302,
 		clk=>\QuadDec:bQuadDec:sync_clock\,
 		q=>\QuadDec:bQuadDec:quad_A_delayed_0\);
 \QuadDec:bQuadDec:genblk1:DelayA2\:cy_dff
@@ -1803,7 +1813,7 @@ MOTOR:cy_psoc3_pins_v1_10
 		clk=>\QuadDec:bQuadDec:sync_clock\,
 		q=>\QuadDec:bQuadDec:quad_A_delayed_2\);
 \QuadDec:bQuadDec:genblk1:DelayB1\:cy_dff
-	PORT MAP(d=>Net_1246,
+	PORT MAP(d=>Net_1301,
 		clk=>\QuadDec:bQuadDec:sync_clock\,
 		q=>\QuadDec:bQuadDec:quad_B_delayed_0\);
 \QuadDec:bQuadDec:genblk1:DelayB2\:cy_dff
@@ -1881,7 +1891,7 @@ encoder_A:cy_psoc3_pins_v1_10
 		input_buffer_sel=>"00")
 	PORT MAP(oe=>(one),
 		y=>(zero),
-		fb=>Net_1245,
+		fb=>Net_1302,
 		analog=>(open),
 		io=>(tmpIO_0__encoder_A_net_0),
 		siovref=>(tmpSIOVREF__encoder_A_net_0),
@@ -1951,7 +1961,7 @@ encoder_B:cy_psoc3_pins_v1_10
 		input_buffer_sel=>"00")
 	PORT MAP(oe=>(one),
 		y=>(zero),
-		fb=>Net_1246,
+		fb=>Net_1301,
 		analog=>(open),
 		io=>(tmpIO_0__encoder_B_net_0),
 		siovref=>(tmpSIOVREF__encoder_B_net_0),
@@ -1966,7 +1976,7 @@ encoder_B:cy_psoc3_pins_v1_10
 isr_Ts:cy_isr_v1_0
 	GENERIC MAP(int_type=>"00",
 		is_nmi=>'0')
-	PORT MAP(int_signal=>Net_1278);
+	PORT MAP(int_signal=>Net_1303);
 \Timer:TimerHW\:cy_psoc3_timer_v1_0
 	GENERIC MAP(cy_registers=>"")
 	PORT MAP(clock=>Net_10,
@@ -1974,9 +1984,149 @@ isr_Ts:cy_isr_v1_0
 		enable=>one,
 		capture=>zero,
 		timer_reset=>zero,
-		tc=>\Timer:Net_51\,
+		tc=>Net_1303,
 		compare=>\Timer:Net_261\,
-		interrupt=>Net_1278);
+		interrupt=>\Timer:Net_57\);
+Pin_1:cy_psoc3_pins_v1_10
+	GENERIC MAP(id=>"7526c9e2-819a-40aa-8e41-3a8ba0baef7f",
+		drive_mode=>"110",
+		ibuf_enabled=>"1",
+		init_dr_st=>"0",
+		input_sync=>"1",
+		input_clk_en=>'0',
+		input_sync_mode=>"0",
+		intr_mode=>"00",
+		invert_in_clock=>'0',
+		invert_in_clock_en=>'0',
+		invert_in_reset=>'0',
+		invert_out_clock=>'0',
+		invert_out_clock_en=>'0',
+		invert_out_reset=>'0',
+		io_voltage=>"",
+		layout_mode=>"CONTIGUOUS",
+		output_conn=>"1",
+		output_sync=>"0",
+		output_clk_en=>'0',
+		output_mode=>"0",
+		output_reset=>'0',
+		output_clock_mode=>"0",
+		oe_sync=>"0",
+		oe_conn=>"0",
+		oe_reset=>'0',
+		pin_aliases=>"",
+		pin_mode=>"O",
+		por_state=>4,
+		sio_group_cnt=>0,
+		sio_hifreq=>"00000000",
+		sio_hyst=>"1",
+		sio_ibuf=>"00000000",
+		sio_info=>"00",
+		sio_obuf=>"00000000",
+		sio_refsel=>"00000000",
+		sio_vtrip=>"00000000",
+		sio_vohsel=>"00000000",
+		slew_rate=>"0",
+		spanning=>'0',
+		sw_only=>'0',
+		vtrip=>"10",
+		width=>1,
+		port_alias_required=>'0',
+		port_alias_group=>"",
+		use_annotation=>"0",
+		pa_in_clock=>-1,
+		pa_in_clock_en=>-1,
+		pa_in_reset=>-1,
+		pa_out_clock=>-1,
+		pa_out_clock_en=>-1,
+		pa_out_reset=>-1,
+		ovt_needed=>"0",
+		ovt_slew_control=>"00",
+		ovt_hyst_trim=>"0",
+		input_buffer_sel=>"00")
+	PORT MAP(oe=>(one),
+		y=>Net_1245,
+		fb=>(tmpFB_0__Pin_1_net_0),
+		analog=>(open),
+		io=>(tmpIO_0__Pin_1_net_0),
+		siovref=>(tmpSIOVREF__Pin_1_net_0),
+		annotation=>(open),
+		in_clock=>zero,
+		in_clock_en=>one,
+		in_reset=>zero,
+		out_clock=>zero,
+		out_clock_en=>one,
+		out_reset=>zero,
+		interrupt=>tmpINTERRUPT_0__Pin_1_net_0);
+Pin_2:cy_psoc3_pins_v1_10
+	GENERIC MAP(id=>"8bb17a5f-6c3b-4203-b108-1cec550fd44c",
+		drive_mode=>"110",
+		ibuf_enabled=>"1",
+		init_dr_st=>"0",
+		input_sync=>"1",
+		input_clk_en=>'0',
+		input_sync_mode=>"0",
+		intr_mode=>"00",
+		invert_in_clock=>'0',
+		invert_in_clock_en=>'0',
+		invert_in_reset=>'0',
+		invert_out_clock=>'0',
+		invert_out_clock_en=>'0',
+		invert_out_reset=>'0',
+		io_voltage=>"",
+		layout_mode=>"CONTIGUOUS",
+		output_conn=>"1",
+		output_sync=>"0",
+		output_clk_en=>'0',
+		output_mode=>"0",
+		output_reset=>'0',
+		output_clock_mode=>"0",
+		oe_sync=>"0",
+		oe_conn=>"0",
+		oe_reset=>'0',
+		pin_aliases=>"",
+		pin_mode=>"O",
+		por_state=>4,
+		sio_group_cnt=>0,
+		sio_hifreq=>"00000000",
+		sio_hyst=>"1",
+		sio_ibuf=>"00000000",
+		sio_info=>"00",
+		sio_obuf=>"00000000",
+		sio_refsel=>"00000000",
+		sio_vtrip=>"00000000",
+		sio_vohsel=>"00000000",
+		slew_rate=>"0",
+		spanning=>'0',
+		sw_only=>'0',
+		vtrip=>"10",
+		width=>1,
+		port_alias_required=>'0',
+		port_alias_group=>"",
+		use_annotation=>"0",
+		pa_in_clock=>-1,
+		pa_in_clock_en=>-1,
+		pa_in_reset=>-1,
+		pa_out_clock=>-1,
+		pa_out_clock_en=>-1,
+		pa_out_reset=>-1,
+		ovt_needed=>"0",
+		ovt_slew_control=>"00",
+		ovt_hyst_trim=>"0",
+		input_buffer_sel=>"00")
+	PORT MAP(oe=>(one),
+		y=>Net_1295,
+		fb=>(tmpFB_0__Pin_2_net_0),
+		analog=>(open),
+		io=>(tmpIO_0__Pin_2_net_0),
+		siovref=>(tmpSIOVREF__Pin_2_net_0),
+		annotation=>(open),
+		in_clock=>zero,
+		in_clock_en=>one,
+		in_reset=>zero,
+		out_clock=>zero,
+		out_clock_en=>one,
+		out_reset=>zero,
+		interrupt=>tmpINTERRUPT_0__Pin_2_net_0);
 \PWM_Motor:PWMUDB:min_kill_reg\:cy_dsrff
 	PORT MAP(d=>one,
 		s=>zero,
