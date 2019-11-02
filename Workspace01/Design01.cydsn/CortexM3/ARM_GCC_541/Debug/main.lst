@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\Darwin\AppData\Local\Temp\cceKxohI.s 			page 1
+ARM GAS  C:\Users\Darwin\AppData\Local\Temp\cceXYrWy.s 			page 1
 
 
    1              		.syntax unified
@@ -42,111 +42,121 @@ ARM GAS  C:\Users\Darwin\AppData\Local\Temp\cceKxohI.s 			page 1
   12:main.c        **** #include "project.h"
   13:main.c        **** 
   14:main.c        **** /* Declaración de variables */
-  15:main.c        **** int16 control=120;
-  16:main.c        **** int counter=0;
-  17:main.c        **** 
-  18:main.c        **** /* Métodos de interrupción */
-  19:main.c        **** 
-  20:main.c        **** CY_ISR(AumentarInt)
-  21:main.c        **** {
-  28              		.loc 1 21 0
+  15:main.c        **** float Ts=0.005;
+  16:main.c        **** int16 control_manual=120;
+  17:main.c        **** int16 control_auto=100;
+  18:main.c        **** int counter=0;
+  19:main.c        **** int ref_counter=80;
+  20:main.c        **** /* seleccion de control */
+  21:main.c        **** int16 control=1;    
+  22:main.c        **** /* Variables de control */
+  23:main.c        **** float PkP=0.982,PkI=0.1555,PkD=0.02554,N=165.9;
+  24:main.c        **** volatile float error,error_anterior;
+  25:main.c        **** volatile float Pkp,Pki,Pkd;
+  26:main.c        **** volatile float Pkp_anterior=0,Pki_anterior=0,Pkd_anterior=0;;
+  27:main.c        **** 
+  28:main.c        **** 
+  29:main.c        **** /* Métodos de interrupción */
+  30:main.c        **** CY_ISR(AumentarInt)
+ARM GAS  C:\Users\Darwin\AppData\Local\Temp\cceXYrWy.s 			page 2
+
+
+  31:main.c        **** {
+  28              		.loc 1 31 0
   29              		.cfi_startproc
   30              		@ args = 0, pretend = 0, frame = 0
   31              		@ frame_needed = 0, uses_anonymous_args = 0
-  22:main.c        ****     if(control<200)
-  32              		.loc 1 22 0
+  32:main.c        ****     if(control_manual<200)
+  32              		.loc 1 32 0
   33 0000 1B4B     		ldr	r3, .L5
   34 0002 B3F90000 		ldrsh	r0, [r3]
   35 0006 C728     		cmp	r0, #199
-ARM GAS  C:\Users\Darwin\AppData\Local\Temp\cceKxohI.s 			page 2
-
-
   36 0008 30DC     		bgt	.L4
-  21:main.c        ****     if(control<200)
-  37              		.loc 1 21 0
+  31:main.c        ****     if(control_manual<200)
+  37              		.loc 1 31 0
   38 000a 10B5     		push	{r4, lr}
   39              		.cfi_def_cfa_offset 8
   40              		.cfi_offset 4, -8
   41              		.cfi_offset 14, -4
-  23:main.c        ****     {
-  24:main.c        ****         control=control+1;
-  42              		.loc 1 24 0
+  33:main.c        ****     {
+  34:main.c        ****         control_manual=control_manual+1;
+  42              		.loc 1 34 0
   43 000c 0130     		adds	r0, r0, #1
   44 000e 80B2     		uxth	r0, r0
   45 0010 1C46     		mov	r4, r3
   46 0012 1880     		strh	r0, [r3]	@ movhi
-  25:main.c        ****         PWM_Motor_WriteCompare(control);
-  47              		.loc 1 25 0
+  35:main.c        ****         PWM_Motor_WriteCompare(control_manual);
+  47              		.loc 1 35 0
   48 0014 FFF7FEFF 		bl	PWM_Motor_WriteCompare
   49              	.LVL0:
-  26:main.c        ****         Reset_PWM_Write(1);
-  50              		.loc 1 26 0
+  36:main.c        ****         Reset_PWM_Write(1);
+  50              		.loc 1 36 0
   51 0018 0120     		movs	r0, #1
   52 001a FFF7FEFF 		bl	Reset_PWM_Write
   53              	.LVL1:
-  27:main.c        ****         Reset_PWM_Write(0);
-  54              		.loc 1 27 0
+  37:main.c        ****         Reset_PWM_Write(0);
+  54              		.loc 1 37 0
   55 001e 0020     		movs	r0, #0
   56 0020 FFF7FEFF 		bl	Reset_PWM_Write
   57              	.LVL2:
-  28:main.c        ****         
-  29:main.c        ****         LED_Write(1);
-  58              		.loc 1 29 0
+  38:main.c        ****         
+  39:main.c        ****         LED_Write(1);
+  58              		.loc 1 39 0
   59 0024 0120     		movs	r0, #1
   60 0026 FFF7FEFF 		bl	LED_Write
   61              	.LVL3:
-  30:main.c        ****         
-  31:main.c        ****         LCD_ClearDisplay();
-  62              		.loc 1 31 0
+  40:main.c        ****         
+  41:main.c        ****         LCD_ClearDisplay();
+  62              		.loc 1 41 0
   63 002a 0120     		movs	r0, #1
   64 002c FFF7FEFF 		bl	LCD_WriteControl
   65              	.LVL4:
-  32:main.c        ****         LCD_Position(0,0);
-  66              		.loc 1 32 0
+  42:main.c        ****         LCD_Position(0,0);
+  66              		.loc 1 42 0
   67 0030 0021     		movs	r1, #0
   68 0032 0846     		mov	r0, r1
   69 0034 FFF7FEFF 		bl	LCD_Position
   70              	.LVL5:
-  33:main.c        ****         LCD_PrintString("control:");
-  71              		.loc 1 33 0
+  43:main.c        ****         LCD_PrintString("control:");
+ARM GAS  C:\Users\Darwin\AppData\Local\Temp\cceXYrWy.s 			page 3
+
+
+  71              		.loc 1 43 0
   72 0038 0E48     		ldr	r0, .L5+4
   73 003a FFF7FEFF 		bl	LCD_PrintString
   74              	.LVL6:
-  34:main.c        ****     
-  35:main.c        ****         LCD_Position(0,10);
-  75              		.loc 1 35 0
+  44:main.c        ****     
+  45:main.c        ****         LCD_Position(0,10);
+  75              		.loc 1 45 0
   76 003e 0A21     		movs	r1, #10
   77 0040 0020     		movs	r0, #0
   78 0042 FFF7FEFF 		bl	LCD_Position
-ARM GAS  C:\Users\Darwin\AppData\Local\Temp\cceKxohI.s 			page 3
-
-
   79              	.LVL7:
-  36:main.c        ****         LCD_PrintNumber(control);
-  80              		.loc 1 36 0
+  46:main.c        ****         LCD_PrintNumber(control_manual);
+  80              		.loc 1 46 0
   81 0046 2088     		ldrh	r0, [r4]
   82 0048 FFF7FEFF 		bl	LCD_PrintU32Number
   83              	.LVL8:
-  37:main.c        ****         
-  38:main.c        ****         LCD_Position(1,0);
-  84              		.loc 1 38 0
+  47:main.c        ****         
+  48:main.c        ****         LCD_Position(1,0);
+  84              		.loc 1 48 0
   85 004c 0021     		movs	r1, #0
   86 004e 0120     		movs	r0, #1
   87 0050 FFF7FEFF 		bl	LCD_Position
   88              	.LVL9:
-  39:main.c        ****         LCD_PrintString("angulo:");
-  89              		.loc 1 39 0
+  49:main.c        ****         LCD_PrintString("angulo:");
+  89              		.loc 1 49 0
   90 0054 0848     		ldr	r0, .L5+8
   91 0056 FFF7FEFF 		bl	LCD_PrintString
   92              	.LVL10:
-  40:main.c        ****         LCD_Position(1,10);
-  93              		.loc 1 40 0
+  50:main.c        ****         LCD_Position(1,10);
+  93              		.loc 1 50 0
   94 005a 0A21     		movs	r1, #10
   95 005c 0120     		movs	r0, #1
   96 005e FFF7FEFF 		bl	LCD_Position
   97              	.LVL11:
-  41:main.c        ****         LCD_PrintNumber(counter);
-  98              		.loc 1 41 0
+  51:main.c        ****         LCD_PrintNumber(counter);
+  98              		.loc 1 51 0
   99 0062 064B     		ldr	r3, .L5+12
  100 0064 1888     		ldrh	r0, [r3]
  101 0066 FFF7FEFF 		bl	LCD_PrintU32Number
@@ -168,6 +178,9 @@ ARM GAS  C:\Users\Darwin\AppData\Local\Temp\cceKxohI.s 			page 1
  117              	.LFE63:
  118              		.size	AumentarInt, .-AumentarInt
  119              		.section	.text.DisminuirInt,"ax",%progbits
+ARM GAS  C:\Users\Darwin\AppData\Local\Temp\cceXYrWy.s 			page 4
+
+
  120              		.align	2
  121              		.global	DisminuirInt
  122              		.thumb
@@ -175,110 +188,107 @@ ARM GAS  C:\Users\Darwin\AppData\Local\Temp\cceKxohI.s 			page 1
  124              		.type	DisminuirInt, %function
  125              	DisminuirInt:
  126              	.LFB64:
-  42:main.c        ****         
-  43:main.c        ****     }
-  44:main.c        **** }
-ARM GAS  C:\Users\Darwin\AppData\Local\Temp\cceKxohI.s 			page 4
-
-
-  45:main.c        **** 
-  46:main.c        **** CY_ISR(DisminuirInt)
-  47:main.c        **** {
- 127              		.loc 1 47 0
+  52:main.c        ****         
+  53:main.c        ****     }
+  54:main.c        **** }
+  55:main.c        **** 
+  56:main.c        **** CY_ISR(DisminuirInt)
+  57:main.c        **** {
+ 127              		.loc 1 57 0
  128              		.cfi_startproc
  129              		@ args = 0, pretend = 0, frame = 0
  130              		@ frame_needed = 0, uses_anonymous_args = 0
-  48:main.c        ****     if(control>100)
- 131              		.loc 1 48 0
+  58:main.c        ****     if(control_manual>100)
+ 131              		.loc 1 58 0
  132 0000 1B4B     		ldr	r3, .L11
  133 0002 B3F90000 		ldrsh	r0, [r3]
  134 0006 6428     		cmp	r0, #100
  135 0008 30DD     		ble	.L10
-  47:main.c        ****     if(control>100)
- 136              		.loc 1 47 0
+  57:main.c        ****     if(control_manual>100)
+ 136              		.loc 1 57 0
  137 000a 10B5     		push	{r4, lr}
  138              		.cfi_def_cfa_offset 8
  139              		.cfi_offset 4, -8
  140              		.cfi_offset 14, -4
-  49:main.c        ****     {
-  50:main.c        ****         control=control-1;
- 141              		.loc 1 50 0
+  59:main.c        ****     {
+  60:main.c        ****         control_manual=control_manual-1;
+ 141              		.loc 1 60 0
  142 000c 0138     		subs	r0, r0, #1
  143 000e 80B2     		uxth	r0, r0
  144 0010 1C46     		mov	r4, r3
  145 0012 1880     		strh	r0, [r3]	@ movhi
-  51:main.c        ****         PWM_Motor_WriteCompare(control);
- 146              		.loc 1 51 0
+  61:main.c        ****         PWM_Motor_WriteCompare(control_manual);
+ 146              		.loc 1 61 0
  147 0014 FFF7FEFF 		bl	PWM_Motor_WriteCompare
  148              	.LVL13:
-  52:main.c        ****         Reset_PWM_Write(1);
- 149              		.loc 1 52 0
+  62:main.c        ****         Reset_PWM_Write(1);
+ 149              		.loc 1 62 0
  150 0018 0120     		movs	r0, #1
  151 001a FFF7FEFF 		bl	Reset_PWM_Write
  152              	.LVL14:
-  53:main.c        ****         Reset_PWM_Write(0);
- 153              		.loc 1 53 0
+  63:main.c        ****         Reset_PWM_Write(0);
+ 153              		.loc 1 63 0
  154 001e 0020     		movs	r0, #0
  155 0020 FFF7FEFF 		bl	Reset_PWM_Write
  156              	.LVL15:
-  54:main.c        ****         
-  55:main.c        ****         LED_Write(0);
- 157              		.loc 1 55 0
+  64:main.c        ****         
+  65:main.c        ****         LED_Write(0);
+ 157              		.loc 1 65 0
  158 0024 0020     		movs	r0, #0
  159 0026 FFF7FEFF 		bl	LED_Write
  160              	.LVL16:
-  56:main.c        ****         
-  57:main.c        ****         LCD_ClearDisplay();
- 161              		.loc 1 57 0
+  66:main.c        ****         
+ARM GAS  C:\Users\Darwin\AppData\Local\Temp\cceXYrWy.s 			page 5
+
+
+  67:main.c        ****         LCD_ClearDisplay();
+ 161              		.loc 1 67 0
  162 002a 0120     		movs	r0, #1
  163 002c FFF7FEFF 		bl	LCD_WriteControl
  164              	.LVL17:
-  58:main.c        ****         LCD_Position(0,0);
- 165              		.loc 1 58 0
+  68:main.c        ****         LCD_Position(0,0);
+ 165              		.loc 1 68 0
  166 0030 0021     		movs	r1, #0
  167 0032 0846     		mov	r0, r1
  168 0034 FFF7FEFF 		bl	LCD_Position
-ARM GAS  C:\Users\Darwin\AppData\Local\Temp\cceKxohI.s 			page 5
-
-
  169              	.LVL18:
-  59:main.c        ****         LCD_PrintString("control:");
- 170              		.loc 1 59 0
+  69:main.c        ****         LCD_PrintString("control:");
+ 170              		.loc 1 69 0
  171 0038 0E48     		ldr	r0, .L11+4
  172 003a FFF7FEFF 		bl	LCD_PrintString
  173              	.LVL19:
-  60:main.c        ****     
-  61:main.c        ****         LCD_Position(0,10);
- 174              		.loc 1 61 0
+  70:main.c        ****     
+  71:main.c        ****         LCD_Position(0,10);
+ 174              		.loc 1 71 0
  175 003e 0A21     		movs	r1, #10
  176 0040 0020     		movs	r0, #0
  177 0042 FFF7FEFF 		bl	LCD_Position
  178              	.LVL20:
-  62:main.c        ****         LCD_PrintNumber(control);
- 179              		.loc 1 62 0
+  72:main.c        ****         LCD_PrintNumber(control_manual);
+ 179              		.loc 1 72 0
  180 0046 2088     		ldrh	r0, [r4]
  181 0048 FFF7FEFF 		bl	LCD_PrintU32Number
  182              	.LVL21:
-  63:main.c        ****         
-  64:main.c        ****         LCD_Position(1,0);
- 183              		.loc 1 64 0
+  73:main.c        ****         
+  74:main.c        ****         LCD_Position(1,0);
+ 183              		.loc 1 74 0
  184 004c 0021     		movs	r1, #0
  185 004e 0120     		movs	r0, #1
  186 0050 FFF7FEFF 		bl	LCD_Position
  187              	.LVL22:
-  65:main.c        ****         LCD_PrintString("angulo:");
- 188              		.loc 1 65 0
+  75:main.c        ****         LCD_PrintString("angulo:");
+ 188              		.loc 1 75 0
  189 0054 0848     		ldr	r0, .L11+8
  190 0056 FFF7FEFF 		bl	LCD_PrintString
  191              	.LVL23:
-  66:main.c        ****         LCD_Position(1,10);
- 192              		.loc 1 66 0
+  76:main.c        ****         LCD_Position(1,10);
+ 192              		.loc 1 76 0
  193 005a 0A21     		movs	r1, #10
  194 005c 0120     		movs	r0, #1
  195 005e FFF7FEFF 		bl	LCD_Position
  196              	.LVL24:
-  67:main.c        ****         LCD_PrintNumber(counter);
- 197              		.loc 1 67 0
+  77:main.c        ****         LCD_PrintNumber(counter);
+ 197              		.loc 1 77 0
  198 0062 064B     		ldr	r3, .L11+12
  199 0064 1888     		ldrh	r0, [r3]
  200 0066 FFF7FEFF 		bl	LCD_PrintU32Number
@@ -288,6 +298,9 @@ ARM GAS  C:\Users\Darwin\AppData\Local\Temp\cceKxohI.s 			page 1
  204              		.cfi_def_cfa_offset 0
  205              		.cfi_restore 4
  206              		.cfi_restore 14
+ARM GAS  C:\Users\Darwin\AppData\Local\Temp\cceXYrWy.s 			page 6
+
+
  207 006c 7047     		bx	lr
  208              	.L12:
  209 006e 00BF     		.align	2
@@ -298,1558 +311,1982 @@ ARM GAS  C:\Users\Darwin\AppData\Local\Temp\cceKxohI.s 			page 1
  214 007c 00000000 		.word	.LANCHOR1
  215              		.cfi_endproc
  216              	.LFE64:
-ARM GAS  C:\Users\Darwin\AppData\Local\Temp\cceKxohI.s 			page 6
-
-
  217              		.size	DisminuirInt, .-DisminuirInt
- 218              		.section	.text.Muestreo,"ax",%progbits
- 219              		.align	2
- 220              		.global	Muestreo
- 221              		.thumb
- 222              		.thumb_func
- 223              		.type	Muestreo, %function
- 224              	Muestreo:
- 225              	.LFB65:
-  68:main.c        ****     }
-  69:main.c        **** }
-  70:main.c        **** 
-  71:main.c        **** CY_ISR(Muestreo)
-  72:main.c        **** {
- 226              		.loc 1 72 0
- 227              		.cfi_startproc
- 228              		@ args = 0, pretend = 0, frame = 0
- 229              		@ frame_needed = 0, uses_anonymous_args = 0
- 230 0000 10B5     		push	{r4, lr}
- 231              		.cfi_def_cfa_offset 8
- 232              		.cfi_offset 4, -8
- 233              		.cfi_offset 14, -4
-  73:main.c        ****     counter=QuadDec_GetCounter();
- 234              		.loc 1 73 0
- 235 0002 FFF7FEFF 		bl	QuadDec_GetCounter
- 236              	.LVL26:
- 237 0006 114C     		ldr	r4, .L15
- 238 0008 2060     		str	r0, [r4]
-  74:main.c        ****     
-  75:main.c        ****     LCD_ClearDisplay();
- 239              		.loc 1 75 0
- 240 000a 0120     		movs	r0, #1
- 241 000c FFF7FEFF 		bl	LCD_WriteControl
- 242              	.LVL27:
-  76:main.c        ****     LCD_Position(0,0);
- 243              		.loc 1 76 0
- 244 0010 0021     		movs	r1, #0
- 245 0012 0846     		mov	r0, r1
- 246 0014 FFF7FEFF 		bl	LCD_Position
- 247              	.LVL28:
-  77:main.c        ****     LCD_PrintString("control:");
- 248              		.loc 1 77 0
- 249 0018 0D48     		ldr	r0, .L15+4
- 250 001a FFF7FEFF 		bl	LCD_PrintString
- 251              	.LVL29:
-  78:main.c        **** 
-  79:main.c        ****     LCD_Position(0,10);
- 252              		.loc 1 79 0
- 253 001e 0A21     		movs	r1, #10
- 254 0020 0020     		movs	r0, #0
- 255 0022 FFF7FEFF 		bl	LCD_Position
- 256              	.LVL30:
-  80:main.c        ****     LCD_PrintNumber(control);
- 257              		.loc 1 80 0
- 258 0026 0B4B     		ldr	r3, .L15+8
- 259 0028 1888     		ldrh	r0, [r3]
- 260 002a FFF7FEFF 		bl	LCD_PrintU32Number
-ARM GAS  C:\Users\Darwin\AppData\Local\Temp\cceKxohI.s 			page 7
+ 218              		.global	__aeabi_i2f
+ 219              		.global	__aeabi_fmul
+ 220              		.global	__aeabi_fadd
+ 221              		.global	__aeabi_f2iz
+ 222              		.section	.text.Muestreo,"ax",%progbits
+ 223              		.align	2
+ 224              		.global	Muestreo
+ 225              		.thumb
+ 226              		.thumb_func
+ 227              		.type	Muestreo, %function
+ 228              	Muestreo:
+ 229              	.LFB65:
+  78:main.c        ****     }
+  79:main.c        **** }
+  80:main.c        **** 
+  81:main.c        **** CY_ISR(Muestreo)
+  82:main.c        **** {
+ 230              		.loc 1 82 0
+ 231              		.cfi_startproc
+ 232              		@ args = 0, pretend = 0, frame = 0
+ 233              		@ frame_needed = 0, uses_anonymous_args = 0
+ 234 0000 F8B5     		push	{r3, r4, r5, r6, r7, lr}
+ 235              		.cfi_def_cfa_offset 24
+ 236              		.cfi_offset 3, -24
+ 237              		.cfi_offset 4, -20
+ 238              		.cfi_offset 5, -16
+ 239              		.cfi_offset 6, -12
+ 240              		.cfi_offset 7, -8
+ 241              		.cfi_offset 14, -4
+  83:main.c        ****     counter=QuadDec_GetCounter();
+ 242              		.loc 1 83 0
+ 243 0002 FFF7FEFF 		bl	QuadDec_GetCounter
+ 244              	.LVL26:
+ 245 0006 2D4B     		ldr	r3, .L17
+ 246 0008 1860     		str	r0, [r3]
+  84:main.c        ****     
+  85:main.c        ****     LCD_ClearDisplay();
+ 247              		.loc 1 85 0
+ 248 000a 0120     		movs	r0, #1
+ 249 000c FFF7FEFF 		bl	LCD_WriteControl
+ 250              	.LVL27:
+  86:main.c        ****     LCD_Position(0,0);
+ 251              		.loc 1 86 0
+ 252 0010 0021     		movs	r1, #0
+ 253 0012 0846     		mov	r0, r1
+ 254 0014 FFF7FEFF 		bl	LCD_Position
+ARM GAS  C:\Users\Darwin\AppData\Local\Temp\cceXYrWy.s 			page 7
 
 
- 261              	.LVL31:
-  81:main.c        ****     
-  82:main.c        ****     LCD_Position(1,0);
- 262              		.loc 1 82 0
- 263 002e 0021     		movs	r1, #0
- 264 0030 0120     		movs	r0, #1
- 265 0032 FFF7FEFF 		bl	LCD_Position
- 266              	.LVL32:
-  83:main.c        ****     LCD_PrintString("angulo:");
- 267              		.loc 1 83 0
- 268 0036 0848     		ldr	r0, .L15+12
- 269 0038 FFF7FEFF 		bl	LCD_PrintString
- 270              	.LVL33:
-  84:main.c        ****     LCD_Position(1,10);
- 271              		.loc 1 84 0
- 272 003c 0A21     		movs	r1, #10
- 273 003e 0120     		movs	r0, #1
- 274 0040 FFF7FEFF 		bl	LCD_Position
- 275              	.LVL34:
-  85:main.c        ****     LCD_PrintNumber(counter);
- 276              		.loc 1 85 0
- 277 0044 2088     		ldrh	r0, [r4]
- 278 0046 FFF7FEFF 		bl	LCD_PrintU32Number
- 279              	.LVL35:
- 280 004a 10BD     		pop	{r4, pc}
- 281              	.L16:
- 282              		.align	2
- 283              	.L15:
- 284 004c 00000000 		.word	.LANCHOR1
- 285 0050 00000000 		.word	.LC0
- 286 0054 00000000 		.word	.LANCHOR0
- 287 0058 0C000000 		.word	.LC1
- 288              		.cfi_endproc
- 289              	.LFE65:
- 290              		.size	Muestreo, .-Muestreo
- 291              		.section	.text.main,"ax",%progbits
- 292              		.align	2
- 293              		.global	main
- 294              		.thumb
- 295              		.thumb_func
- 296              		.type	main, %function
- 297              	main:
- 298              	.LFB66:
-  86:main.c        ****     
-  87:main.c        **** }
+ 255              	.LVL28:
+  87:main.c        ****     LCD_PrintString("control:");
+ 256              		.loc 1 87 0
+ 257 0018 2948     		ldr	r0, .L17+4
+ 258 001a FFF7FEFF 		bl	LCD_PrintString
+ 259              	.LVL29:
   88:main.c        **** 
-  89:main.c        **** int main(void)
-  90:main.c        **** {
- 299              		.loc 1 90 0
- 300              		.cfi_startproc
- 301              		@ Volatile: function does not return.
- 302              		@ args = 0, pretend = 0, frame = 0
- 303              		@ frame_needed = 0, uses_anonymous_args = 0
- 304 0000 08B5     		push	{r3, lr}
- 305              		.cfi_def_cfa_offset 8
- 306              		.cfi_offset 3, -8
- 307              		.cfi_offset 14, -4
-ARM GAS  C:\Users\Darwin\AppData\Local\Temp\cceKxohI.s 			page 8
+  89:main.c        ****     LCD_Position(0,10);
+ 260              		.loc 1 89 0
+ 261 001e 0A21     		movs	r1, #10
+ 262 0020 0020     		movs	r0, #0
+ 263 0022 FFF7FEFF 		bl	LCD_Position
+ 264              	.LVL30:
+  90:main.c        ****     if (control==0)
+ 265              		.loc 1 90 0
+ 266 0026 274B     		ldr	r3, .L17+8
+ 267 0028 B3F90230 		ldrsh	r3, [r3, #2]
+ 268 002c 1BB9     		cbnz	r3, .L14
+  91:main.c        ****     {
+  92:main.c        ****         LCD_PrintNumber(control_manual);
+ 269              		.loc 1 92 0
+ 270 002e 254B     		ldr	r3, .L17+8
+ 271 0030 1888     		ldrh	r0, [r3]
+ 272 0032 FFF7FEFF 		bl	LCD_PrintU32Number
+ 273              	.LVL31:
+ 274              	.L14:
+  93:main.c        ****     }
+  94:main.c        ****     if (control==1)
+ 275              		.loc 1 94 0
+ 276 0036 234B     		ldr	r3, .L17+8
+ 277 0038 B3F90230 		ldrsh	r3, [r3, #2]
+ 278 003c 012B     		cmp	r3, #1
+ 279 003e 2CD1     		bne	.L15
+  95:main.c        ****     /* calculo de la salida de control automático */
+  96:main.c        ****     {
+  97:main.c        ****         error=ref_counter-counter;
+ 280              		.loc 1 97 0
+ 281 0040 204D     		ldr	r5, .L17+8
+ 282 0042 1E4C     		ldr	r4, .L17
+ 283 0044 6868     		ldr	r0, [r5, #4]
+ 284 0046 2368     		ldr	r3, [r4]
+ 285 0048 C01A     		subs	r0, r0, r3
+ 286 004a FFF7FEFF 		bl	__aeabi_i2f
+ 287              	.LVL32:
+ 288 004e 1E4E     		ldr	r6, .L17+12
+ 289 0050 3060     		str	r0, [r6]	@ float
+  98:main.c        ****         Pkp=PkP*error;
+ 290              		.loc 1 98 0
+ 291 0052 3068     		ldr	r0, [r6]	@ float
+ 292 0054 A968     		ldr	r1, [r5, #8]	@ float
+ 293 0056 FFF7FEFF 		bl	__aeabi_fmul
+ 294              	.LVL33:
+ 295 005a 1C4F     		ldr	r7, .L17+16
+ 296 005c 3860     		str	r0, [r7]	@ float
+  99:main.c        ****         Pki=PkI*(error+Pki_anterior);
+ 297              		.loc 1 99 0
+ 298 005e 3068     		ldr	r0, [r6]	@ float
+ARM GAS  C:\Users\Darwin\AppData\Local\Temp\cceXYrWy.s 			page 8
 
 
-  91:main.c        ****     PWM_Motor_Start();
- 308              		.loc 1 91 0
- 309 0002 FFF7FEFF 		bl	PWM_Motor_Start
- 310              	.LVL36:
-  92:main.c        ****     LCD_Start();
- 311              		.loc 1 92 0
- 312 0006 FFF7FEFF 		bl	LCD_Start
- 313              	.LVL37:
-  93:main.c        ****     timer_clock_Start();
- 314              		.loc 1 93 0
- 315 000a FFF7FEFF 		bl	timer_clock_Start
- 316              	.LVL38:
-  94:main.c        ****     QuadDec_Start();
- 317              		.loc 1 94 0
- 318 000e FFF7FEFF 		bl	QuadDec_Start
- 319              	.LVL39:
-  95:main.c        ****     Timer_Start();
- 320              		.loc 1 95 0
- 321 0012 FFF7FEFF 		bl	Timer_Start
- 322              	.LVL40:
-  96:main.c        ****     
-  97:main.c        ****     /*QuadDec_SetCounter(0);*/
-  98:main.c        ****     
-  99:main.c        ****     LCD_Position(0,0);
- 323              		.loc 1 99 0
- 324 0016 0021     		movs	r1, #0
- 325 0018 0846     		mov	r0, r1
- 326 001a FFF7FEFF 		bl	LCD_Position
- 327              	.LVL41:
- 100:main.c        ****     LCD_PrintString("control:");
- 328              		.loc 1 100 0
- 329 001e 1248     		ldr	r0, .L20
- 330 0020 FFF7FEFF 		bl	LCD_PrintString
- 331              	.LVL42:
- 101:main.c        ****     LCD_Position(0,10);
- 332              		.loc 1 101 0
- 333 0024 0A21     		movs	r1, #10
- 334 0026 0020     		movs	r0, #0
- 335 0028 FFF7FEFF 		bl	LCD_Position
- 336              	.LVL43:
- 102:main.c        ****     LCD_PrintNumber(control);
- 337              		.loc 1 102 0
- 338 002c 0F4B     		ldr	r3, .L20+4
- 339 002e 1888     		ldrh	r0, [r3]
- 340 0030 FFF7FEFF 		bl	LCD_PrintU32Number
- 341              	.LVL44:
- 103:main.c        ****     
- 104:main.c        ****     LCD_Position(1,0);
- 342              		.loc 1 104 0
- 343 0034 0021     		movs	r1, #0
- 344 0036 0120     		movs	r0, #1
- 345 0038 FFF7FEFF 		bl	LCD_Position
- 346              	.LVL45:
- 105:main.c        ****     LCD_PrintString("angulo:");
- 347              		.loc 1 105 0
- 348 003c 0C48     		ldr	r0, .L20+8
- 349 003e FFF7FEFF 		bl	LCD_PrintString
-ARM GAS  C:\Users\Darwin\AppData\Local\Temp\cceKxohI.s 			page 9
+ 299 0060 6168     		ldr	r1, [r4, #4]	@ float
+ 300 0062 FFF7FEFF 		bl	__aeabi_fadd
+ 301              	.LVL34:
+ 302 0066 E968     		ldr	r1, [r5, #12]	@ float
+ 303 0068 FFF7FEFF 		bl	__aeabi_fmul
+ 304              	.LVL35:
+ 305 006c 184B     		ldr	r3, .L17+20
+ 306 006e 1860     		str	r0, [r3]	@ float
+ 100:main.c        ****          /*Pkd=(PkD*N*(error-error_anterior)+PkD_anterior)/(1+N*Ts);
+ 101:main.c        ****         control_auto=Pkp+Pki+Pkd;
+ 102:main.c        ****         control_auto=(control_auto+7.4221)/0.0481;
+ 103:main.c        ****         Prevenciones
+ 104:main.c        ****         if(control_auto>200){control_auto=200;}
+ 105:main.c        ****         if(control_auto<120){control_auto=120;}*/
+ 106:main.c        ****         
+ 107:main.c        ****         Pkp_anterior=Pkp;
+ 307              		.loc 1 107 0
+ 308 0070 3A68     		ldr	r2, [r7]	@ float
+ 309 0072 A260     		str	r2, [r4, #8]	@ float
+ 108:main.c        ****         Pki_anterior=Pki;
+ 310              		.loc 1 108 0
+ 311 0074 1B68     		ldr	r3, [r3]	@ float
+ 312 0076 6360     		str	r3, [r4, #4]	@ float
+ 109:main.c        ****         Pkd_anterior=Pkd;
+ 313              		.loc 1 109 0
+ 314 0078 164B     		ldr	r3, .L17+24
+ 315 007a 1B68     		ldr	r3, [r3]	@ float
+ 316 007c E360     		str	r3, [r4, #12]	@ float
+ 110:main.c        ****         error_anterior=error;
+ 317              		.loc 1 110 0
+ 318 007e 3268     		ldr	r2, [r6]	@ float
+ 319 0080 154B     		ldr	r3, .L17+28
+ 320 0082 1A60     		str	r2, [r3]	@ float
+ 111:main.c        ****         
+ 112:main.c        ****         control_auto=165+Pkp;
+ 321              		.loc 1 112 0
+ 322 0084 3868     		ldr	r0, [r7]	@ float
+ 323 0086 1549     		ldr	r1, .L17+32
+ 324 0088 FFF7FEFF 		bl	__aeabi_fadd
+ 325              	.LVL36:
+ 326 008c FFF7FEFF 		bl	__aeabi_f2iz
+ 327              	.LVL37:
+ 328 0090 00B2     		sxth	r0, r0
+ 329 0092 2882     		strh	r0, [r5, #16]	@ movhi
+ 113:main.c        ****         LCD_PrintNumber(control_auto);
+ 330              		.loc 1 113 0
+ 331 0094 80B2     		uxth	r0, r0
+ 332 0096 FFF7FEFF 		bl	LCD_PrintU32Number
+ 333              	.LVL38:
+ 334              	.L15:
+ 114:main.c        ****     }
+ 115:main.c        ****     LCD_Position(1,0);
+ 335              		.loc 1 115 0
+ 336 009a 0021     		movs	r1, #0
+ 337 009c 0120     		movs	r0, #1
+ 338 009e FFF7FEFF 		bl	LCD_Position
+ 339              	.LVL39:
+ARM GAS  C:\Users\Darwin\AppData\Local\Temp\cceXYrWy.s 			page 9
 
 
- 350              	.LVL46:
- 106:main.c        ****     LCD_Position(1,10);
- 351              		.loc 1 106 0
- 352 0042 0A21     		movs	r1, #10
- 353 0044 0120     		movs	r0, #1
- 354 0046 FFF7FEFF 		bl	LCD_Position
- 355              	.LVL47:
- 107:main.c        ****     LCD_PrintNumber(counter);
- 356              		.loc 1 107 0
- 357 004a 0A4B     		ldr	r3, .L20+12
- 358 004c 1888     		ldrh	r0, [r3]
- 359 004e FFF7FEFF 		bl	LCD_PrintU32Number
- 360              	.LVL48:
- 108:main.c        ****     
- 109:main.c        ****     CyGlobalIntEnable; /* Enable global interrupts. */
- 361              		.loc 1 109 0
- 362              		.syntax unified
- 363              	@ 109 "main.c" 1
- 364 0052 62B6     		CPSIE   i
- 365              	@ 0 "" 2
- 110:main.c        ****     
- 111:main.c        ****     isr_Aumentar_StartEx(AumentarInt);
- 366              		.loc 1 111 0
- 367              		.thumb
- 368              		.syntax unified
- 369 0054 0848     		ldr	r0, .L20+16
- 370 0056 FFF7FEFF 		bl	isr_Aumentar_StartEx
- 371              	.LVL49:
- 112:main.c        ****     isr_Disminuir_StartEx(DisminuirInt);
- 372              		.loc 1 112 0
- 373 005a 0848     		ldr	r0, .L20+20
- 374 005c FFF7FEFF 		bl	isr_Disminuir_StartEx
- 375              	.LVL50:
- 113:main.c        ****     isr_Ts_StartEx(Muestreo);
- 376              		.loc 1 113 0
- 377 0060 0748     		ldr	r0, .L20+24
- 378 0062 FFF7FEFF 		bl	isr_Ts_StartEx
- 379              	.LVL51:
- 380              	.L18:
- 381 0066 FEE7     		b	.L18
- 382              	.L21:
- 383              		.align	2
- 384              	.L20:
- 385 0068 00000000 		.word	.LC0
- 386 006c 00000000 		.word	.LANCHOR0
- 387 0070 0C000000 		.word	.LC1
- 388 0074 00000000 		.word	.LANCHOR1
- 389 0078 00000000 		.word	AumentarInt
- 390 007c 00000000 		.word	DisminuirInt
- 391 0080 00000000 		.word	Muestreo
- 392              		.cfi_endproc
- 393              	.LFE66:
- 394              		.size	main, .-main
- 395              		.global	counter
- 396              		.global	control
- 397              		.data
- 398              		.align	1
-ARM GAS  C:\Users\Darwin\AppData\Local\Temp\cceKxohI.s 			page 10
+ 116:main.c        ****     LCD_PrintString("angulo:");
+ 340              		.loc 1 116 0
+ 341 00a2 0F48     		ldr	r0, .L17+36
+ 342 00a4 FFF7FEFF 		bl	LCD_PrintString
+ 343              	.LVL40:
+ 117:main.c        ****     LCD_Position(1,10);
+ 344              		.loc 1 117 0
+ 345 00a8 0A21     		movs	r1, #10
+ 346 00aa 0120     		movs	r0, #1
+ 347 00ac FFF7FEFF 		bl	LCD_Position
+ 348              	.LVL41:
+ 118:main.c        ****     LCD_PrintNumber(counter);
+ 349              		.loc 1 118 0
+ 350 00b0 024B     		ldr	r3, .L17
+ 351 00b2 1888     		ldrh	r0, [r3]
+ 352 00b4 FFF7FEFF 		bl	LCD_PrintU32Number
+ 353              	.LVL42:
+ 354 00b8 F8BD     		pop	{r3, r4, r5, r6, r7, pc}
+ 355              	.L18:
+ 356 00ba 00BF     		.align	2
+ 357              	.L17:
+ 358 00bc 00000000 		.word	.LANCHOR1
+ 359 00c0 00000000 		.word	.LC0
+ 360 00c4 00000000 		.word	.LANCHOR0
+ 361 00c8 00000000 		.word	error
+ 362 00cc 00000000 		.word	Pkp
+ 363 00d0 00000000 		.word	Pki
+ 364 00d4 00000000 		.word	Pkd
+ 365 00d8 00000000 		.word	error_anterior
+ 366 00dc 00002543 		.word	1126498304
+ 367 00e0 0C000000 		.word	.LC1
+ 368              		.cfi_endproc
+ 369              	.LFE65:
+ 370              		.size	Muestreo, .-Muestreo
+ 371              		.section	.text.main,"ax",%progbits
+ 372              		.align	2
+ 373              		.global	main
+ 374              		.thumb
+ 375              		.thumb_func
+ 376              		.type	main, %function
+ 377              	main:
+ 378              	.LFB66:
+ 119:main.c        ****     
+ 120:main.c        **** }
+ 121:main.c        **** 
+ 122:main.c        **** int main(void)
+ 123:main.c        **** {
+ 379              		.loc 1 123 0
+ 380              		.cfi_startproc
+ 381              		@ Volatile: function does not return.
+ 382              		@ args = 0, pretend = 0, frame = 0
+ 383              		@ frame_needed = 0, uses_anonymous_args = 0
+ 384 0000 08B5     		push	{r3, lr}
+ 385              		.cfi_def_cfa_offset 8
+ 386              		.cfi_offset 3, -8
+ 387              		.cfi_offset 14, -4
+ 124:main.c        ****     PWM_Motor_Start();
+ARM GAS  C:\Users\Darwin\AppData\Local\Temp\cceXYrWy.s 			page 10
 
 
- 399              		.set	.LANCHOR0,. + 0
- 400              		.type	control, %object
- 401              		.size	control, 2
- 402              	control:
- 403 0000 7800     		.short	120
- 404              		.section	.rodata.str1.4,"aMS",%progbits,1
- 405              		.align	2
- 406              	.LC0:
- 407 0000 636F6E74 		.ascii	"control:\000"
- 407      726F6C3A 
- 407      00
- 408 0009 000000   		.space	3
- 409              	.LC1:
- 410 000c 616E6775 		.ascii	"angulo:\000"
- 410      6C6F3A00 
- 411              		.bss
- 412              		.align	2
- 413              		.set	.LANCHOR1,. + 0
- 414              		.type	counter, %object
- 415              		.size	counter, 4
- 416              	counter:
- 417 0000 00000000 		.space	4
- 418              		.text
- 419              	.Letext0:
- 420              		.file 2 "c:\\program files (x86)\\cypress\\psoc creator\\4.2\\psoc creator\\import\\gnu\\arm\\5.4.
- 421              		.file 3 "c:\\program files (x86)\\cypress\\psoc creator\\4.2\\psoc creator\\import\\gnu\\arm\\5.4.
- 422              		.file 4 "Generated_Source\\PSoC5/cytypes.h"
- 423              		.file 5 "Generated_Source\\PSoC5/core_cm3.h"
- 424              		.file 6 "Generated_Source\\PSoC5/PWM_Motor.h"
- 425              		.file 7 "Generated_Source\\PSoC5/Reset_PWM.h"
- 426              		.file 8 "Generated_Source\\PSoC5/LED.h"
- 427              		.file 9 "Generated_Source\\PSoC5/LCD.h"
- 428              		.file 10 "Generated_Source\\PSoC5/QuadDec.h"
- 429              		.file 11 "Generated_Source\\PSoC5/timer_clock.h"
- 430              		.file 12 "Generated_Source\\PSoC5/Timer.h"
- 431              		.file 13 "Generated_Source\\PSoC5/isr_Aumentar.h"
- 432              		.file 14 "Generated_Source\\PSoC5/isr_Disminuir.h"
- 433              		.file 15 "Generated_Source\\PSoC5/isr_Ts.h"
- 434              		.section	.debug_info,"",%progbits
- 435              	.Ldebug_info0:
- 436 0000 AC050000 		.4byte	0x5ac
- 437 0004 0400     		.2byte	0x4
- 438 0006 00000000 		.4byte	.Ldebug_abbrev0
- 439 000a 04       		.byte	0x4
- 440 000b 01       		.uleb128 0x1
- 441 000c 74000000 		.4byte	.LASF40
- 442 0010 0C       		.byte	0xc
- 443 0011 9C020000 		.4byte	.LASF41
- 444 0015 DA010000 		.4byte	.LASF42
- 445 0019 00000000 		.4byte	.Ldebug_ranges0+0
- 446 001d 00000000 		.4byte	0
- 447 0021 00000000 		.4byte	.Ldebug_line0
- 448 0025 02       		.uleb128 0x2
- 449 0026 01       		.byte	0x1
- 450 0027 06       		.byte	0x6
- 451 0028 E7020000 		.4byte	.LASF0
- 452 002c 02       		.uleb128 0x2
-ARM GAS  C:\Users\Darwin\AppData\Local\Temp\cceKxohI.s 			page 11
+ 388              		.loc 1 124 0
+ 389 0002 FFF7FEFF 		bl	PWM_Motor_Start
+ 390              	.LVL43:
+ 125:main.c        ****     LCD_Start();
+ 391              		.loc 1 125 0
+ 392 0006 FFF7FEFF 		bl	LCD_Start
+ 393              	.LVL44:
+ 126:main.c        ****     timer_clock_Start();
+ 394              		.loc 1 126 0
+ 395 000a FFF7FEFF 		bl	timer_clock_Start
+ 396              	.LVL45:
+ 127:main.c        ****     QuadDec_Start();
+ 397              		.loc 1 127 0
+ 398 000e FFF7FEFF 		bl	QuadDec_Start
+ 399              	.LVL46:
+ 128:main.c        ****     Timer_Start();
+ 400              		.loc 1 128 0
+ 401 0012 FFF7FEFF 		bl	Timer_Start
+ 402              	.LVL47:
+ 129:main.c        ****     
+ 130:main.c        **** 
+ 131:main.c        ****     
+ 132:main.c        ****     /*QuadDec_SetCounter(0);*/
+ 133:main.c        ****     
+ 134:main.c        ****     LCD_Position(0,0);
+ 403              		.loc 1 134 0
+ 404 0016 0021     		movs	r1, #0
+ 405 0018 0846     		mov	r0, r1
+ 406 001a FFF7FEFF 		bl	LCD_Position
+ 407              	.LVL48:
+ 135:main.c        ****     LCD_PrintString("control:");
+ 408              		.loc 1 135 0
+ 409 001e 1948     		ldr	r0, .L24
+ 410 0020 FFF7FEFF 		bl	LCD_PrintString
+ 411              	.LVL49:
+ 136:main.c        ****     LCD_Position(0,10);
+ 412              		.loc 1 136 0
+ 413 0024 0A21     		movs	r1, #10
+ 414 0026 0020     		movs	r0, #0
+ 415 0028 FFF7FEFF 		bl	LCD_Position
+ 416              	.LVL50:
+ 137:main.c        ****     if (control==0)
+ 417              		.loc 1 137 0
+ 418 002c 164B     		ldr	r3, .L24+4
+ 419 002e B3F90230 		ldrsh	r3, [r3, #2]
+ 420 0032 1BB9     		cbnz	r3, .L20
+ 138:main.c        ****     {
+ 139:main.c        ****         LCD_PrintNumber(control_manual);
+ 421              		.loc 1 139 0
+ 422 0034 144B     		ldr	r3, .L24+4
+ 423 0036 1888     		ldrh	r0, [r3]
+ 424 0038 FFF7FEFF 		bl	LCD_PrintU32Number
+ 425              	.LVL51:
+ 426              	.L20:
+ 140:main.c        ****     }
+ 141:main.c        ****     if (control==1)
+ 427              		.loc 1 141 0
+ARM GAS  C:\Users\Darwin\AppData\Local\Temp\cceXYrWy.s 			page 11
 
 
- 453 002d 01       		.byte	0x1
- 454 002e 08       		.byte	0x8
- 455 002f 81010000 		.4byte	.LASF1
- 456 0033 02       		.uleb128 0x2
- 457 0034 02       		.byte	0x2
- 458 0035 05       		.byte	0x5
- 459 0036 B9020000 		.4byte	.LASF2
- 460 003a 02       		.uleb128 0x2
- 461 003b 02       		.byte	0x2
- 462 003c 07       		.byte	0x7
- 463 003d 1A010000 		.4byte	.LASF3
- 464 0041 03       		.uleb128 0x3
- 465 0042 14000000 		.4byte	.LASF9
- 466 0046 02       		.byte	0x2
- 467 0047 3F       		.byte	0x3f
- 468 0048 4C000000 		.4byte	0x4c
- 469 004c 02       		.uleb128 0x2
- 470 004d 04       		.byte	0x4
- 471 004e 05       		.byte	0x5
- 472 004f D2020000 		.4byte	.LASF4
- 473 0053 02       		.uleb128 0x2
- 474 0054 04       		.byte	0x4
- 475 0055 07       		.byte	0x7
- 476 0056 08010000 		.4byte	.LASF5
- 477 005a 02       		.uleb128 0x2
- 478 005b 08       		.byte	0x8
- 479 005c 05       		.byte	0x5
- 480 005d 8E020000 		.4byte	.LASF6
- 481 0061 02       		.uleb128 0x2
- 482 0062 08       		.byte	0x8
- 483 0063 07       		.byte	0x7
- 484 0064 3E020000 		.4byte	.LASF7
- 485 0068 04       		.uleb128 0x4
- 486 0069 04       		.byte	0x4
- 487 006a 05       		.byte	0x5
- 488 006b 696E7400 		.ascii	"int\000"
- 489 006f 02       		.uleb128 0x2
- 490 0070 04       		.byte	0x4
- 491 0071 07       		.byte	0x7
- 492 0072 31020000 		.4byte	.LASF8
- 493 0076 03       		.uleb128 0x3
- 494 0077 49000000 		.4byte	.LASF10
- 495 007b 03       		.byte	0x3
- 496 007c 2C       		.byte	0x2c
- 497 007d 41000000 		.4byte	0x41
- 498 0081 05       		.uleb128 0x5
- 499 0082 96010000 		.4byte	.LASF11
- 500 0086 04       		.byte	0x4
- 501 0087 E501     		.2byte	0x1e5
- 502 0089 3A000000 		.4byte	0x3a
- 503 008d 05       		.uleb128 0x5
- 504 008e 02010000 		.4byte	.LASF12
- 505 0092 04       		.byte	0x4
- 506 0093 E801     		.2byte	0x1e8
- 507 0095 33000000 		.4byte	0x33
- 508 0099 02       		.uleb128 0x2
- 509 009a 04       		.byte	0x4
-ARM GAS  C:\Users\Darwin\AppData\Local\Temp\cceKxohI.s 			page 12
+ 428 003c 124B     		ldr	r3, .L24+4
+ 429 003e B3F90230 		ldrsh	r3, [r3, #2]
+ 430 0042 012B     		cmp	r3, #1
+ 431 0044 03D1     		bne	.L21
+ 142:main.c        ****     {
+ 143:main.c        ****         LCD_PrintNumber(control_auto);
+ 432              		.loc 1 143 0
+ 433 0046 104B     		ldr	r3, .L24+4
+ 434 0048 188A     		ldrh	r0, [r3, #16]
+ 435 004a FFF7FEFF 		bl	LCD_PrintU32Number
+ 436              	.LVL52:
+ 437              	.L21:
+ 144:main.c        ****     }
+ 145:main.c        ****     LCD_Position(1,0);
+ 438              		.loc 1 145 0
+ 439 004e 0021     		movs	r1, #0
+ 440 0050 0120     		movs	r0, #1
+ 441 0052 FFF7FEFF 		bl	LCD_Position
+ 442              	.LVL53:
+ 146:main.c        ****     LCD_PrintString("angulo:");
+ 443              		.loc 1 146 0
+ 444 0056 0D48     		ldr	r0, .L24+8
+ 445 0058 FFF7FEFF 		bl	LCD_PrintString
+ 446              	.LVL54:
+ 147:main.c        ****     LCD_Position(1,10);
+ 447              		.loc 1 147 0
+ 448 005c 0A21     		movs	r1, #10
+ 449 005e 0120     		movs	r0, #1
+ 450 0060 FFF7FEFF 		bl	LCD_Position
+ 451              	.LVL55:
+ 148:main.c        ****     LCD_PrintNumber(counter);
+ 452              		.loc 1 148 0
+ 453 0064 0A4B     		ldr	r3, .L24+12
+ 454 0066 1888     		ldrh	r0, [r3]
+ 455 0068 FFF7FEFF 		bl	LCD_PrintU32Number
+ 456              	.LVL56:
+ 149:main.c        ****     
+ 150:main.c        ****     CyGlobalIntEnable; /* Enable global interrupts. */
+ 457              		.loc 1 150 0
+ 458              		.syntax unified
+ 459              	@ 150 "main.c" 1
+ 460 006c 62B6     		CPSIE   i
+ 461              	@ 0 "" 2
+ 151:main.c        ****     
+ 152:main.c        ****     isr_Aumentar_StartEx(AumentarInt);
+ 462              		.loc 1 152 0
+ 463              		.thumb
+ 464              		.syntax unified
+ 465 006e 0948     		ldr	r0, .L24+16
+ 466 0070 FFF7FEFF 		bl	isr_Aumentar_StartEx
+ 467              	.LVL57:
+ 153:main.c        ****     isr_Disminuir_StartEx(DisminuirInt);
+ 468              		.loc 1 153 0
+ 469 0074 0848     		ldr	r0, .L24+20
+ 470 0076 FFF7FEFF 		bl	isr_Disminuir_StartEx
+ 471              	.LVL58:
+ 154:main.c        ****     isr_Ts_StartEx(Muestreo);
+ARM GAS  C:\Users\Darwin\AppData\Local\Temp\cceXYrWy.s 			page 12
 
 
- 510 009b 04       		.byte	0x4
- 511 009c 51000000 		.4byte	.LASF13
- 512 00a0 02       		.uleb128 0x2
- 513 00a1 08       		.byte	0x8
- 514 00a2 04       		.byte	0x4
- 515 00a3 8F010000 		.4byte	.LASF14
- 516 00a7 02       		.uleb128 0x2
- 517 00a8 01       		.byte	0x1
- 518 00a9 08       		.byte	0x8
- 519 00aa A3020000 		.4byte	.LASF15
- 520 00ae 02       		.uleb128 0x2
- 521 00af 08       		.byte	0x8
- 522 00b0 04       		.byte	0x4
- 523 00b1 DB020000 		.4byte	.LASF16
- 524 00b5 02       		.uleb128 0x2
- 525 00b6 04       		.byte	0x4
- 526 00b7 07       		.byte	0x7
- 527 00b8 85020000 		.4byte	.LASF17
- 528 00bc 06       		.uleb128 0x6
- 529 00bd 9D010000 		.4byte	.LASF18
- 530 00c1 01       		.byte	0x1
- 531 00c2 14       		.byte	0x14
- 532 00c3 00000000 		.4byte	.LFB63
- 533 00c7 80000000 		.4byte	.LFE63-.LFB63
- 534 00cb 01       		.uleb128 0x1
- 535 00cc 9C       		.byte	0x9c
- 536 00cd C7010000 		.4byte	0x1c7
- 537 00d1 07       		.uleb128 0x7
- 538 00d2 18000000 		.4byte	.LVL0
- 539 00d6 FF040000 		.4byte	0x4ff
- 540 00da 08       		.uleb128 0x8
- 541 00db 1E000000 		.4byte	.LVL1
- 542 00df 0A050000 		.4byte	0x50a
- 543 00e3 ED000000 		.4byte	0xed
- 544 00e7 09       		.uleb128 0x9
- 545 00e8 01       		.uleb128 0x1
- 546 00e9 50       		.byte	0x50
- 547 00ea 01       		.uleb128 0x1
- 548 00eb 31       		.byte	0x31
- 549 00ec 00       		.byte	0
- 550 00ed 08       		.uleb128 0x8
- 551 00ee 24000000 		.4byte	.LVL2
- 552 00f2 0A050000 		.4byte	0x50a
- 553 00f6 00010000 		.4byte	0x100
- 554 00fa 09       		.uleb128 0x9
- 555 00fb 01       		.uleb128 0x1
- 556 00fc 50       		.byte	0x50
- 557 00fd 01       		.uleb128 0x1
- 558 00fe 30       		.byte	0x30
- 559 00ff 00       		.byte	0
- 560 0100 08       		.uleb128 0x8
- 561 0101 2A000000 		.4byte	.LVL3
- 562 0105 15050000 		.4byte	0x515
- 563 0109 13010000 		.4byte	0x113
- 564 010d 09       		.uleb128 0x9
- 565 010e 01       		.uleb128 0x1
- 566 010f 50       		.byte	0x50
-ARM GAS  C:\Users\Darwin\AppData\Local\Temp\cceKxohI.s 			page 13
+ 472              		.loc 1 154 0
+ 473 007a 0848     		ldr	r0, .L24+24
+ 474 007c FFF7FEFF 		bl	isr_Ts_StartEx
+ 475              	.LVL59:
+ 476              	.L22:
+ 477 0080 FEE7     		b	.L22
+ 478              	.L25:
+ 479 0082 00BF     		.align	2
+ 480              	.L24:
+ 481 0084 00000000 		.word	.LC0
+ 482 0088 00000000 		.word	.LANCHOR0
+ 483 008c 0C000000 		.word	.LC1
+ 484 0090 00000000 		.word	.LANCHOR1
+ 485 0094 00000000 		.word	AumentarInt
+ 486 0098 00000000 		.word	DisminuirInt
+ 487 009c 00000000 		.word	Muestreo
+ 488              		.cfi_endproc
+ 489              	.LFE66:
+ 490              		.size	main, .-main
+ 491              		.global	Pkd_anterior
+ 492              		.global	Pki_anterior
+ 493              		.global	Pkp_anterior
+ 494              		.comm	Pkd,4,4
+ 495              		.comm	Pki,4,4
+ 496              		.comm	Pkp,4,4
+ 497              		.comm	error_anterior,4,4
+ 498              		.comm	error,4,4
+ 499              		.global	N
+ 500              		.global	PkD
+ 501              		.global	PkI
+ 502              		.global	PkP
+ 503              		.global	control
+ 504              		.global	ref_counter
+ 505              		.global	counter
+ 506              		.global	control_auto
+ 507              		.global	control_manual
+ 508              		.global	Ts
+ 509              		.data
+ 510              		.align	2
+ 511              		.set	.LANCHOR0,. + 0
+ 512              		.type	control_manual, %object
+ 513              		.size	control_manual, 2
+ 514              	control_manual:
+ 515 0000 7800     		.short	120
+ 516              		.type	control, %object
+ 517              		.size	control, 2
+ 518              	control:
+ 519 0002 0100     		.short	1
+ 520              		.type	ref_counter, %object
+ 521              		.size	ref_counter, 4
+ 522              	ref_counter:
+ 523 0004 50000000 		.word	80
+ 524              		.type	PkP, %object
+ 525              		.size	PkP, 4
+ 526              	PkP:
+ 527 0008 5A647B3F 		.word	1065051226
+ 528              		.type	PkI, %object
+ARM GAS  C:\Users\Darwin\AppData\Local\Temp\cceXYrWy.s 			page 13
 
 
- 567 0110 01       		.uleb128 0x1
- 568 0111 31       		.byte	0x31
- 569 0112 00       		.byte	0
- 570 0113 08       		.uleb128 0x8
- 571 0114 30000000 		.4byte	.LVL4
- 572 0118 20050000 		.4byte	0x520
- 573 011c 26010000 		.4byte	0x126
- 574 0120 09       		.uleb128 0x9
- 575 0121 01       		.uleb128 0x1
- 576 0122 50       		.byte	0x50
- 577 0123 01       		.uleb128 0x1
- 578 0124 31       		.byte	0x31
- 579 0125 00       		.byte	0
- 580 0126 08       		.uleb128 0x8
- 581 0127 38000000 		.4byte	.LVL5
- 582 012b 2B050000 		.4byte	0x52b
- 583 012f 3E010000 		.4byte	0x13e
- 584 0133 09       		.uleb128 0x9
- 585 0134 01       		.uleb128 0x1
- 586 0135 50       		.byte	0x50
- 587 0136 01       		.uleb128 0x1
- 588 0137 30       		.byte	0x30
- 589 0138 09       		.uleb128 0x9
- 590 0139 01       		.uleb128 0x1
- 591 013a 51       		.byte	0x51
- 592 013b 01       		.uleb128 0x1
- 593 013c 30       		.byte	0x30
- 594 013d 00       		.byte	0
- 595 013e 08       		.uleb128 0x8
- 596 013f 3E000000 		.4byte	.LVL6
- 597 0143 36050000 		.4byte	0x536
- 598 0147 55010000 		.4byte	0x155
- 599 014b 09       		.uleb128 0x9
- 600 014c 01       		.uleb128 0x1
- 601 014d 50       		.byte	0x50
- 602 014e 05       		.uleb128 0x5
- 603 014f 03       		.byte	0x3
- 604 0150 00000000 		.4byte	.LC0
- 605 0154 00       		.byte	0
- 606 0155 08       		.uleb128 0x8
- 607 0156 46000000 		.4byte	.LVL7
- 608 015a 2B050000 		.4byte	0x52b
- 609 015e 6D010000 		.4byte	0x16d
- 610 0162 09       		.uleb128 0x9
- 611 0163 01       		.uleb128 0x1
- 612 0164 50       		.byte	0x50
- 613 0165 01       		.uleb128 0x1
- 614 0166 30       		.byte	0x30
- 615 0167 09       		.uleb128 0x9
- 616 0168 01       		.uleb128 0x1
- 617 0169 51       		.byte	0x51
- 618 016a 01       		.uleb128 0x1
- 619 016b 3A       		.byte	0x3a
- 620 016c 00       		.byte	0
- 621 016d 07       		.uleb128 0x7
- 622 016e 4C000000 		.4byte	.LVL8
- 623 0172 41050000 		.4byte	0x541
-ARM GAS  C:\Users\Darwin\AppData\Local\Temp\cceKxohI.s 			page 14
+ 529              		.size	PkI, 4
+ 530              	PkI:
+ 531 000c 643B1F3E 		.word	1042234212
+ 532              		.type	control_auto, %object
+ 533              		.size	control_auto, 2
+ 534              	control_auto:
+ 535 0010 6400     		.short	100
+ 536 0012 0000     		.space	2
+ 537              		.type	N, %object
+ 538              		.size	N, 4
+ 539              	N:
+ 540 0014 66E62543 		.word	1126557286
+ 541              		.type	PkD, %object
+ 542              		.size	PkD, 4
+ 543              	PkD:
+ 544 0018 4339D13C 		.word	1020344643
+ 545              		.type	Ts, %object
+ 546              		.size	Ts, 4
+ 547              	Ts:
+ 548 001c 0AD7A33B 		.word	1000593162
+ 549              		.section	.rodata.str1.4,"aMS",%progbits,1
+ 550              		.align	2
+ 551              	.LC0:
+ 552 0000 636F6E74 		.ascii	"control:\000"
+ 552      726F6C3A 
+ 552      00
+ 553 0009 000000   		.space	3
+ 554              	.LC1:
+ 555 000c 616E6775 		.ascii	"angulo:\000"
+ 555      6C6F3A00 
+ 556              		.bss
+ 557              		.align	2
+ 558              		.set	.LANCHOR1,. + 0
+ 559              		.type	counter, %object
+ 560              		.size	counter, 4
+ 561              	counter:
+ 562 0000 00000000 		.space	4
+ 563              		.type	Pki_anterior, %object
+ 564              		.size	Pki_anterior, 4
+ 565              	Pki_anterior:
+ 566 0004 00000000 		.space	4
+ 567              		.type	Pkp_anterior, %object
+ 568              		.size	Pkp_anterior, 4
+ 569              	Pkp_anterior:
+ 570 0008 00000000 		.space	4
+ 571              		.type	Pkd_anterior, %object
+ 572              		.size	Pkd_anterior, 4
+ 573              	Pkd_anterior:
+ 574 000c 00000000 		.space	4
+ 575              		.text
+ 576              	.Letext0:
+ 577              		.file 2 "c:\\program files (x86)\\cypress\\psoc creator\\4.2\\psoc creator\\import\\gnu\\arm\\5.4.
+ 578              		.file 3 "c:\\program files (x86)\\cypress\\psoc creator\\4.2\\psoc creator\\import\\gnu\\arm\\5.4.
+ 579              		.file 4 "Generated_Source\\PSoC5/cytypes.h"
+ 580              		.file 5 "Generated_Source\\PSoC5/core_cm3.h"
+ 581              		.file 6 "Generated_Source\\PSoC5/PWM_Motor.h"
+ 582              		.file 7 "Generated_Source\\PSoC5/Reset_PWM.h"
+ARM GAS  C:\Users\Darwin\AppData\Local\Temp\cceXYrWy.s 			page 14
 
 
- 624 0176 08       		.uleb128 0x8
- 625 0177 54000000 		.4byte	.LVL9
- 626 017b 2B050000 		.4byte	0x52b
- 627 017f 8E010000 		.4byte	0x18e
- 628 0183 09       		.uleb128 0x9
- 629 0184 01       		.uleb128 0x1
- 630 0185 50       		.byte	0x50
- 631 0186 01       		.uleb128 0x1
- 632 0187 31       		.byte	0x31
- 633 0188 09       		.uleb128 0x9
- 634 0189 01       		.uleb128 0x1
- 635 018a 51       		.byte	0x51
- 636 018b 01       		.uleb128 0x1
- 637 018c 30       		.byte	0x30
- 638 018d 00       		.byte	0
- 639 018e 08       		.uleb128 0x8
- 640 018f 5A000000 		.4byte	.LVL10
- 641 0193 36050000 		.4byte	0x536
- 642 0197 A5010000 		.4byte	0x1a5
- 643 019b 09       		.uleb128 0x9
- 644 019c 01       		.uleb128 0x1
- 645 019d 50       		.byte	0x50
- 646 019e 05       		.uleb128 0x5
- 647 019f 03       		.byte	0x3
- 648 01a0 0C000000 		.4byte	.LC1
- 649 01a4 00       		.byte	0
- 650 01a5 08       		.uleb128 0x8
- 651 01a6 62000000 		.4byte	.LVL11
- 652 01aa 2B050000 		.4byte	0x52b
- 653 01ae BD010000 		.4byte	0x1bd
- 654 01b2 09       		.uleb128 0x9
- 655 01b3 01       		.uleb128 0x1
- 656 01b4 50       		.byte	0x50
- 657 01b5 01       		.uleb128 0x1
- 658 01b6 31       		.byte	0x31
- 659 01b7 09       		.uleb128 0x9
- 660 01b8 01       		.uleb128 0x1
- 661 01b9 51       		.byte	0x51
- 662 01ba 01       		.uleb128 0x1
- 663 01bb 3A       		.byte	0x3a
- 664 01bc 00       		.byte	0
- 665 01bd 07       		.uleb128 0x7
- 666 01be 6A000000 		.4byte	.LVL12
- 667 01c2 41050000 		.4byte	0x541
- 668 01c6 00       		.byte	0
- 669 01c7 06       		.uleb128 0x6
- 670 01c8 1E000000 		.4byte	.LASF19
- 671 01cc 01       		.byte	0x1
- 672 01cd 2E       		.byte	0x2e
- 673 01ce 00000000 		.4byte	.LFB64
- 674 01d2 80000000 		.4byte	.LFE64-.LFB64
- 675 01d6 01       		.uleb128 0x1
- 676 01d7 9C       		.byte	0x9c
- 677 01d8 D2020000 		.4byte	0x2d2
- 678 01dc 07       		.uleb128 0x7
- 679 01dd 18000000 		.4byte	.LVL13
- 680 01e1 FF040000 		.4byte	0x4ff
-ARM GAS  C:\Users\Darwin\AppData\Local\Temp\cceKxohI.s 			page 15
+ 583              		.file 8 "Generated_Source\\PSoC5/LED.h"
+ 584              		.file 9 "Generated_Source\\PSoC5/LCD.h"
+ 585              		.file 10 "Generated_Source\\PSoC5/QuadDec.h"
+ 586              		.file 11 "Generated_Source\\PSoC5/timer_clock.h"
+ 587              		.file 12 "Generated_Source\\PSoC5/Timer.h"
+ 588              		.file 13 "Generated_Source\\PSoC5/isr_Aumentar.h"
+ 589              		.file 14 "Generated_Source\\PSoC5/isr_Disminuir.h"
+ 590              		.file 15 "Generated_Source\\PSoC5/isr_Ts.h"
+ 591              		.section	.debug_info,"",%progbits
+ 592              	.Ldebug_info0:
+ 593 0000 D0060000 		.4byte	0x6d0
+ 594 0004 0400     		.2byte	0x4
+ 595 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 596 000a 04       		.byte	0x4
+ 597 000b 01       		.uleb128 0x1
+ 598 000c 6E000000 		.4byte	.LASF48
+ 599 0010 0C       		.byte	0xc
+ 600 0011 FE020000 		.4byte	.LASF49
+ 601 0015 0D020000 		.4byte	.LASF50
+ 602 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 603 001d 00000000 		.4byte	0
+ 604 0021 00000000 		.4byte	.Ldebug_line0
+ 605 0025 02       		.uleb128 0x2
+ 606 0026 01       		.byte	0x1
+ 607 0027 06       		.byte	0x6
+ 608 0028 4B030000 		.4byte	.LASF0
+ 609 002c 02       		.uleb128 0x2
+ 610 002d 01       		.byte	0x1
+ 611 002e 08       		.byte	0x8
+ 612 002f 88010000 		.4byte	.LASF1
+ 613 0033 02       		.uleb128 0x2
+ 614 0034 02       		.byte	0x2
+ 615 0035 05       		.byte	0x5
+ 616 0036 C8010000 		.4byte	.LASF2
+ 617 003a 02       		.uleb128 0x2
+ 618 003b 02       		.byte	0x2
+ 619 003c 07       		.byte	0x7
+ 620 003d 21010000 		.4byte	.LASF3
+ 621 0041 03       		.uleb128 0x3
+ 622 0042 17000000 		.4byte	.LASF9
+ 623 0046 02       		.byte	0x2
+ 624 0047 3F       		.byte	0x3f
+ 625 0048 4C000000 		.4byte	0x4c
+ 626 004c 02       		.uleb128 0x2
+ 627 004d 04       		.byte	0x4
+ 628 004e 05       		.byte	0x5
+ 629 004f 36030000 		.4byte	.LASF4
+ 630 0053 02       		.uleb128 0x2
+ 631 0054 04       		.byte	0x4
+ 632 0055 07       		.byte	0x7
+ 633 0056 0F010000 		.4byte	.LASF5
+ 634 005a 02       		.uleb128 0x2
+ 635 005b 08       		.byte	0x8
+ 636 005c 05       		.byte	0x5
+ 637 005d F0020000 		.4byte	.LASF6
+ 638 0061 02       		.uleb128 0x2
+ 639 0062 08       		.byte	0x8
+ARM GAS  C:\Users\Darwin\AppData\Local\Temp\cceXYrWy.s 			page 15
 
 
- 681 01e5 08       		.uleb128 0x8
- 682 01e6 1E000000 		.4byte	.LVL14
- 683 01ea 0A050000 		.4byte	0x50a
- 684 01ee F8010000 		.4byte	0x1f8
- 685 01f2 09       		.uleb128 0x9
- 686 01f3 01       		.uleb128 0x1
- 687 01f4 50       		.byte	0x50
- 688 01f5 01       		.uleb128 0x1
- 689 01f6 31       		.byte	0x31
- 690 01f7 00       		.byte	0
- 691 01f8 08       		.uleb128 0x8
- 692 01f9 24000000 		.4byte	.LVL15
- 693 01fd 0A050000 		.4byte	0x50a
- 694 0201 0B020000 		.4byte	0x20b
- 695 0205 09       		.uleb128 0x9
- 696 0206 01       		.uleb128 0x1
- 697 0207 50       		.byte	0x50
- 698 0208 01       		.uleb128 0x1
- 699 0209 30       		.byte	0x30
- 700 020a 00       		.byte	0
- 701 020b 08       		.uleb128 0x8
- 702 020c 2A000000 		.4byte	.LVL16
- 703 0210 15050000 		.4byte	0x515
- 704 0214 1E020000 		.4byte	0x21e
- 705 0218 09       		.uleb128 0x9
- 706 0219 01       		.uleb128 0x1
- 707 021a 50       		.byte	0x50
- 708 021b 01       		.uleb128 0x1
- 709 021c 30       		.byte	0x30
- 710 021d 00       		.byte	0
- 711 021e 08       		.uleb128 0x8
- 712 021f 30000000 		.4byte	.LVL17
- 713 0223 20050000 		.4byte	0x520
- 714 0227 31020000 		.4byte	0x231
- 715 022b 09       		.uleb128 0x9
- 716 022c 01       		.uleb128 0x1
- 717 022d 50       		.byte	0x50
- 718 022e 01       		.uleb128 0x1
- 719 022f 31       		.byte	0x31
- 720 0230 00       		.byte	0
- 721 0231 08       		.uleb128 0x8
- 722 0232 38000000 		.4byte	.LVL18
- 723 0236 2B050000 		.4byte	0x52b
- 724 023a 49020000 		.4byte	0x249
- 725 023e 09       		.uleb128 0x9
- 726 023f 01       		.uleb128 0x1
- 727 0240 50       		.byte	0x50
- 728 0241 01       		.uleb128 0x1
- 729 0242 30       		.byte	0x30
- 730 0243 09       		.uleb128 0x9
- 731 0244 01       		.uleb128 0x1
- 732 0245 51       		.byte	0x51
- 733 0246 01       		.uleb128 0x1
- 734 0247 30       		.byte	0x30
- 735 0248 00       		.byte	0
- 736 0249 08       		.uleb128 0x8
- 737 024a 3E000000 		.4byte	.LVL19
-ARM GAS  C:\Users\Darwin\AppData\Local\Temp\cceKxohI.s 			page 16
+ 640 0063 07       		.byte	0x7
+ 641 0064 76020000 		.4byte	.LASF7
+ 642 0068 04       		.uleb128 0x4
+ 643 0069 04       		.byte	0x4
+ 644 006a 05       		.byte	0x5
+ 645 006b 696E7400 		.ascii	"int\000"
+ 646 006f 02       		.uleb128 0x2
+ 647 0070 04       		.byte	0x4
+ 648 0071 07       		.byte	0x7
+ 649 0072 69020000 		.4byte	.LASF8
+ 650 0076 03       		.uleb128 0x3
+ 651 0077 43000000 		.4byte	.LASF10
+ 652 007b 03       		.byte	0x3
+ 653 007c 2C       		.byte	0x2c
+ 654 007d 41000000 		.4byte	0x41
+ 655 0081 05       		.uleb128 0x5
+ 656 0082 B5010000 		.4byte	.LASF11
+ 657 0086 04       		.byte	0x4
+ 658 0087 E501     		.2byte	0x1e5
+ 659 0089 3A000000 		.4byte	0x3a
+ 660 008d 05       		.uleb128 0x5
+ 661 008e 09010000 		.4byte	.LASF12
+ 662 0092 04       		.byte	0x4
+ 663 0093 E801     		.2byte	0x1e8
+ 664 0095 33000000 		.4byte	0x33
+ 665 0099 02       		.uleb128 0x2
+ 666 009a 04       		.byte	0x4
+ 667 009b 04       		.byte	0x4
+ 668 009c 4B000000 		.4byte	.LASF13
+ 669 00a0 02       		.uleb128 0x2
+ 670 00a1 08       		.byte	0x8
+ 671 00a2 04       		.byte	0x4
+ 672 00a3 2E000000 		.4byte	.LASF14
+ 673 00a7 02       		.uleb128 0x2
+ 674 00a8 01       		.byte	0x1
+ 675 00a9 08       		.byte	0x8
+ 676 00aa 05030000 		.4byte	.LASF15
+ 677 00ae 02       		.uleb128 0x2
+ 678 00af 08       		.byte	0x8
+ 679 00b0 04       		.byte	0x4
+ 680 00b1 3F030000 		.4byte	.LASF16
+ 681 00b5 02       		.uleb128 0x2
+ 682 00b6 04       		.byte	0x4
+ 683 00b7 07       		.byte	0x7
+ 684 00b8 E1020000 		.4byte	.LASF17
+ 685 00bc 06       		.uleb128 0x6
+ 686 00bd BC010000 		.4byte	.LASF18
+ 687 00c1 01       		.byte	0x1
+ 688 00c2 1E       		.byte	0x1e
+ 689 00c3 00000000 		.4byte	.LFB63
+ 690 00c7 80000000 		.4byte	.LFE63-.LFB63
+ 691 00cb 01       		.uleb128 0x1
+ 692 00cc 9C       		.byte	0x9c
+ 693 00cd C7010000 		.4byte	0x1c7
+ 694 00d1 07       		.uleb128 0x7
+ 695 00d2 18000000 		.4byte	.LVL0
+ 696 00d6 23060000 		.4byte	0x623
+ARM GAS  C:\Users\Darwin\AppData\Local\Temp\cceXYrWy.s 			page 16
 
 
- 738 024e 36050000 		.4byte	0x536
- 739 0252 60020000 		.4byte	0x260
- 740 0256 09       		.uleb128 0x9
- 741 0257 01       		.uleb128 0x1
- 742 0258 50       		.byte	0x50
- 743 0259 05       		.uleb128 0x5
- 744 025a 03       		.byte	0x3
- 745 025b 00000000 		.4byte	.LC0
- 746 025f 00       		.byte	0
- 747 0260 08       		.uleb128 0x8
- 748 0261 46000000 		.4byte	.LVL20
- 749 0265 2B050000 		.4byte	0x52b
- 750 0269 78020000 		.4byte	0x278
- 751 026d 09       		.uleb128 0x9
- 752 026e 01       		.uleb128 0x1
- 753 026f 50       		.byte	0x50
- 754 0270 01       		.uleb128 0x1
- 755 0271 30       		.byte	0x30
- 756 0272 09       		.uleb128 0x9
- 757 0273 01       		.uleb128 0x1
- 758 0274 51       		.byte	0x51
- 759 0275 01       		.uleb128 0x1
- 760 0276 3A       		.byte	0x3a
- 761 0277 00       		.byte	0
- 762 0278 07       		.uleb128 0x7
- 763 0279 4C000000 		.4byte	.LVL21
- 764 027d 41050000 		.4byte	0x541
- 765 0281 08       		.uleb128 0x8
- 766 0282 54000000 		.4byte	.LVL22
- 767 0286 2B050000 		.4byte	0x52b
- 768 028a 99020000 		.4byte	0x299
- 769 028e 09       		.uleb128 0x9
- 770 028f 01       		.uleb128 0x1
- 771 0290 50       		.byte	0x50
- 772 0291 01       		.uleb128 0x1
- 773 0292 31       		.byte	0x31
- 774 0293 09       		.uleb128 0x9
- 775 0294 01       		.uleb128 0x1
- 776 0295 51       		.byte	0x51
- 777 0296 01       		.uleb128 0x1
- 778 0297 30       		.byte	0x30
- 779 0298 00       		.byte	0
- 780 0299 08       		.uleb128 0x8
- 781 029a 5A000000 		.4byte	.LVL23
- 782 029e 36050000 		.4byte	0x536
- 783 02a2 B0020000 		.4byte	0x2b0
- 784 02a6 09       		.uleb128 0x9
- 785 02a7 01       		.uleb128 0x1
- 786 02a8 50       		.byte	0x50
- 787 02a9 05       		.uleb128 0x5
- 788 02aa 03       		.byte	0x3
- 789 02ab 0C000000 		.4byte	.LC1
- 790 02af 00       		.byte	0
- 791 02b0 08       		.uleb128 0x8
- 792 02b1 62000000 		.4byte	.LVL24
- 793 02b5 2B050000 		.4byte	0x52b
- 794 02b9 C8020000 		.4byte	0x2c8
-ARM GAS  C:\Users\Darwin\AppData\Local\Temp\cceKxohI.s 			page 17
+ 697 00da 08       		.uleb128 0x8
+ 698 00db 1E000000 		.4byte	.LVL1
+ 699 00df 2E060000 		.4byte	0x62e
+ 700 00e3 ED000000 		.4byte	0xed
+ 701 00e7 09       		.uleb128 0x9
+ 702 00e8 01       		.uleb128 0x1
+ 703 00e9 50       		.byte	0x50
+ 704 00ea 01       		.uleb128 0x1
+ 705 00eb 31       		.byte	0x31
+ 706 00ec 00       		.byte	0
+ 707 00ed 08       		.uleb128 0x8
+ 708 00ee 24000000 		.4byte	.LVL2
+ 709 00f2 2E060000 		.4byte	0x62e
+ 710 00f6 00010000 		.4byte	0x100
+ 711 00fa 09       		.uleb128 0x9
+ 712 00fb 01       		.uleb128 0x1
+ 713 00fc 50       		.byte	0x50
+ 714 00fd 01       		.uleb128 0x1
+ 715 00fe 30       		.byte	0x30
+ 716 00ff 00       		.byte	0
+ 717 0100 08       		.uleb128 0x8
+ 718 0101 2A000000 		.4byte	.LVL3
+ 719 0105 39060000 		.4byte	0x639
+ 720 0109 13010000 		.4byte	0x113
+ 721 010d 09       		.uleb128 0x9
+ 722 010e 01       		.uleb128 0x1
+ 723 010f 50       		.byte	0x50
+ 724 0110 01       		.uleb128 0x1
+ 725 0111 31       		.byte	0x31
+ 726 0112 00       		.byte	0
+ 727 0113 08       		.uleb128 0x8
+ 728 0114 30000000 		.4byte	.LVL4
+ 729 0118 44060000 		.4byte	0x644
+ 730 011c 26010000 		.4byte	0x126
+ 731 0120 09       		.uleb128 0x9
+ 732 0121 01       		.uleb128 0x1
+ 733 0122 50       		.byte	0x50
+ 734 0123 01       		.uleb128 0x1
+ 735 0124 31       		.byte	0x31
+ 736 0125 00       		.byte	0
+ 737 0126 08       		.uleb128 0x8
+ 738 0127 38000000 		.4byte	.LVL5
+ 739 012b 4F060000 		.4byte	0x64f
+ 740 012f 3E010000 		.4byte	0x13e
+ 741 0133 09       		.uleb128 0x9
+ 742 0134 01       		.uleb128 0x1
+ 743 0135 50       		.byte	0x50
+ 744 0136 01       		.uleb128 0x1
+ 745 0137 30       		.byte	0x30
+ 746 0138 09       		.uleb128 0x9
+ 747 0139 01       		.uleb128 0x1
+ 748 013a 51       		.byte	0x51
+ 749 013b 01       		.uleb128 0x1
+ 750 013c 30       		.byte	0x30
+ 751 013d 00       		.byte	0
+ 752 013e 08       		.uleb128 0x8
+ 753 013f 3E000000 		.4byte	.LVL6
+ARM GAS  C:\Users\Darwin\AppData\Local\Temp\cceXYrWy.s 			page 17
 
 
- 795 02bd 09       		.uleb128 0x9
- 796 02be 01       		.uleb128 0x1
- 797 02bf 50       		.byte	0x50
- 798 02c0 01       		.uleb128 0x1
- 799 02c1 31       		.byte	0x31
- 800 02c2 09       		.uleb128 0x9
- 801 02c3 01       		.uleb128 0x1
- 802 02c4 51       		.byte	0x51
- 803 02c5 01       		.uleb128 0x1
- 804 02c6 3A       		.byte	0x3a
- 805 02c7 00       		.byte	0
- 806 02c8 07       		.uleb128 0x7
- 807 02c9 6A000000 		.4byte	.LVL25
- 808 02cd 41050000 		.4byte	0x541
- 809 02d1 00       		.byte	0
- 810 02d2 06       		.uleb128 0x6
- 811 02d3 AE010000 		.4byte	.LASF20
- 812 02d7 01       		.byte	0x1
- 813 02d8 47       		.byte	0x47
- 814 02d9 00000000 		.4byte	.LFB65
- 815 02dd 5C000000 		.4byte	.LFE65-.LFB65
- 816 02e1 01       		.uleb128 0x1
- 817 02e2 9C       		.byte	0x9c
- 818 02e3 A4030000 		.4byte	0x3a4
- 819 02e7 07       		.uleb128 0x7
- 820 02e8 06000000 		.4byte	.LVL26
- 821 02ec 4C050000 		.4byte	0x54c
- 822 02f0 08       		.uleb128 0x8
- 823 02f1 10000000 		.4byte	.LVL27
- 824 02f5 20050000 		.4byte	0x520
- 825 02f9 03030000 		.4byte	0x303
- 826 02fd 09       		.uleb128 0x9
- 827 02fe 01       		.uleb128 0x1
- 828 02ff 50       		.byte	0x50
- 829 0300 01       		.uleb128 0x1
- 830 0301 31       		.byte	0x31
- 831 0302 00       		.byte	0
- 832 0303 08       		.uleb128 0x8
- 833 0304 18000000 		.4byte	.LVL28
- 834 0308 2B050000 		.4byte	0x52b
- 835 030c 1B030000 		.4byte	0x31b
- 836 0310 09       		.uleb128 0x9
- 837 0311 01       		.uleb128 0x1
- 838 0312 50       		.byte	0x50
- 839 0313 01       		.uleb128 0x1
- 840 0314 30       		.byte	0x30
- 841 0315 09       		.uleb128 0x9
- 842 0316 01       		.uleb128 0x1
- 843 0317 51       		.byte	0x51
- 844 0318 01       		.uleb128 0x1
- 845 0319 30       		.byte	0x30
- 846 031a 00       		.byte	0
- 847 031b 08       		.uleb128 0x8
- 848 031c 1E000000 		.4byte	.LVL29
- 849 0320 36050000 		.4byte	0x536
- 850 0324 32030000 		.4byte	0x332
- 851 0328 09       		.uleb128 0x9
-ARM GAS  C:\Users\Darwin\AppData\Local\Temp\cceKxohI.s 			page 18
+ 754 0143 5A060000 		.4byte	0x65a
+ 755 0147 55010000 		.4byte	0x155
+ 756 014b 09       		.uleb128 0x9
+ 757 014c 01       		.uleb128 0x1
+ 758 014d 50       		.byte	0x50
+ 759 014e 05       		.uleb128 0x5
+ 760 014f 03       		.byte	0x3
+ 761 0150 00000000 		.4byte	.LC0
+ 762 0154 00       		.byte	0
+ 763 0155 08       		.uleb128 0x8
+ 764 0156 46000000 		.4byte	.LVL7
+ 765 015a 4F060000 		.4byte	0x64f
+ 766 015e 6D010000 		.4byte	0x16d
+ 767 0162 09       		.uleb128 0x9
+ 768 0163 01       		.uleb128 0x1
+ 769 0164 50       		.byte	0x50
+ 770 0165 01       		.uleb128 0x1
+ 771 0166 30       		.byte	0x30
+ 772 0167 09       		.uleb128 0x9
+ 773 0168 01       		.uleb128 0x1
+ 774 0169 51       		.byte	0x51
+ 775 016a 01       		.uleb128 0x1
+ 776 016b 3A       		.byte	0x3a
+ 777 016c 00       		.byte	0
+ 778 016d 07       		.uleb128 0x7
+ 779 016e 4C000000 		.4byte	.LVL8
+ 780 0172 65060000 		.4byte	0x665
+ 781 0176 08       		.uleb128 0x8
+ 782 0177 54000000 		.4byte	.LVL9
+ 783 017b 4F060000 		.4byte	0x64f
+ 784 017f 8E010000 		.4byte	0x18e
+ 785 0183 09       		.uleb128 0x9
+ 786 0184 01       		.uleb128 0x1
+ 787 0185 50       		.byte	0x50
+ 788 0186 01       		.uleb128 0x1
+ 789 0187 31       		.byte	0x31
+ 790 0188 09       		.uleb128 0x9
+ 791 0189 01       		.uleb128 0x1
+ 792 018a 51       		.byte	0x51
+ 793 018b 01       		.uleb128 0x1
+ 794 018c 30       		.byte	0x30
+ 795 018d 00       		.byte	0
+ 796 018e 08       		.uleb128 0x8
+ 797 018f 5A000000 		.4byte	.LVL10
+ 798 0193 5A060000 		.4byte	0x65a
+ 799 0197 A5010000 		.4byte	0x1a5
+ 800 019b 09       		.uleb128 0x9
+ 801 019c 01       		.uleb128 0x1
+ 802 019d 50       		.byte	0x50
+ 803 019e 05       		.uleb128 0x5
+ 804 019f 03       		.byte	0x3
+ 805 01a0 0C000000 		.4byte	.LC1
+ 806 01a4 00       		.byte	0
+ 807 01a5 08       		.uleb128 0x8
+ 808 01a6 62000000 		.4byte	.LVL11
+ 809 01aa 4F060000 		.4byte	0x64f
+ 810 01ae BD010000 		.4byte	0x1bd
+ARM GAS  C:\Users\Darwin\AppData\Local\Temp\cceXYrWy.s 			page 18
 
 
- 852 0329 01       		.uleb128 0x1
- 853 032a 50       		.byte	0x50
- 854 032b 05       		.uleb128 0x5
- 855 032c 03       		.byte	0x3
- 856 032d 00000000 		.4byte	.LC0
- 857 0331 00       		.byte	0
- 858 0332 08       		.uleb128 0x8
- 859 0333 26000000 		.4byte	.LVL30
- 860 0337 2B050000 		.4byte	0x52b
- 861 033b 4A030000 		.4byte	0x34a
- 862 033f 09       		.uleb128 0x9
- 863 0340 01       		.uleb128 0x1
- 864 0341 50       		.byte	0x50
- 865 0342 01       		.uleb128 0x1
- 866 0343 30       		.byte	0x30
- 867 0344 09       		.uleb128 0x9
- 868 0345 01       		.uleb128 0x1
- 869 0346 51       		.byte	0x51
- 870 0347 01       		.uleb128 0x1
- 871 0348 3A       		.byte	0x3a
- 872 0349 00       		.byte	0
- 873 034a 07       		.uleb128 0x7
- 874 034b 2E000000 		.4byte	.LVL31
- 875 034f 41050000 		.4byte	0x541
- 876 0353 08       		.uleb128 0x8
- 877 0354 36000000 		.4byte	.LVL32
- 878 0358 2B050000 		.4byte	0x52b
- 879 035c 6B030000 		.4byte	0x36b
- 880 0360 09       		.uleb128 0x9
- 881 0361 01       		.uleb128 0x1
- 882 0362 50       		.byte	0x50
- 883 0363 01       		.uleb128 0x1
- 884 0364 31       		.byte	0x31
- 885 0365 09       		.uleb128 0x9
- 886 0366 01       		.uleb128 0x1
- 887 0367 51       		.byte	0x51
- 888 0368 01       		.uleb128 0x1
- 889 0369 30       		.byte	0x30
- 890 036a 00       		.byte	0
- 891 036b 08       		.uleb128 0x8
- 892 036c 3C000000 		.4byte	.LVL33
- 893 0370 36050000 		.4byte	0x536
- 894 0374 82030000 		.4byte	0x382
- 895 0378 09       		.uleb128 0x9
- 896 0379 01       		.uleb128 0x1
- 897 037a 50       		.byte	0x50
- 898 037b 05       		.uleb128 0x5
- 899 037c 03       		.byte	0x3
- 900 037d 0C000000 		.4byte	.LC1
- 901 0381 00       		.byte	0
- 902 0382 08       		.uleb128 0x8
- 903 0383 44000000 		.4byte	.LVL34
- 904 0387 2B050000 		.4byte	0x52b
- 905 038b 9A030000 		.4byte	0x39a
- 906 038f 09       		.uleb128 0x9
- 907 0390 01       		.uleb128 0x1
- 908 0391 50       		.byte	0x50
-ARM GAS  C:\Users\Darwin\AppData\Local\Temp\cceKxohI.s 			page 19
+ 811 01b2 09       		.uleb128 0x9
+ 812 01b3 01       		.uleb128 0x1
+ 813 01b4 50       		.byte	0x50
+ 814 01b5 01       		.uleb128 0x1
+ 815 01b6 31       		.byte	0x31
+ 816 01b7 09       		.uleb128 0x9
+ 817 01b8 01       		.uleb128 0x1
+ 818 01b9 51       		.byte	0x51
+ 819 01ba 01       		.uleb128 0x1
+ 820 01bb 3A       		.byte	0x3a
+ 821 01bc 00       		.byte	0
+ 822 01bd 07       		.uleb128 0x7
+ 823 01be 6A000000 		.4byte	.LVL12
+ 824 01c2 65060000 		.4byte	0x665
+ 825 01c6 00       		.byte	0
+ 826 01c7 06       		.uleb128 0x6
+ 827 01c8 21000000 		.4byte	.LASF19
+ 828 01cc 01       		.byte	0x1
+ 829 01cd 38       		.byte	0x38
+ 830 01ce 00000000 		.4byte	.LFB64
+ 831 01d2 80000000 		.4byte	.LFE64-.LFB64
+ 832 01d6 01       		.uleb128 0x1
+ 833 01d7 9C       		.byte	0x9c
+ 834 01d8 D2020000 		.4byte	0x2d2
+ 835 01dc 07       		.uleb128 0x7
+ 836 01dd 18000000 		.4byte	.LVL13
+ 837 01e1 23060000 		.4byte	0x623
+ 838 01e5 08       		.uleb128 0x8
+ 839 01e6 1E000000 		.4byte	.LVL14
+ 840 01ea 2E060000 		.4byte	0x62e
+ 841 01ee F8010000 		.4byte	0x1f8
+ 842 01f2 09       		.uleb128 0x9
+ 843 01f3 01       		.uleb128 0x1
+ 844 01f4 50       		.byte	0x50
+ 845 01f5 01       		.uleb128 0x1
+ 846 01f6 31       		.byte	0x31
+ 847 01f7 00       		.byte	0
+ 848 01f8 08       		.uleb128 0x8
+ 849 01f9 24000000 		.4byte	.LVL15
+ 850 01fd 2E060000 		.4byte	0x62e
+ 851 0201 0B020000 		.4byte	0x20b
+ 852 0205 09       		.uleb128 0x9
+ 853 0206 01       		.uleb128 0x1
+ 854 0207 50       		.byte	0x50
+ 855 0208 01       		.uleb128 0x1
+ 856 0209 30       		.byte	0x30
+ 857 020a 00       		.byte	0
+ 858 020b 08       		.uleb128 0x8
+ 859 020c 2A000000 		.4byte	.LVL16
+ 860 0210 39060000 		.4byte	0x639
+ 861 0214 1E020000 		.4byte	0x21e
+ 862 0218 09       		.uleb128 0x9
+ 863 0219 01       		.uleb128 0x1
+ 864 021a 50       		.byte	0x50
+ 865 021b 01       		.uleb128 0x1
+ 866 021c 30       		.byte	0x30
+ 867 021d 00       		.byte	0
+ARM GAS  C:\Users\Darwin\AppData\Local\Temp\cceXYrWy.s 			page 19
 
 
- 909 0392 01       		.uleb128 0x1
- 910 0393 31       		.byte	0x31
- 911 0394 09       		.uleb128 0x9
- 912 0395 01       		.uleb128 0x1
- 913 0396 51       		.byte	0x51
- 914 0397 01       		.uleb128 0x1
- 915 0398 3A       		.byte	0x3a
- 916 0399 00       		.byte	0
- 917 039a 07       		.uleb128 0x7
- 918 039b 4A000000 		.4byte	.LVL35
- 919 039f 41050000 		.4byte	0x541
- 920 03a3 00       		.byte	0
- 921 03a4 0A       		.uleb128 0xa
- 922 03a5 A9010000 		.4byte	.LASF43
- 923 03a9 01       		.byte	0x1
- 924 03aa 59       		.byte	0x59
- 925 03ab 68000000 		.4byte	0x68
- 926 03af 00000000 		.4byte	.LFB66
- 927 03b3 84000000 		.4byte	.LFE66-.LFB66
- 928 03b7 01       		.uleb128 0x1
- 929 03b8 9C       		.byte	0x9c
- 930 03b9 CC040000 		.4byte	0x4cc
- 931 03bd 07       		.uleb128 0x7
- 932 03be 06000000 		.4byte	.LVL36
- 933 03c2 57050000 		.4byte	0x557
- 934 03c6 07       		.uleb128 0x7
- 935 03c7 0A000000 		.4byte	.LVL37
- 936 03cb 62050000 		.4byte	0x562
- 937 03cf 07       		.uleb128 0x7
- 938 03d0 0E000000 		.4byte	.LVL38
- 939 03d4 6D050000 		.4byte	0x56d
- 940 03d8 07       		.uleb128 0x7
- 941 03d9 12000000 		.4byte	.LVL39
- 942 03dd 78050000 		.4byte	0x578
- 943 03e1 07       		.uleb128 0x7
- 944 03e2 16000000 		.4byte	.LVL40
- 945 03e6 83050000 		.4byte	0x583
- 946 03ea 08       		.uleb128 0x8
- 947 03eb 1E000000 		.4byte	.LVL41
- 948 03ef 2B050000 		.4byte	0x52b
- 949 03f3 02040000 		.4byte	0x402
- 950 03f7 09       		.uleb128 0x9
- 951 03f8 01       		.uleb128 0x1
- 952 03f9 50       		.byte	0x50
- 953 03fa 01       		.uleb128 0x1
- 954 03fb 30       		.byte	0x30
- 955 03fc 09       		.uleb128 0x9
- 956 03fd 01       		.uleb128 0x1
- 957 03fe 51       		.byte	0x51
- 958 03ff 01       		.uleb128 0x1
- 959 0400 30       		.byte	0x30
- 960 0401 00       		.byte	0
- 961 0402 08       		.uleb128 0x8
- 962 0403 24000000 		.4byte	.LVL42
- 963 0407 36050000 		.4byte	0x536
- 964 040b 19040000 		.4byte	0x419
- 965 040f 09       		.uleb128 0x9
-ARM GAS  C:\Users\Darwin\AppData\Local\Temp\cceKxohI.s 			page 20
+ 868 021e 08       		.uleb128 0x8
+ 869 021f 30000000 		.4byte	.LVL17
+ 870 0223 44060000 		.4byte	0x644
+ 871 0227 31020000 		.4byte	0x231
+ 872 022b 09       		.uleb128 0x9
+ 873 022c 01       		.uleb128 0x1
+ 874 022d 50       		.byte	0x50
+ 875 022e 01       		.uleb128 0x1
+ 876 022f 31       		.byte	0x31
+ 877 0230 00       		.byte	0
+ 878 0231 08       		.uleb128 0x8
+ 879 0232 38000000 		.4byte	.LVL18
+ 880 0236 4F060000 		.4byte	0x64f
+ 881 023a 49020000 		.4byte	0x249
+ 882 023e 09       		.uleb128 0x9
+ 883 023f 01       		.uleb128 0x1
+ 884 0240 50       		.byte	0x50
+ 885 0241 01       		.uleb128 0x1
+ 886 0242 30       		.byte	0x30
+ 887 0243 09       		.uleb128 0x9
+ 888 0244 01       		.uleb128 0x1
+ 889 0245 51       		.byte	0x51
+ 890 0246 01       		.uleb128 0x1
+ 891 0247 30       		.byte	0x30
+ 892 0248 00       		.byte	0
+ 893 0249 08       		.uleb128 0x8
+ 894 024a 3E000000 		.4byte	.LVL19
+ 895 024e 5A060000 		.4byte	0x65a
+ 896 0252 60020000 		.4byte	0x260
+ 897 0256 09       		.uleb128 0x9
+ 898 0257 01       		.uleb128 0x1
+ 899 0258 50       		.byte	0x50
+ 900 0259 05       		.uleb128 0x5
+ 901 025a 03       		.byte	0x3
+ 902 025b 00000000 		.4byte	.LC0
+ 903 025f 00       		.byte	0
+ 904 0260 08       		.uleb128 0x8
+ 905 0261 46000000 		.4byte	.LVL20
+ 906 0265 4F060000 		.4byte	0x64f
+ 907 0269 78020000 		.4byte	0x278
+ 908 026d 09       		.uleb128 0x9
+ 909 026e 01       		.uleb128 0x1
+ 910 026f 50       		.byte	0x50
+ 911 0270 01       		.uleb128 0x1
+ 912 0271 30       		.byte	0x30
+ 913 0272 09       		.uleb128 0x9
+ 914 0273 01       		.uleb128 0x1
+ 915 0274 51       		.byte	0x51
+ 916 0275 01       		.uleb128 0x1
+ 917 0276 3A       		.byte	0x3a
+ 918 0277 00       		.byte	0
+ 919 0278 07       		.uleb128 0x7
+ 920 0279 4C000000 		.4byte	.LVL21
+ 921 027d 65060000 		.4byte	0x665
+ 922 0281 08       		.uleb128 0x8
+ 923 0282 54000000 		.4byte	.LVL22
+ 924 0286 4F060000 		.4byte	0x64f
+ARM GAS  C:\Users\Darwin\AppData\Local\Temp\cceXYrWy.s 			page 20
 
 
- 966 0410 01       		.uleb128 0x1
- 967 0411 50       		.byte	0x50
- 968 0412 05       		.uleb128 0x5
- 969 0413 03       		.byte	0x3
- 970 0414 00000000 		.4byte	.LC0
- 971 0418 00       		.byte	0
- 972 0419 08       		.uleb128 0x8
- 973 041a 2C000000 		.4byte	.LVL43
- 974 041e 2B050000 		.4byte	0x52b
- 975 0422 31040000 		.4byte	0x431
- 976 0426 09       		.uleb128 0x9
- 977 0427 01       		.uleb128 0x1
- 978 0428 50       		.byte	0x50
- 979 0429 01       		.uleb128 0x1
- 980 042a 30       		.byte	0x30
- 981 042b 09       		.uleb128 0x9
- 982 042c 01       		.uleb128 0x1
- 983 042d 51       		.byte	0x51
- 984 042e 01       		.uleb128 0x1
- 985 042f 3A       		.byte	0x3a
- 986 0430 00       		.byte	0
- 987 0431 07       		.uleb128 0x7
- 988 0432 34000000 		.4byte	.LVL44
- 989 0436 41050000 		.4byte	0x541
- 990 043a 08       		.uleb128 0x8
- 991 043b 3C000000 		.4byte	.LVL45
- 992 043f 2B050000 		.4byte	0x52b
- 993 0443 52040000 		.4byte	0x452
- 994 0447 09       		.uleb128 0x9
- 995 0448 01       		.uleb128 0x1
- 996 0449 50       		.byte	0x50
- 997 044a 01       		.uleb128 0x1
- 998 044b 31       		.byte	0x31
- 999 044c 09       		.uleb128 0x9
- 1000 044d 01       		.uleb128 0x1
- 1001 044e 51       		.byte	0x51
- 1002 044f 01       		.uleb128 0x1
- 1003 0450 30       		.byte	0x30
- 1004 0451 00       		.byte	0
- 1005 0452 08       		.uleb128 0x8
- 1006 0453 42000000 		.4byte	.LVL46
- 1007 0457 36050000 		.4byte	0x536
- 1008 045b 69040000 		.4byte	0x469
- 1009 045f 09       		.uleb128 0x9
- 1010 0460 01       		.uleb128 0x1
- 1011 0461 50       		.byte	0x50
- 1012 0462 05       		.uleb128 0x5
- 1013 0463 03       		.byte	0x3
- 1014 0464 0C000000 		.4byte	.LC1
- 1015 0468 00       		.byte	0
- 1016 0469 08       		.uleb128 0x8
- 1017 046a 4A000000 		.4byte	.LVL47
- 1018 046e 2B050000 		.4byte	0x52b
- 1019 0472 81040000 		.4byte	0x481
- 1020 0476 09       		.uleb128 0x9
- 1021 0477 01       		.uleb128 0x1
- 1022 0478 50       		.byte	0x50
-ARM GAS  C:\Users\Darwin\AppData\Local\Temp\cceKxohI.s 			page 21
+ 925 028a 99020000 		.4byte	0x299
+ 926 028e 09       		.uleb128 0x9
+ 927 028f 01       		.uleb128 0x1
+ 928 0290 50       		.byte	0x50
+ 929 0291 01       		.uleb128 0x1
+ 930 0292 31       		.byte	0x31
+ 931 0293 09       		.uleb128 0x9
+ 932 0294 01       		.uleb128 0x1
+ 933 0295 51       		.byte	0x51
+ 934 0296 01       		.uleb128 0x1
+ 935 0297 30       		.byte	0x30
+ 936 0298 00       		.byte	0
+ 937 0299 08       		.uleb128 0x8
+ 938 029a 5A000000 		.4byte	.LVL23
+ 939 029e 5A060000 		.4byte	0x65a
+ 940 02a2 B0020000 		.4byte	0x2b0
+ 941 02a6 09       		.uleb128 0x9
+ 942 02a7 01       		.uleb128 0x1
+ 943 02a8 50       		.byte	0x50
+ 944 02a9 05       		.uleb128 0x5
+ 945 02aa 03       		.byte	0x3
+ 946 02ab 0C000000 		.4byte	.LC1
+ 947 02af 00       		.byte	0
+ 948 02b0 08       		.uleb128 0x8
+ 949 02b1 62000000 		.4byte	.LVL24
+ 950 02b5 4F060000 		.4byte	0x64f
+ 951 02b9 C8020000 		.4byte	0x2c8
+ 952 02bd 09       		.uleb128 0x9
+ 953 02be 01       		.uleb128 0x1
+ 954 02bf 50       		.byte	0x50
+ 955 02c0 01       		.uleb128 0x1
+ 956 02c1 31       		.byte	0x31
+ 957 02c2 09       		.uleb128 0x9
+ 958 02c3 01       		.uleb128 0x1
+ 959 02c4 51       		.byte	0x51
+ 960 02c5 01       		.uleb128 0x1
+ 961 02c6 3A       		.byte	0x3a
+ 962 02c7 00       		.byte	0
+ 963 02c8 07       		.uleb128 0x7
+ 964 02c9 6A000000 		.4byte	.LVL25
+ 965 02cd 65060000 		.4byte	0x665
+ 966 02d1 00       		.byte	0
+ 967 02d2 0A       		.uleb128 0xa
+ 968 02d3 D2010000 		.4byte	.LASF20
+ 969 02d7 01       		.byte	0x1
+ 970 02d8 51       		.byte	0x51
+ 971 02d9 00000000 		.4byte	.LFB65
+ 972 02dd E4000000 		.4byte	.LFE65-.LFB65
+ 973 02e1 01       		.uleb128 0x1
+ 974 02e2 9C       		.byte	0x9c
+ 975 02e3 AD030000 		.4byte	0x3ad
+ 976 02e7 07       		.uleb128 0x7
+ 977 02e8 06000000 		.4byte	.LVL26
+ 978 02ec 70060000 		.4byte	0x670
+ 979 02f0 08       		.uleb128 0x8
+ 980 02f1 10000000 		.4byte	.LVL27
+ 981 02f5 44060000 		.4byte	0x644
+ARM GAS  C:\Users\Darwin\AppData\Local\Temp\cceXYrWy.s 			page 21
 
 
- 1023 0479 01       		.uleb128 0x1
- 1024 047a 31       		.byte	0x31
- 1025 047b 09       		.uleb128 0x9
- 1026 047c 01       		.uleb128 0x1
- 1027 047d 51       		.byte	0x51
- 1028 047e 01       		.uleb128 0x1
- 1029 047f 3A       		.byte	0x3a
- 1030 0480 00       		.byte	0
- 1031 0481 07       		.uleb128 0x7
- 1032 0482 52000000 		.4byte	.LVL48
- 1033 0486 41050000 		.4byte	0x541
- 1034 048a 08       		.uleb128 0x8
- 1035 048b 5A000000 		.4byte	.LVL49
- 1036 048f 8E050000 		.4byte	0x58e
- 1037 0493 A1040000 		.4byte	0x4a1
- 1038 0497 09       		.uleb128 0x9
- 1039 0498 01       		.uleb128 0x1
- 1040 0499 50       		.byte	0x50
- 1041 049a 05       		.uleb128 0x5
- 1042 049b 03       		.byte	0x3
- 1043 049c 00000000 		.4byte	AumentarInt
- 1044 04a0 00       		.byte	0
- 1045 04a1 08       		.uleb128 0x8
- 1046 04a2 60000000 		.4byte	.LVL50
- 1047 04a6 99050000 		.4byte	0x599
- 1048 04aa B8040000 		.4byte	0x4b8
- 1049 04ae 09       		.uleb128 0x9
- 1050 04af 01       		.uleb128 0x1
- 1051 04b0 50       		.byte	0x50
- 1052 04b1 05       		.uleb128 0x5
- 1053 04b2 03       		.byte	0x3
- 1054 04b3 00000000 		.4byte	DisminuirInt
- 1055 04b7 00       		.byte	0
- 1056 04b8 0B       		.uleb128 0xb
- 1057 04b9 66000000 		.4byte	.LVL51
- 1058 04bd A4050000 		.4byte	0x5a4
- 1059 04c1 09       		.uleb128 0x9
- 1060 04c2 01       		.uleb128 0x1
- 1061 04c3 50       		.byte	0x50
- 1062 04c4 05       		.uleb128 0x5
- 1063 04c5 03       		.byte	0x3
- 1064 04c6 00000000 		.4byte	Muestreo
- 1065 04ca 00       		.byte	0
- 1066 04cb 00       		.byte	0
- 1067 04cc 0C       		.uleb128 0xc
- 1068 04cd 5E010000 		.4byte	.LASF21
- 1069 04d1 05       		.byte	0x5
- 1070 04d2 1207     		.2byte	0x712
- 1071 04d4 D8040000 		.4byte	0x4d8
- 1072 04d8 0D       		.uleb128 0xd
- 1073 04d9 76000000 		.4byte	0x76
- 1074 04dd 0E       		.uleb128 0xe
- 1075 04de 2D010000 		.4byte	.LASF22
- 1076 04e2 01       		.byte	0x1
- 1077 04e3 0F       		.byte	0xf
- 1078 04e4 8D000000 		.4byte	0x8d
- 1079 04e8 05       		.uleb128 0x5
-ARM GAS  C:\Users\Darwin\AppData\Local\Temp\cceKxohI.s 			page 22
+ 982 02f9 03030000 		.4byte	0x303
+ 983 02fd 09       		.uleb128 0x9
+ 984 02fe 01       		.uleb128 0x1
+ 985 02ff 50       		.byte	0x50
+ 986 0300 01       		.uleb128 0x1
+ 987 0301 31       		.byte	0x31
+ 988 0302 00       		.byte	0
+ 989 0303 08       		.uleb128 0x8
+ 990 0304 18000000 		.4byte	.LVL28
+ 991 0308 4F060000 		.4byte	0x64f
+ 992 030c 1B030000 		.4byte	0x31b
+ 993 0310 09       		.uleb128 0x9
+ 994 0311 01       		.uleb128 0x1
+ 995 0312 50       		.byte	0x50
+ 996 0313 01       		.uleb128 0x1
+ 997 0314 30       		.byte	0x30
+ 998 0315 09       		.uleb128 0x9
+ 999 0316 01       		.uleb128 0x1
+ 1000 0317 51       		.byte	0x51
+ 1001 0318 01       		.uleb128 0x1
+ 1002 0319 30       		.byte	0x30
+ 1003 031a 00       		.byte	0
+ 1004 031b 08       		.uleb128 0x8
+ 1005 031c 1E000000 		.4byte	.LVL29
+ 1006 0320 5A060000 		.4byte	0x65a
+ 1007 0324 32030000 		.4byte	0x332
+ 1008 0328 09       		.uleb128 0x9
+ 1009 0329 01       		.uleb128 0x1
+ 1010 032a 50       		.byte	0x50
+ 1011 032b 05       		.uleb128 0x5
+ 1012 032c 03       		.byte	0x3
+ 1013 032d 00000000 		.4byte	.LC0
+ 1014 0331 00       		.byte	0
+ 1015 0332 08       		.uleb128 0x8
+ 1016 0333 26000000 		.4byte	.LVL30
+ 1017 0337 4F060000 		.4byte	0x64f
+ 1018 033b 4A030000 		.4byte	0x34a
+ 1019 033f 09       		.uleb128 0x9
+ 1020 0340 01       		.uleb128 0x1
+ 1021 0341 50       		.byte	0x50
+ 1022 0342 01       		.uleb128 0x1
+ 1023 0343 30       		.byte	0x30
+ 1024 0344 09       		.uleb128 0x9
+ 1025 0345 01       		.uleb128 0x1
+ 1026 0346 51       		.byte	0x51
+ 1027 0347 01       		.uleb128 0x1
+ 1028 0348 3A       		.byte	0x3a
+ 1029 0349 00       		.byte	0
+ 1030 034a 07       		.uleb128 0x7
+ 1031 034b 36000000 		.4byte	.LVL31
+ 1032 034f 65060000 		.4byte	0x665
+ 1033 0353 07       		.uleb128 0x7
+ 1034 0354 9A000000 		.4byte	.LVL38
+ 1035 0358 65060000 		.4byte	0x665
+ 1036 035c 08       		.uleb128 0x8
+ 1037 035d A2000000 		.4byte	.LVL39
+ 1038 0361 4F060000 		.4byte	0x64f
+ARM GAS  C:\Users\Darwin\AppData\Local\Temp\cceXYrWy.s 			page 22
 
 
- 1080 04e9 03       		.byte	0x3
- 1081 04ea 00000000 		.4byte	control
- 1082 04ee 0E       		.uleb128 0xe
- 1083 04ef 57000000 		.4byte	.LASF23
- 1084 04f3 01       		.byte	0x1
- 1085 04f4 10       		.byte	0x10
- 1086 04f5 68000000 		.4byte	0x68
- 1087 04f9 05       		.uleb128 0x5
- 1088 04fa 03       		.byte	0x3
- 1089 04fb 00000000 		.4byte	counter
- 1090 04ff 0F       		.uleb128 0xf
- 1091 0500 35010000 		.4byte	.LASF24
- 1092 0504 35010000 		.4byte	.LASF24
- 1093 0508 06       		.byte	0x6
- 1094 0509 C3       		.byte	0xc3
- 1095 050a 0F       		.uleb128 0xf
- 1096 050b 75020000 		.4byte	.LASF25
- 1097 050f 75020000 		.4byte	.LASF25
- 1098 0513 07       		.byte	0x7
- 1099 0514 26       		.byte	0x26
- 1100 0515 0F       		.uleb128 0xf
- 1101 0516 00000000 		.4byte	.LASF26
- 1102 051a 00000000 		.4byte	.LASF26
- 1103 051e 08       		.byte	0x8
- 1104 051f 26       		.byte	0x26
- 1105 0520 0F       		.uleb128 0xf
- 1106 0521 A8020000 		.4byte	.LASF27
- 1107 0525 A8020000 		.4byte	.LASF27
- 1108 0529 09       		.byte	0x9
- 1109 052a 3A       		.byte	0x3a
- 1110 052b 0F       		.uleb128 0xf
- 1111 052c 55020000 		.4byte	.LASF28
- 1112 0530 55020000 		.4byte	.LASF28
- 1113 0534 09       		.byte	0x9
- 1114 0535 3D       		.byte	0x3d
- 1115 0536 0F       		.uleb128 0xf
- 1116 0537 B7010000 		.4byte	.LASF29
- 1117 053b B7010000 		.4byte	.LASF29
- 1118 053f 09       		.byte	0x9
- 1119 0540 3C       		.byte	0x3c
- 1120 0541 0F       		.uleb128 0xf
- 1121 0542 62020000 		.4byte	.LASF30
- 1122 0546 62020000 		.4byte	.LASF30
- 1123 054a 09       		.byte	0x9
- 1124 054b 61       		.byte	0x61
- 1125 054c 0F       		.uleb128 0xf
- 1126 054d C7010000 		.4byte	.LASF31
- 1127 0551 C7010000 		.4byte	.LASF31
- 1128 0555 0A       		.byte	0xa
- 1129 0556 4E       		.byte	0x4e
- 1130 0557 0F       		.uleb128 0xf
- 1131 0558 2B000000 		.4byte	.LASF32
- 1132 055c 2B000000 		.4byte	.LASF32
- 1133 0560 06       		.byte	0x6
- 1134 0561 92       		.byte	0x92
- 1135 0562 0F       		.uleb128 0xf
- 1136 0563 0A000000 		.4byte	.LASF33
-ARM GAS  C:\Users\Darwin\AppData\Local\Temp\cceKxohI.s 			page 23
+ 1039 0365 74030000 		.4byte	0x374
+ 1040 0369 09       		.uleb128 0x9
+ 1041 036a 01       		.uleb128 0x1
+ 1042 036b 50       		.byte	0x50
+ 1043 036c 01       		.uleb128 0x1
+ 1044 036d 31       		.byte	0x31
+ 1045 036e 09       		.uleb128 0x9
+ 1046 036f 01       		.uleb128 0x1
+ 1047 0370 51       		.byte	0x51
+ 1048 0371 01       		.uleb128 0x1
+ 1049 0372 30       		.byte	0x30
+ 1050 0373 00       		.byte	0
+ 1051 0374 08       		.uleb128 0x8
+ 1052 0375 A8000000 		.4byte	.LVL40
+ 1053 0379 5A060000 		.4byte	0x65a
+ 1054 037d 8B030000 		.4byte	0x38b
+ 1055 0381 09       		.uleb128 0x9
+ 1056 0382 01       		.uleb128 0x1
+ 1057 0383 50       		.byte	0x50
+ 1058 0384 05       		.uleb128 0x5
+ 1059 0385 03       		.byte	0x3
+ 1060 0386 0C000000 		.4byte	.LC1
+ 1061 038a 00       		.byte	0
+ 1062 038b 08       		.uleb128 0x8
+ 1063 038c B0000000 		.4byte	.LVL41
+ 1064 0390 4F060000 		.4byte	0x64f
+ 1065 0394 A3030000 		.4byte	0x3a3
+ 1066 0398 09       		.uleb128 0x9
+ 1067 0399 01       		.uleb128 0x1
+ 1068 039a 50       		.byte	0x50
+ 1069 039b 01       		.uleb128 0x1
+ 1070 039c 31       		.byte	0x31
+ 1071 039d 09       		.uleb128 0x9
+ 1072 039e 01       		.uleb128 0x1
+ 1073 039f 51       		.byte	0x51
+ 1074 03a0 01       		.uleb128 0x1
+ 1075 03a1 3A       		.byte	0x3a
+ 1076 03a2 00       		.byte	0
+ 1077 03a3 07       		.uleb128 0x7
+ 1078 03a4 B8000000 		.4byte	.LVL42
+ 1079 03a8 65060000 		.4byte	0x665
+ 1080 03ac 00       		.byte	0
+ 1081 03ad 0B       		.uleb128 0xb
+ 1082 03ae 58020000 		.4byte	.LASF51
+ 1083 03b2 01       		.byte	0x1
+ 1084 03b3 7A       		.byte	0x7a
+ 1085 03b4 68000000 		.4byte	0x68
+ 1086 03b8 00000000 		.4byte	.LFB66
+ 1087 03bc A0000000 		.4byte	.LFE66-.LFB66
+ 1088 03c0 01       		.uleb128 0x1
+ 1089 03c1 9C       		.byte	0x9c
+ 1090 03c2 DE040000 		.4byte	0x4de
+ 1091 03c6 07       		.uleb128 0x7
+ 1092 03c7 06000000 		.4byte	.LVL43
+ 1093 03cb 7B060000 		.4byte	0x67b
+ 1094 03cf 07       		.uleb128 0x7
+ 1095 03d0 0A000000 		.4byte	.LVL44
+ARM GAS  C:\Users\Darwin\AppData\Local\Temp\cceXYrWy.s 			page 23
 
 
- 1137 0567 0A000000 		.4byte	.LASF33
- 1138 056b 09       		.byte	0x9
- 1139 056c 38       		.byte	0x38
- 1140 056d 0F       		.uleb128 0xf
- 1141 056e 4C010000 		.4byte	.LASF34
- 1142 0572 4C010000 		.4byte	.LASF34
- 1143 0576 0B       		.byte	0xb
- 1144 0577 27       		.byte	0x27
- 1145 0578 0F       		.uleb128 0xf
- 1146 0579 3B000000 		.4byte	.LASF35
- 1147 057d 3B000000 		.4byte	.LASF35
- 1148 0581 0A       		.byte	0xa
- 1149 0582 48       		.byte	0x48
- 1150 0583 0F       		.uleb128 0xf
- 1151 0584 25020000 		.4byte	.LASF36
- 1152 0588 25020000 		.4byte	.LASF36
- 1153 058c 0C       		.byte	0xc
- 1154 058d 5A       		.byte	0x5a
- 1155 058e 0F       		.uleb128 0xf
- 1156 058f 5F000000 		.4byte	.LASF37
- 1157 0593 5F000000 		.4byte	.LASF37
- 1158 0597 0D       		.byte	0xd
- 1159 0598 18       		.byte	0x18
- 1160 0599 0F       		.uleb128 0xf
- 1161 059a 6B010000 		.4byte	.LASF38
- 1162 059e 6B010000 		.4byte	.LASF38
- 1163 05a2 0E       		.byte	0xe
- 1164 05a3 18       		.byte	0x18
- 1165 05a4 0F       		.uleb128 0xf
- 1166 05a5 C3020000 		.4byte	.LASF39
- 1167 05a9 C3020000 		.4byte	.LASF39
- 1168 05ad 0F       		.byte	0xf
- 1169 05ae 18       		.byte	0x18
- 1170 05af 00       		.byte	0
- 1171              		.section	.debug_abbrev,"",%progbits
- 1172              	.Ldebug_abbrev0:
- 1173 0000 01       		.uleb128 0x1
- 1174 0001 11       		.uleb128 0x11
- 1175 0002 01       		.byte	0x1
- 1176 0003 25       		.uleb128 0x25
- 1177 0004 0E       		.uleb128 0xe
- 1178 0005 13       		.uleb128 0x13
- 1179 0006 0B       		.uleb128 0xb
- 1180 0007 03       		.uleb128 0x3
- 1181 0008 0E       		.uleb128 0xe
- 1182 0009 1B       		.uleb128 0x1b
- 1183 000a 0E       		.uleb128 0xe
- 1184 000b 55       		.uleb128 0x55
- 1185 000c 17       		.uleb128 0x17
- 1186 000d 11       		.uleb128 0x11
- 1187 000e 01       		.uleb128 0x1
- 1188 000f 10       		.uleb128 0x10
- 1189 0010 17       		.uleb128 0x17
- 1190 0011 00       		.byte	0
- 1191 0012 00       		.byte	0
- 1192 0013 02       		.uleb128 0x2
- 1193 0014 24       		.uleb128 0x24
-ARM GAS  C:\Users\Darwin\AppData\Local\Temp\cceKxohI.s 			page 24
+ 1096 03d4 86060000 		.4byte	0x686
+ 1097 03d8 07       		.uleb128 0x7
+ 1098 03d9 0E000000 		.4byte	.LVL45
+ 1099 03dd 91060000 		.4byte	0x691
+ 1100 03e1 07       		.uleb128 0x7
+ 1101 03e2 12000000 		.4byte	.LVL46
+ 1102 03e6 9C060000 		.4byte	0x69c
+ 1103 03ea 07       		.uleb128 0x7
+ 1104 03eb 16000000 		.4byte	.LVL47
+ 1105 03ef A7060000 		.4byte	0x6a7
+ 1106 03f3 08       		.uleb128 0x8
+ 1107 03f4 1E000000 		.4byte	.LVL48
+ 1108 03f8 4F060000 		.4byte	0x64f
+ 1109 03fc 0B040000 		.4byte	0x40b
+ 1110 0400 09       		.uleb128 0x9
+ 1111 0401 01       		.uleb128 0x1
+ 1112 0402 50       		.byte	0x50
+ 1113 0403 01       		.uleb128 0x1
+ 1114 0404 30       		.byte	0x30
+ 1115 0405 09       		.uleb128 0x9
+ 1116 0406 01       		.uleb128 0x1
+ 1117 0407 51       		.byte	0x51
+ 1118 0408 01       		.uleb128 0x1
+ 1119 0409 30       		.byte	0x30
+ 1120 040a 00       		.byte	0
+ 1121 040b 08       		.uleb128 0x8
+ 1122 040c 24000000 		.4byte	.LVL49
+ 1123 0410 5A060000 		.4byte	0x65a
+ 1124 0414 22040000 		.4byte	0x422
+ 1125 0418 09       		.uleb128 0x9
+ 1126 0419 01       		.uleb128 0x1
+ 1127 041a 50       		.byte	0x50
+ 1128 041b 05       		.uleb128 0x5
+ 1129 041c 03       		.byte	0x3
+ 1130 041d 00000000 		.4byte	.LC0
+ 1131 0421 00       		.byte	0
+ 1132 0422 08       		.uleb128 0x8
+ 1133 0423 2C000000 		.4byte	.LVL50
+ 1134 0427 4F060000 		.4byte	0x64f
+ 1135 042b 3A040000 		.4byte	0x43a
+ 1136 042f 09       		.uleb128 0x9
+ 1137 0430 01       		.uleb128 0x1
+ 1138 0431 50       		.byte	0x50
+ 1139 0432 01       		.uleb128 0x1
+ 1140 0433 30       		.byte	0x30
+ 1141 0434 09       		.uleb128 0x9
+ 1142 0435 01       		.uleb128 0x1
+ 1143 0436 51       		.byte	0x51
+ 1144 0437 01       		.uleb128 0x1
+ 1145 0438 3A       		.byte	0x3a
+ 1146 0439 00       		.byte	0
+ 1147 043a 07       		.uleb128 0x7
+ 1148 043b 3C000000 		.4byte	.LVL51
+ 1149 043f 65060000 		.4byte	0x665
+ 1150 0443 07       		.uleb128 0x7
+ 1151 0444 4E000000 		.4byte	.LVL52
+ 1152 0448 65060000 		.4byte	0x665
+ARM GAS  C:\Users\Darwin\AppData\Local\Temp\cceXYrWy.s 			page 24
 
 
- 1194 0015 00       		.byte	0
- 1195 0016 0B       		.uleb128 0xb
- 1196 0017 0B       		.uleb128 0xb
- 1197 0018 3E       		.uleb128 0x3e
- 1198 0019 0B       		.uleb128 0xb
- 1199 001a 03       		.uleb128 0x3
- 1200 001b 0E       		.uleb128 0xe
- 1201 001c 00       		.byte	0
- 1202 001d 00       		.byte	0
- 1203 001e 03       		.uleb128 0x3
- 1204 001f 16       		.uleb128 0x16
- 1205 0020 00       		.byte	0
- 1206 0021 03       		.uleb128 0x3
- 1207 0022 0E       		.uleb128 0xe
- 1208 0023 3A       		.uleb128 0x3a
- 1209 0024 0B       		.uleb128 0xb
- 1210 0025 3B       		.uleb128 0x3b
- 1211 0026 0B       		.uleb128 0xb
- 1212 0027 49       		.uleb128 0x49
- 1213 0028 13       		.uleb128 0x13
- 1214 0029 00       		.byte	0
- 1215 002a 00       		.byte	0
- 1216 002b 04       		.uleb128 0x4
- 1217 002c 24       		.uleb128 0x24
- 1218 002d 00       		.byte	0
- 1219 002e 0B       		.uleb128 0xb
- 1220 002f 0B       		.uleb128 0xb
- 1221 0030 3E       		.uleb128 0x3e
- 1222 0031 0B       		.uleb128 0xb
- 1223 0032 03       		.uleb128 0x3
- 1224 0033 08       		.uleb128 0x8
- 1225 0034 00       		.byte	0
- 1226 0035 00       		.byte	0
- 1227 0036 05       		.uleb128 0x5
- 1228 0037 16       		.uleb128 0x16
- 1229 0038 00       		.byte	0
- 1230 0039 03       		.uleb128 0x3
- 1231 003a 0E       		.uleb128 0xe
- 1232 003b 3A       		.uleb128 0x3a
- 1233 003c 0B       		.uleb128 0xb
- 1234 003d 3B       		.uleb128 0x3b
- 1235 003e 05       		.uleb128 0x5
- 1236 003f 49       		.uleb128 0x49
- 1237 0040 13       		.uleb128 0x13
- 1238 0041 00       		.byte	0
- 1239 0042 00       		.byte	0
- 1240 0043 06       		.uleb128 0x6
- 1241 0044 2E       		.uleb128 0x2e
- 1242 0045 01       		.byte	0x1
- 1243 0046 3F       		.uleb128 0x3f
- 1244 0047 19       		.uleb128 0x19
- 1245 0048 03       		.uleb128 0x3
- 1246 0049 0E       		.uleb128 0xe
- 1247 004a 3A       		.uleb128 0x3a
- 1248 004b 0B       		.uleb128 0xb
- 1249 004c 3B       		.uleb128 0x3b
- 1250 004d 0B       		.uleb128 0xb
-ARM GAS  C:\Users\Darwin\AppData\Local\Temp\cceKxohI.s 			page 25
+ 1153 044c 08       		.uleb128 0x8
+ 1154 044d 56000000 		.4byte	.LVL53
+ 1155 0451 4F060000 		.4byte	0x64f
+ 1156 0455 64040000 		.4byte	0x464
+ 1157 0459 09       		.uleb128 0x9
+ 1158 045a 01       		.uleb128 0x1
+ 1159 045b 50       		.byte	0x50
+ 1160 045c 01       		.uleb128 0x1
+ 1161 045d 31       		.byte	0x31
+ 1162 045e 09       		.uleb128 0x9
+ 1163 045f 01       		.uleb128 0x1
+ 1164 0460 51       		.byte	0x51
+ 1165 0461 01       		.uleb128 0x1
+ 1166 0462 30       		.byte	0x30
+ 1167 0463 00       		.byte	0
+ 1168 0464 08       		.uleb128 0x8
+ 1169 0465 5C000000 		.4byte	.LVL54
+ 1170 0469 5A060000 		.4byte	0x65a
+ 1171 046d 7B040000 		.4byte	0x47b
+ 1172 0471 09       		.uleb128 0x9
+ 1173 0472 01       		.uleb128 0x1
+ 1174 0473 50       		.byte	0x50
+ 1175 0474 05       		.uleb128 0x5
+ 1176 0475 03       		.byte	0x3
+ 1177 0476 0C000000 		.4byte	.LC1
+ 1178 047a 00       		.byte	0
+ 1179 047b 08       		.uleb128 0x8
+ 1180 047c 64000000 		.4byte	.LVL55
+ 1181 0480 4F060000 		.4byte	0x64f
+ 1182 0484 93040000 		.4byte	0x493
+ 1183 0488 09       		.uleb128 0x9
+ 1184 0489 01       		.uleb128 0x1
+ 1185 048a 50       		.byte	0x50
+ 1186 048b 01       		.uleb128 0x1
+ 1187 048c 31       		.byte	0x31
+ 1188 048d 09       		.uleb128 0x9
+ 1189 048e 01       		.uleb128 0x1
+ 1190 048f 51       		.byte	0x51
+ 1191 0490 01       		.uleb128 0x1
+ 1192 0491 3A       		.byte	0x3a
+ 1193 0492 00       		.byte	0
+ 1194 0493 07       		.uleb128 0x7
+ 1195 0494 6C000000 		.4byte	.LVL56
+ 1196 0498 65060000 		.4byte	0x665
+ 1197 049c 08       		.uleb128 0x8
+ 1198 049d 74000000 		.4byte	.LVL57
+ 1199 04a1 B2060000 		.4byte	0x6b2
+ 1200 04a5 B3040000 		.4byte	0x4b3
+ 1201 04a9 09       		.uleb128 0x9
+ 1202 04aa 01       		.uleb128 0x1
+ 1203 04ab 50       		.byte	0x50
+ 1204 04ac 05       		.uleb128 0x5
+ 1205 04ad 03       		.byte	0x3
+ 1206 04ae 00000000 		.4byte	AumentarInt
+ 1207 04b2 00       		.byte	0
+ 1208 04b3 08       		.uleb128 0x8
+ 1209 04b4 7A000000 		.4byte	.LVL58
+ARM GAS  C:\Users\Darwin\AppData\Local\Temp\cceXYrWy.s 			page 25
 
 
- 1251 004e 27       		.uleb128 0x27
- 1252 004f 19       		.uleb128 0x19
- 1253 0050 11       		.uleb128 0x11
- 1254 0051 01       		.uleb128 0x1
- 1255 0052 12       		.uleb128 0x12
- 1256 0053 06       		.uleb128 0x6
- 1257 0054 40       		.uleb128 0x40
- 1258 0055 18       		.uleb128 0x18
- 1259 0056 9742     		.uleb128 0x2117
- 1260 0058 19       		.uleb128 0x19
- 1261 0059 01       		.uleb128 0x1
- 1262 005a 13       		.uleb128 0x13
- 1263 005b 00       		.byte	0
- 1264 005c 00       		.byte	0
- 1265 005d 07       		.uleb128 0x7
- 1266 005e 898201   		.uleb128 0x4109
- 1267 0061 00       		.byte	0
- 1268 0062 11       		.uleb128 0x11
- 1269 0063 01       		.uleb128 0x1
- 1270 0064 31       		.uleb128 0x31
- 1271 0065 13       		.uleb128 0x13
- 1272 0066 00       		.byte	0
- 1273 0067 00       		.byte	0
- 1274 0068 08       		.uleb128 0x8
- 1275 0069 898201   		.uleb128 0x4109
- 1276 006c 01       		.byte	0x1
- 1277 006d 11       		.uleb128 0x11
- 1278 006e 01       		.uleb128 0x1
- 1279 006f 31       		.uleb128 0x31
- 1280 0070 13       		.uleb128 0x13
- 1281 0071 01       		.uleb128 0x1
- 1282 0072 13       		.uleb128 0x13
- 1283 0073 00       		.byte	0
- 1284 0074 00       		.byte	0
- 1285 0075 09       		.uleb128 0x9
- 1286 0076 8A8201   		.uleb128 0x410a
- 1287 0079 00       		.byte	0
- 1288 007a 02       		.uleb128 0x2
- 1289 007b 18       		.uleb128 0x18
- 1290 007c 9142     		.uleb128 0x2111
- 1291 007e 18       		.uleb128 0x18
- 1292 007f 00       		.byte	0
- 1293 0080 00       		.byte	0
- 1294 0081 0A       		.uleb128 0xa
- 1295 0082 2E       		.uleb128 0x2e
- 1296 0083 01       		.byte	0x1
- 1297 0084 3F       		.uleb128 0x3f
- 1298 0085 19       		.uleb128 0x19
- 1299 0086 03       		.uleb128 0x3
- 1300 0087 0E       		.uleb128 0xe
- 1301 0088 3A       		.uleb128 0x3a
- 1302 0089 0B       		.uleb128 0xb
- 1303 008a 3B       		.uleb128 0x3b
- 1304 008b 0B       		.uleb128 0xb
- 1305 008c 27       		.uleb128 0x27
- 1306 008d 19       		.uleb128 0x19
- 1307 008e 49       		.uleb128 0x49
-ARM GAS  C:\Users\Darwin\AppData\Local\Temp\cceKxohI.s 			page 26
+ 1210 04b8 BD060000 		.4byte	0x6bd
+ 1211 04bc CA040000 		.4byte	0x4ca
+ 1212 04c0 09       		.uleb128 0x9
+ 1213 04c1 01       		.uleb128 0x1
+ 1214 04c2 50       		.byte	0x50
+ 1215 04c3 05       		.uleb128 0x5
+ 1216 04c4 03       		.byte	0x3
+ 1217 04c5 00000000 		.4byte	DisminuirInt
+ 1218 04c9 00       		.byte	0
+ 1219 04ca 0C       		.uleb128 0xc
+ 1220 04cb 80000000 		.4byte	.LVL59
+ 1221 04cf C8060000 		.4byte	0x6c8
+ 1222 04d3 09       		.uleb128 0x9
+ 1223 04d4 01       		.uleb128 0x1
+ 1224 04d5 50       		.byte	0x50
+ 1225 04d6 05       		.uleb128 0x5
+ 1226 04d7 03       		.byte	0x3
+ 1227 04d8 00000000 		.4byte	Muestreo
+ 1228 04dc 00       		.byte	0
+ 1229 04dd 00       		.byte	0
+ 1230 04de 0D       		.uleb128 0xd
+ 1231 04df 65010000 		.4byte	.LASF21
+ 1232 04e3 05       		.byte	0x5
+ 1233 04e4 1207     		.2byte	0x712
+ 1234 04e6 EA040000 		.4byte	0x4ea
+ 1235 04ea 0E       		.uleb128 0xe
+ 1236 04eb 76000000 		.4byte	0x76
+ 1237 04ef 0F       		.uleb128 0xf
+ 1238 04f0 547300   		.ascii	"Ts\000"
+ 1239 04f3 01       		.byte	0x1
+ 1240 04f4 0F       		.byte	0xf
+ 1241 04f5 99000000 		.4byte	0x99
+ 1242 04f9 05       		.uleb128 0x5
+ 1243 04fa 03       		.byte	0x3
+ 1244 04fb 00000000 		.4byte	Ts
+ 1245 04ff 10       		.uleb128 0x10
+ 1246 0500 FE010000 		.4byte	.LASF22
+ 1247 0504 01       		.byte	0x1
+ 1248 0505 10       		.byte	0x10
+ 1249 0506 8D000000 		.4byte	0x8d
+ 1250 050a 05       		.uleb128 0x5
+ 1251 050b 03       		.byte	0x3
+ 1252 050c 00000000 		.4byte	control_manual
+ 1253 0510 10       		.uleb128 0x10
+ 1254 0511 FC000000 		.4byte	.LASF23
+ 1255 0515 01       		.byte	0x1
+ 1256 0516 11       		.byte	0x11
+ 1257 0517 8D000000 		.4byte	0x8d
+ 1258 051b 05       		.uleb128 0x5
+ 1259 051c 03       		.byte	0x3
+ 1260 051d 00000000 		.4byte	control_auto
+ 1261 0521 10       		.uleb128 0x10
+ 1262 0522 51000000 		.4byte	.LASF24
+ 1263 0526 01       		.byte	0x1
+ 1264 0527 12       		.byte	0x12
+ 1265 0528 68000000 		.4byte	0x68
+ 1266 052c 05       		.uleb128 0x5
+ARM GAS  C:\Users\Darwin\AppData\Local\Temp\cceXYrWy.s 			page 26
 
 
- 1308 008f 13       		.uleb128 0x13
- 1309 0090 8701     		.uleb128 0x87
- 1310 0092 19       		.uleb128 0x19
- 1311 0093 11       		.uleb128 0x11
- 1312 0094 01       		.uleb128 0x1
- 1313 0095 12       		.uleb128 0x12
- 1314 0096 06       		.uleb128 0x6
- 1315 0097 40       		.uleb128 0x40
- 1316 0098 18       		.uleb128 0x18
- 1317 0099 9742     		.uleb128 0x2117
- 1318 009b 19       		.uleb128 0x19
- 1319 009c 01       		.uleb128 0x1
- 1320 009d 13       		.uleb128 0x13
- 1321 009e 00       		.byte	0
- 1322 009f 00       		.byte	0
- 1323 00a0 0B       		.uleb128 0xb
- 1324 00a1 898201   		.uleb128 0x4109
- 1325 00a4 01       		.byte	0x1
- 1326 00a5 11       		.uleb128 0x11
- 1327 00a6 01       		.uleb128 0x1
- 1328 00a7 31       		.uleb128 0x31
- 1329 00a8 13       		.uleb128 0x13
- 1330 00a9 00       		.byte	0
- 1331 00aa 00       		.byte	0
- 1332 00ab 0C       		.uleb128 0xc
- 1333 00ac 34       		.uleb128 0x34
- 1334 00ad 00       		.byte	0
- 1335 00ae 03       		.uleb128 0x3
- 1336 00af 0E       		.uleb128 0xe
- 1337 00b0 3A       		.uleb128 0x3a
- 1338 00b1 0B       		.uleb128 0xb
- 1339 00b2 3B       		.uleb128 0x3b
- 1340 00b3 05       		.uleb128 0x5
- 1341 00b4 49       		.uleb128 0x49
- 1342 00b5 13       		.uleb128 0x13
- 1343 00b6 3F       		.uleb128 0x3f
- 1344 00b7 19       		.uleb128 0x19
- 1345 00b8 3C       		.uleb128 0x3c
- 1346 00b9 19       		.uleb128 0x19
- 1347 00ba 00       		.byte	0
- 1348 00bb 00       		.byte	0
- 1349 00bc 0D       		.uleb128 0xd
- 1350 00bd 35       		.uleb128 0x35
- 1351 00be 00       		.byte	0
- 1352 00bf 49       		.uleb128 0x49
- 1353 00c0 13       		.uleb128 0x13
- 1354 00c1 00       		.byte	0
- 1355 00c2 00       		.byte	0
- 1356 00c3 0E       		.uleb128 0xe
- 1357 00c4 34       		.uleb128 0x34
- 1358 00c5 00       		.byte	0
- 1359 00c6 03       		.uleb128 0x3
- 1360 00c7 0E       		.uleb128 0xe
- 1361 00c8 3A       		.uleb128 0x3a
- 1362 00c9 0B       		.uleb128 0xb
- 1363 00ca 3B       		.uleb128 0x3b
- 1364 00cb 0B       		.uleb128 0xb
-ARM GAS  C:\Users\Darwin\AppData\Local\Temp\cceKxohI.s 			page 27
+ 1267 052d 03       		.byte	0x3
+ 1268 052e 00000000 		.4byte	counter
+ 1269 0532 10       		.uleb128 0x10
+ 1270 0533 1B030000 		.4byte	.LASF25
+ 1271 0537 01       		.byte	0x1
+ 1272 0538 13       		.byte	0x13
+ 1273 0539 68000000 		.4byte	0x68
+ 1274 053d 05       		.uleb128 0x5
+ 1275 053e 03       		.byte	0x3
+ 1276 053f 00000000 		.4byte	ref_counter
+ 1277 0543 10       		.uleb128 0x10
+ 1278 0544 34010000 		.4byte	.LASF26
+ 1279 0548 01       		.byte	0x1
+ 1280 0549 15       		.byte	0x15
+ 1281 054a 8D000000 		.4byte	0x8d
+ 1282 054e 05       		.uleb128 0x5
+ 1283 054f 03       		.byte	0x3
+ 1284 0550 00000000 		.4byte	control
+ 1285 0554 0F       		.uleb128 0xf
+ 1286 0555 506B5000 		.ascii	"PkP\000"
+ 1287 0559 01       		.byte	0x1
+ 1288 055a 17       		.byte	0x17
+ 1289 055b 99000000 		.4byte	0x99
+ 1290 055f 05       		.uleb128 0x5
+ 1291 0560 03       		.byte	0x3
+ 1292 0561 00000000 		.4byte	PkP
+ 1293 0565 0F       		.uleb128 0xf
+ 1294 0566 506B4900 		.ascii	"PkI\000"
+ 1295 056a 01       		.byte	0x1
+ 1296 056b 17       		.byte	0x17
+ 1297 056c 99000000 		.4byte	0x99
+ 1298 0570 05       		.uleb128 0x5
+ 1299 0571 03       		.byte	0x3
+ 1300 0572 00000000 		.4byte	PkI
+ 1301 0576 0F       		.uleb128 0xf
+ 1302 0577 506B4400 		.ascii	"PkD\000"
+ 1303 057b 01       		.byte	0x1
+ 1304 057c 17       		.byte	0x17
+ 1305 057d 99000000 		.4byte	0x99
+ 1306 0581 05       		.uleb128 0x5
+ 1307 0582 03       		.byte	0x3
+ 1308 0583 00000000 		.4byte	PkD
+ 1309 0587 0F       		.uleb128 0xf
+ 1310 0588 4E00     		.ascii	"N\000"
+ 1311 058a 01       		.byte	0x1
+ 1312 058b 17       		.byte	0x17
+ 1313 058c 99000000 		.4byte	0x99
+ 1314 0590 05       		.uleb128 0x5
+ 1315 0591 03       		.byte	0x3
+ 1316 0592 00000000 		.4byte	N
+ 1317 0596 10       		.uleb128 0x10
+ 1318 0597 EA020000 		.4byte	.LASF27
+ 1319 059b 01       		.byte	0x1
+ 1320 059c 18       		.byte	0x18
+ 1321 059d A7050000 		.4byte	0x5a7
+ 1322 05a1 05       		.uleb128 0x5
+ 1323 05a2 03       		.byte	0x3
+ARM GAS  C:\Users\Darwin\AppData\Local\Temp\cceXYrWy.s 			page 27
 
 
- 1365 00cc 49       		.uleb128 0x49
- 1366 00cd 13       		.uleb128 0x13
- 1367 00ce 3F       		.uleb128 0x3f
- 1368 00cf 19       		.uleb128 0x19
- 1369 00d0 02       		.uleb128 0x2
- 1370 00d1 18       		.uleb128 0x18
- 1371 00d2 00       		.byte	0
- 1372 00d3 00       		.byte	0
- 1373 00d4 0F       		.uleb128 0xf
- 1374 00d5 2E       		.uleb128 0x2e
- 1375 00d6 00       		.byte	0
- 1376 00d7 3F       		.uleb128 0x3f
- 1377 00d8 19       		.uleb128 0x19
- 1378 00d9 3C       		.uleb128 0x3c
- 1379 00da 19       		.uleb128 0x19
- 1380 00db 6E       		.uleb128 0x6e
- 1381 00dc 0E       		.uleb128 0xe
- 1382 00dd 03       		.uleb128 0x3
- 1383 00de 0E       		.uleb128 0xe
- 1384 00df 3A       		.uleb128 0x3a
- 1385 00e0 0B       		.uleb128 0xb
- 1386 00e1 3B       		.uleb128 0x3b
- 1387 00e2 0B       		.uleb128 0xb
- 1388 00e3 00       		.byte	0
- 1389 00e4 00       		.byte	0
- 1390 00e5 00       		.byte	0
- 1391              		.section	.debug_aranges,"",%progbits
- 1392 0000 34000000 		.4byte	0x34
- 1393 0004 0200     		.2byte	0x2
- 1394 0006 00000000 		.4byte	.Ldebug_info0
- 1395 000a 04       		.byte	0x4
- 1396 000b 00       		.byte	0
- 1397 000c 0000     		.2byte	0
- 1398 000e 0000     		.2byte	0
- 1399 0010 00000000 		.4byte	.LFB63
- 1400 0014 80000000 		.4byte	.LFE63-.LFB63
- 1401 0018 00000000 		.4byte	.LFB64
- 1402 001c 80000000 		.4byte	.LFE64-.LFB64
- 1403 0020 00000000 		.4byte	.LFB65
- 1404 0024 5C000000 		.4byte	.LFE65-.LFB65
- 1405 0028 00000000 		.4byte	.LFB66
- 1406 002c 84000000 		.4byte	.LFE66-.LFB66
- 1407 0030 00000000 		.4byte	0
- 1408 0034 00000000 		.4byte	0
- 1409              		.section	.debug_ranges,"",%progbits
- 1410              	.Ldebug_ranges0:
- 1411 0000 00000000 		.4byte	.LFB63
- 1412 0004 80000000 		.4byte	.LFE63
- 1413 0008 00000000 		.4byte	.LFB64
- 1414 000c 80000000 		.4byte	.LFE64
- 1415 0010 00000000 		.4byte	.LFB65
- 1416 0014 5C000000 		.4byte	.LFE65
- 1417 0018 00000000 		.4byte	.LFB66
- 1418 001c 84000000 		.4byte	.LFE66
- 1419 0020 00000000 		.4byte	0
- 1420 0024 00000000 		.4byte	0
- 1421              		.section	.debug_line,"",%progbits
-ARM GAS  C:\Users\Darwin\AppData\Local\Temp\cceKxohI.s 			page 28
+ 1324 05a3 00000000 		.4byte	error
+ 1325 05a7 0E       		.uleb128 0xe
+ 1326 05a8 99000000 		.4byte	0x99
+ 1327 05ac 10       		.uleb128 0x10
+ 1328 05ad A6010000 		.4byte	.LASF28
+ 1329 05b1 01       		.byte	0x1
+ 1330 05b2 18       		.byte	0x18
+ 1331 05b3 A7050000 		.4byte	0x5a7
+ 1332 05b7 05       		.uleb128 0x5
+ 1333 05b8 03       		.byte	0x3
+ 1334 05b9 00000000 		.4byte	error_anterior
+ 1335 05bd 0F       		.uleb128 0xf
+ 1336 05be 506B7000 		.ascii	"Pkp\000"
+ 1337 05c2 01       		.byte	0x1
+ 1338 05c3 19       		.byte	0x19
+ 1339 05c4 A7050000 		.4byte	0x5a7
+ 1340 05c8 05       		.uleb128 0x5
+ 1341 05c9 03       		.byte	0x3
+ 1342 05ca 00000000 		.4byte	Pkp
+ 1343 05ce 0F       		.uleb128 0xf
+ 1344 05cf 506B6900 		.ascii	"Pki\000"
+ 1345 05d3 01       		.byte	0x1
+ 1346 05d4 19       		.byte	0x19
+ 1347 05d5 A7050000 		.4byte	0x5a7
+ 1348 05d9 05       		.uleb128 0x5
+ 1349 05da 03       		.byte	0x3
+ 1350 05db 00000000 		.4byte	Pki
+ 1351 05df 0F       		.uleb128 0xf
+ 1352 05e0 506B6400 		.ascii	"Pkd\000"
+ 1353 05e4 01       		.byte	0x1
+ 1354 05e5 19       		.byte	0x19
+ 1355 05e6 A7050000 		.4byte	0x5a7
+ 1356 05ea 05       		.uleb128 0x5
+ 1357 05eb 03       		.byte	0x3
+ 1358 05ec 00000000 		.4byte	Pkd
+ 1359 05f0 10       		.uleb128 0x10
+ 1360 05f1 C4020000 		.4byte	.LASF29
+ 1361 05f5 01       		.byte	0x1
+ 1362 05f6 1A       		.byte	0x1a
+ 1363 05f7 A7050000 		.4byte	0x5a7
+ 1364 05fb 05       		.uleb128 0x5
+ 1365 05fc 03       		.byte	0x3
+ 1366 05fd 00000000 		.4byte	Pkp_anterior
+ 1367 0601 10       		.uleb128 0x10
+ 1368 0602 AD020000 		.4byte	.LASF30
+ 1369 0606 01       		.byte	0x1
+ 1370 0607 1A       		.byte	0x1a
+ 1371 0608 A7050000 		.4byte	0x5a7
+ 1372 060c 05       		.uleb128 0x5
+ 1373 060d 03       		.byte	0x3
+ 1374 060e 00000000 		.4byte	Pki_anterior
+ 1375 0612 10       		.uleb128 0x10
+ 1376 0613 0A000000 		.4byte	.LASF31
+ 1377 0617 01       		.byte	0x1
+ 1378 0618 1A       		.byte	0x1a
+ 1379 0619 A7050000 		.4byte	0x5a7
+ 1380 061d 05       		.uleb128 0x5
+ARM GAS  C:\Users\Darwin\AppData\Local\Temp\cceXYrWy.s 			page 28
 
 
- 1422              	.Ldebug_line0:
- 1423 0000 55020000 		.section	.debug_str,"MS",%progbits,1
- 1423      0200D601 
- 1423      00000201 
- 1423      FB0E0D00 
- 1423      01010101 
- 1424              	.LASF26:
- 1425 0000 4C45445F 		.ascii	"LED_Write\000"
- 1425      57726974 
- 1425      6500
- 1426              	.LASF33:
- 1427 000a 4C43445F 		.ascii	"LCD_Start\000"
- 1427      53746172 
- 1427      7400
- 1428              	.LASF9:
- 1429 0014 5F5F696E 		.ascii	"__int32_t\000"
- 1429      7433325F 
- 1429      7400
- 1430              	.LASF19:
- 1431 001e 4469736D 		.ascii	"DisminuirInt\000"
- 1431      696E7569 
- 1431      72496E74 
- 1431      00
- 1432              	.LASF32:
- 1433 002b 50574D5F 		.ascii	"PWM_Motor_Start\000"
- 1433      4D6F746F 
- 1433      725F5374 
- 1433      61727400 
- 1434              	.LASF35:
- 1435 003b 51756164 		.ascii	"QuadDec_Start\000"
- 1435      4465635F 
- 1435      53746172 
- 1435      7400
- 1436              	.LASF10:
- 1437 0049 696E7433 		.ascii	"int32_t\000"
- 1437      325F7400 
- 1438              	.LASF13:
- 1439 0051 666C6F61 		.ascii	"float\000"
- 1439      7400
- 1440              	.LASF23:
- 1441 0057 636F756E 		.ascii	"counter\000"
- 1441      74657200 
- 1442              	.LASF37:
- 1443 005f 6973725F 		.ascii	"isr_Aumentar_StartEx\000"
- 1443      41756D65 
- 1443      6E746172 
- 1443      5F537461 
- 1443      72744578 
- 1444              	.LASF40:
- 1445 0074 474E5520 		.ascii	"GNU C11 5.4.1 20160609 (release) [ARM/embedded-5-br"
- 1445      43313120 
- 1445      352E342E 
- 1445      31203230 
- 1445      31363036 
- 1446 00a7 616E6368 		.ascii	"anch revision 237715] -mcpu=cortex-m3 -mthumb -g -O"
- 1446      20726576 
- 1446      6973696F 
-ARM GAS  C:\Users\Darwin\AppData\Local\Temp\cceKxohI.s 			page 29
+ 1381 061e 03       		.byte	0x3
+ 1382 061f 00000000 		.4byte	Pkd_anterior
+ 1383 0623 11       		.uleb128 0x11
+ 1384 0624 3C010000 		.4byte	.LASF32
+ 1385 0628 3C010000 		.4byte	.LASF32
+ 1386 062c 06       		.byte	0x6
+ 1387 062d C3       		.byte	0xc3
+ 1388 062e 11       		.uleb128 0x11
+ 1389 062f D1020000 		.4byte	.LASF33
+ 1390 0633 D1020000 		.4byte	.LASF33
+ 1391 0637 07       		.byte	0x7
+ 1392 0638 26       		.byte	0x26
+ 1393 0639 11       		.uleb128 0x11
+ 1394 063a 00000000 		.4byte	.LASF34
+ 1395 063e 00000000 		.4byte	.LASF34
+ 1396 0642 08       		.byte	0x8
+ 1397 0643 26       		.byte	0x26
+ 1398 0644 11       		.uleb128 0x11
+ 1399 0645 0A030000 		.4byte	.LASF35
+ 1400 0649 0A030000 		.4byte	.LASF35
+ 1401 064d 09       		.byte	0x9
+ 1402 064e 3A       		.byte	0x3a
+ 1403 064f 11       		.uleb128 0x11
+ 1404 0650 8D020000 		.4byte	.LASF36
+ 1405 0654 8D020000 		.4byte	.LASF36
+ 1406 0658 09       		.byte	0x9
+ 1407 0659 3D       		.byte	0x3d
+ 1408 065a 11       		.uleb128 0x11
+ 1409 065b DB010000 		.4byte	.LASF37
+ 1410 065f DB010000 		.4byte	.LASF37
+ 1411 0663 09       		.byte	0x9
+ 1412 0664 3C       		.byte	0x3c
+ 1413 0665 11       		.uleb128 0x11
+ 1414 0666 9A020000 		.4byte	.LASF38
+ 1415 066a 9A020000 		.4byte	.LASF38
+ 1416 066e 09       		.byte	0x9
+ 1417 066f 61       		.byte	0x61
+ 1418 0670 11       		.uleb128 0x11
+ 1419 0671 EB010000 		.4byte	.LASF39
+ 1420 0675 EB010000 		.4byte	.LASF39
+ 1421 0679 0A       		.byte	0xa
+ 1422 067a 4E       		.byte	0x4e
+ 1423 067b 11       		.uleb128 0x11
+ 1424 067c 96010000 		.4byte	.LASF40
+ 1425 0680 96010000 		.4byte	.LASF40
+ 1426 0684 06       		.byte	0x6
+ 1427 0685 92       		.byte	0x92
+ 1428 0686 11       		.uleb128 0x11
+ 1429 0687 BA020000 		.4byte	.LASF41
+ 1430 068b BA020000 		.4byte	.LASF41
+ 1431 068f 09       		.byte	0x9
+ 1432 0690 38       		.byte	0x38
+ 1433 0691 11       		.uleb128 0x11
+ 1434 0692 53010000 		.4byte	.LASF42
+ 1435 0696 53010000 		.4byte	.LASF42
+ 1436 069a 0B       		.byte	0xb
+ 1437 069b 27       		.byte	0x27
+ARM GAS  C:\Users\Darwin\AppData\Local\Temp\cceXYrWy.s 			page 29
 
 
- 1446      6E203233 
- 1446      37373135 
- 1447 00da 67202D66 		.ascii	"g -ffunction-sections -ffat-lto-objects\000"
- 1447      66756E63 
- 1447      74696F6E 
- 1447      2D736563 
- 1447      74696F6E 
- 1448              	.LASF12:
- 1449 0102 696E7431 		.ascii	"int16\000"
- 1449      3600
- 1450              	.LASF5:
- 1451 0108 6C6F6E67 		.ascii	"long unsigned int\000"
- 1451      20756E73 
- 1451      69676E65 
- 1451      6420696E 
- 1451      7400
- 1452              	.LASF3:
- 1453 011a 73686F72 		.ascii	"short unsigned int\000"
- 1453      7420756E 
- 1453      7369676E 
- 1453      65642069 
- 1453      6E7400
- 1454              	.LASF22:
- 1455 012d 636F6E74 		.ascii	"control\000"
- 1455      726F6C00 
- 1456              	.LASF24:
- 1457 0135 50574D5F 		.ascii	"PWM_Motor_WriteCompare\000"
- 1457      4D6F746F 
- 1457      725F5772 
- 1457      69746543 
- 1457      6F6D7061 
- 1458              	.LASF34:
- 1459 014c 74696D65 		.ascii	"timer_clock_Start\000"
- 1459      725F636C 
- 1459      6F636B5F 
- 1459      53746172 
- 1459      7400
- 1460              	.LASF21:
- 1461 015e 49544D5F 		.ascii	"ITM_RxBuffer\000"
- 1461      52784275 
- 1461      66666572 
- 1461      00
- 1462              	.LASF38:
- 1463 016b 6973725F 		.ascii	"isr_Disminuir_StartEx\000"
- 1463      4469736D 
- 1463      696E7569 
- 1463      725F5374 
- 1463      61727445 
- 1464              	.LASF1:
- 1465 0181 756E7369 		.ascii	"unsigned char\000"
- 1465      676E6564 
- 1465      20636861 
- 1465      7200
- 1466              	.LASF14:
- 1467 018f 646F7562 		.ascii	"double\000"
- 1467      6C6500
- 1468              	.LASF11:
-ARM GAS  C:\Users\Darwin\AppData\Local\Temp\cceKxohI.s 			page 30
+ 1438 069c 11       		.uleb128 0x11
+ 1439 069d 35000000 		.4byte	.LASF43
+ 1440 06a1 35000000 		.4byte	.LASF43
+ 1441 06a5 0A       		.byte	0xa
+ 1442 06a6 48       		.byte	0x48
+ 1443 06a7 11       		.uleb128 0x11
+ 1444 06a8 5D020000 		.4byte	.LASF44
+ 1445 06ac 5D020000 		.4byte	.LASF44
+ 1446 06b0 0C       		.byte	0xc
+ 1447 06b1 5A       		.byte	0x5a
+ 1448 06b2 11       		.uleb128 0x11
+ 1449 06b3 59000000 		.4byte	.LASF45
+ 1450 06b7 59000000 		.4byte	.LASF45
+ 1451 06bb 0D       		.byte	0xd
+ 1452 06bc 18       		.byte	0x18
+ 1453 06bd 11       		.uleb128 0x11
+ 1454 06be 72010000 		.4byte	.LASF46
+ 1455 06c2 72010000 		.4byte	.LASF46
+ 1456 06c6 0E       		.byte	0xe
+ 1457 06c7 18       		.byte	0x18
+ 1458 06c8 11       		.uleb128 0x11
+ 1459 06c9 27030000 		.4byte	.LASF47
+ 1460 06cd 27030000 		.4byte	.LASF47
+ 1461 06d1 0F       		.byte	0xf
+ 1462 06d2 18       		.byte	0x18
+ 1463 06d3 00       		.byte	0
+ 1464              		.section	.debug_abbrev,"",%progbits
+ 1465              	.Ldebug_abbrev0:
+ 1466 0000 01       		.uleb128 0x1
+ 1467 0001 11       		.uleb128 0x11
+ 1468 0002 01       		.byte	0x1
+ 1469 0003 25       		.uleb128 0x25
+ 1470 0004 0E       		.uleb128 0xe
+ 1471 0005 13       		.uleb128 0x13
+ 1472 0006 0B       		.uleb128 0xb
+ 1473 0007 03       		.uleb128 0x3
+ 1474 0008 0E       		.uleb128 0xe
+ 1475 0009 1B       		.uleb128 0x1b
+ 1476 000a 0E       		.uleb128 0xe
+ 1477 000b 55       		.uleb128 0x55
+ 1478 000c 17       		.uleb128 0x17
+ 1479 000d 11       		.uleb128 0x11
+ 1480 000e 01       		.uleb128 0x1
+ 1481 000f 10       		.uleb128 0x10
+ 1482 0010 17       		.uleb128 0x17
+ 1483 0011 00       		.byte	0
+ 1484 0012 00       		.byte	0
+ 1485 0013 02       		.uleb128 0x2
+ 1486 0014 24       		.uleb128 0x24
+ 1487 0015 00       		.byte	0
+ 1488 0016 0B       		.uleb128 0xb
+ 1489 0017 0B       		.uleb128 0xb
+ 1490 0018 3E       		.uleb128 0x3e
+ 1491 0019 0B       		.uleb128 0xb
+ 1492 001a 03       		.uleb128 0x3
+ 1493 001b 0E       		.uleb128 0xe
+ 1494 001c 00       		.byte	0
+ARM GAS  C:\Users\Darwin\AppData\Local\Temp\cceXYrWy.s 			page 30
 
 
- 1469 0196 75696E74 		.ascii	"uint16\000"
- 1469      313600
- 1470              	.LASF18:
- 1471 019d 41756D65 		.ascii	"AumentarInt\000"
- 1471      6E746172 
- 1471      496E7400 
- 1472              	.LASF43:
- 1473 01a9 6D61696E 		.ascii	"main\000"
- 1473      00
- 1474              	.LASF20:
- 1475 01ae 4D756573 		.ascii	"Muestreo\000"
- 1475      7472656F 
- 1475      00
- 1476              	.LASF29:
- 1477 01b7 4C43445F 		.ascii	"LCD_PrintString\000"
- 1477      5072696E 
- 1477      74537472 
- 1477      696E6700 
- 1478              	.LASF31:
- 1479 01c7 51756164 		.ascii	"QuadDec_GetCounter\000"
- 1479      4465635F 
- 1479      47657443 
- 1479      6F756E74 
- 1479      657200
- 1480              	.LASF42:
- 1481 01da 433A5C55 		.ascii	"C:\\Users\\Darwin\\Documents\\git\\control_heli_pso"
- 1481      73657273 
- 1481      5C446172 
- 1481      77696E5C 
- 1481      446F6375 
- 1482 0208 635C576F 		.ascii	"c\\Workspace01\\Design01.cydsn\000"
- 1482      726B7370 
- 1482      61636530 
- 1482      315C4465 
- 1482      7369676E 
- 1483              	.LASF36:
- 1484 0225 54696D65 		.ascii	"Timer_Start\000"
- 1484      725F5374 
- 1484      61727400 
- 1485              	.LASF8:
- 1486 0231 756E7369 		.ascii	"unsigned int\000"
- 1486      676E6564 
- 1486      20696E74 
- 1486      00
- 1487              	.LASF7:
- 1488 023e 6C6F6E67 		.ascii	"long long unsigned int\000"
- 1488      206C6F6E 
- 1488      6720756E 
- 1488      7369676E 
- 1488      65642069 
- 1489              	.LASF28:
- 1490 0255 4C43445F 		.ascii	"LCD_Position\000"
- 1490      506F7369 
- 1490      74696F6E 
- 1490      00
- 1491              	.LASF30:
- 1492 0262 4C43445F 		.ascii	"LCD_PrintU32Number\000"
-ARM GAS  C:\Users\Darwin\AppData\Local\Temp\cceKxohI.s 			page 31
+ 1495 001d 00       		.byte	0
+ 1496 001e 03       		.uleb128 0x3
+ 1497 001f 16       		.uleb128 0x16
+ 1498 0020 00       		.byte	0
+ 1499 0021 03       		.uleb128 0x3
+ 1500 0022 0E       		.uleb128 0xe
+ 1501 0023 3A       		.uleb128 0x3a
+ 1502 0024 0B       		.uleb128 0xb
+ 1503 0025 3B       		.uleb128 0x3b
+ 1504 0026 0B       		.uleb128 0xb
+ 1505 0027 49       		.uleb128 0x49
+ 1506 0028 13       		.uleb128 0x13
+ 1507 0029 00       		.byte	0
+ 1508 002a 00       		.byte	0
+ 1509 002b 04       		.uleb128 0x4
+ 1510 002c 24       		.uleb128 0x24
+ 1511 002d 00       		.byte	0
+ 1512 002e 0B       		.uleb128 0xb
+ 1513 002f 0B       		.uleb128 0xb
+ 1514 0030 3E       		.uleb128 0x3e
+ 1515 0031 0B       		.uleb128 0xb
+ 1516 0032 03       		.uleb128 0x3
+ 1517 0033 08       		.uleb128 0x8
+ 1518 0034 00       		.byte	0
+ 1519 0035 00       		.byte	0
+ 1520 0036 05       		.uleb128 0x5
+ 1521 0037 16       		.uleb128 0x16
+ 1522 0038 00       		.byte	0
+ 1523 0039 03       		.uleb128 0x3
+ 1524 003a 0E       		.uleb128 0xe
+ 1525 003b 3A       		.uleb128 0x3a
+ 1526 003c 0B       		.uleb128 0xb
+ 1527 003d 3B       		.uleb128 0x3b
+ 1528 003e 05       		.uleb128 0x5
+ 1529 003f 49       		.uleb128 0x49
+ 1530 0040 13       		.uleb128 0x13
+ 1531 0041 00       		.byte	0
+ 1532 0042 00       		.byte	0
+ 1533 0043 06       		.uleb128 0x6
+ 1534 0044 2E       		.uleb128 0x2e
+ 1535 0045 01       		.byte	0x1
+ 1536 0046 3F       		.uleb128 0x3f
+ 1537 0047 19       		.uleb128 0x19
+ 1538 0048 03       		.uleb128 0x3
+ 1539 0049 0E       		.uleb128 0xe
+ 1540 004a 3A       		.uleb128 0x3a
+ 1541 004b 0B       		.uleb128 0xb
+ 1542 004c 3B       		.uleb128 0x3b
+ 1543 004d 0B       		.uleb128 0xb
+ 1544 004e 27       		.uleb128 0x27
+ 1545 004f 19       		.uleb128 0x19
+ 1546 0050 11       		.uleb128 0x11
+ 1547 0051 01       		.uleb128 0x1
+ 1548 0052 12       		.uleb128 0x12
+ 1549 0053 06       		.uleb128 0x6
+ 1550 0054 40       		.uleb128 0x40
+ 1551 0055 18       		.uleb128 0x18
+ARM GAS  C:\Users\Darwin\AppData\Local\Temp\cceXYrWy.s 			page 31
 
 
- 1492      5072696E 
- 1492      74553332 
- 1492      4E756D62 
- 1492      657200
- 1493              	.LASF25:
- 1494 0275 52657365 		.ascii	"Reset_PWM_Write\000"
- 1494      745F5057 
- 1494      4D5F5772 
- 1494      69746500 
- 1495              	.LASF17:
- 1496 0285 73697A65 		.ascii	"sizetype\000"
- 1496      74797065 
- 1496      00
- 1497              	.LASF6:
- 1498 028e 6C6F6E67 		.ascii	"long long int\000"
- 1498      206C6F6E 
- 1498      6720696E 
- 1498      7400
- 1499              	.LASF41:
- 1500 029c 6D61696E 		.ascii	"main.c\000"
- 1500      2E6300
- 1501              	.LASF15:
- 1502 02a3 63686172 		.ascii	"char\000"
- 1502      00
- 1503              	.LASF27:
- 1504 02a8 4C43445F 		.ascii	"LCD_WriteControl\000"
- 1504      57726974 
- 1504      65436F6E 
- 1504      74726F6C 
- 1504      00
- 1505              	.LASF2:
- 1506 02b9 73686F72 		.ascii	"short int\000"
- 1506      7420696E 
- 1506      7400
- 1507              	.LASF39:
- 1508 02c3 6973725F 		.ascii	"isr_Ts_StartEx\000"
- 1508      54735F53 
- 1508      74617274 
- 1508      457800
- 1509              	.LASF4:
- 1510 02d2 6C6F6E67 		.ascii	"long int\000"
- 1510      20696E74 
- 1510      00
- 1511              	.LASF16:
- 1512 02db 6C6F6E67 		.ascii	"long double\000"
- 1512      20646F75 
- 1512      626C6500 
- 1513              	.LASF0:
- 1514 02e7 7369676E 		.ascii	"signed char\000"
- 1514      65642063 
- 1514      68617200 
- 1515              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 5.4.1 20160609 (release) [ARM/embedded-5-bran
+ 1552 0056 9742     		.uleb128 0x2117
+ 1553 0058 19       		.uleb128 0x19
+ 1554 0059 01       		.uleb128 0x1
+ 1555 005a 13       		.uleb128 0x13
+ 1556 005b 00       		.byte	0
+ 1557 005c 00       		.byte	0
+ 1558 005d 07       		.uleb128 0x7
+ 1559 005e 898201   		.uleb128 0x4109
+ 1560 0061 00       		.byte	0
+ 1561 0062 11       		.uleb128 0x11
+ 1562 0063 01       		.uleb128 0x1
+ 1563 0064 31       		.uleb128 0x31
+ 1564 0065 13       		.uleb128 0x13
+ 1565 0066 00       		.byte	0
+ 1566 0067 00       		.byte	0
+ 1567 0068 08       		.uleb128 0x8
+ 1568 0069 898201   		.uleb128 0x4109
+ 1569 006c 01       		.byte	0x1
+ 1570 006d 11       		.uleb128 0x11
+ 1571 006e 01       		.uleb128 0x1
+ 1572 006f 31       		.uleb128 0x31
+ 1573 0070 13       		.uleb128 0x13
+ 1574 0071 01       		.uleb128 0x1
+ 1575 0072 13       		.uleb128 0x13
+ 1576 0073 00       		.byte	0
+ 1577 0074 00       		.byte	0
+ 1578 0075 09       		.uleb128 0x9
+ 1579 0076 8A8201   		.uleb128 0x410a
+ 1580 0079 00       		.byte	0
+ 1581 007a 02       		.uleb128 0x2
+ 1582 007b 18       		.uleb128 0x18
+ 1583 007c 9142     		.uleb128 0x2111
+ 1584 007e 18       		.uleb128 0x18
+ 1585 007f 00       		.byte	0
+ 1586 0080 00       		.byte	0
+ 1587 0081 0A       		.uleb128 0xa
+ 1588 0082 2E       		.uleb128 0x2e
+ 1589 0083 01       		.byte	0x1
+ 1590 0084 3F       		.uleb128 0x3f
+ 1591 0085 19       		.uleb128 0x19
+ 1592 0086 03       		.uleb128 0x3
+ 1593 0087 0E       		.uleb128 0xe
+ 1594 0088 3A       		.uleb128 0x3a
+ 1595 0089 0B       		.uleb128 0xb
+ 1596 008a 3B       		.uleb128 0x3b
+ 1597 008b 0B       		.uleb128 0xb
+ 1598 008c 27       		.uleb128 0x27
+ 1599 008d 19       		.uleb128 0x19
+ 1600 008e 11       		.uleb128 0x11
+ 1601 008f 01       		.uleb128 0x1
+ 1602 0090 12       		.uleb128 0x12
+ 1603 0091 06       		.uleb128 0x6
+ 1604 0092 40       		.uleb128 0x40
+ 1605 0093 18       		.uleb128 0x18
+ 1606 0094 9642     		.uleb128 0x2116
+ 1607 0096 19       		.uleb128 0x19
+ 1608 0097 01       		.uleb128 0x1
+ARM GAS  C:\Users\Darwin\AppData\Local\Temp\cceXYrWy.s 			page 32
+
+
+ 1609 0098 13       		.uleb128 0x13
+ 1610 0099 00       		.byte	0
+ 1611 009a 00       		.byte	0
+ 1612 009b 0B       		.uleb128 0xb
+ 1613 009c 2E       		.uleb128 0x2e
+ 1614 009d 01       		.byte	0x1
+ 1615 009e 3F       		.uleb128 0x3f
+ 1616 009f 19       		.uleb128 0x19
+ 1617 00a0 03       		.uleb128 0x3
+ 1618 00a1 0E       		.uleb128 0xe
+ 1619 00a2 3A       		.uleb128 0x3a
+ 1620 00a3 0B       		.uleb128 0xb
+ 1621 00a4 3B       		.uleb128 0x3b
+ 1622 00a5 0B       		.uleb128 0xb
+ 1623 00a6 27       		.uleb128 0x27
+ 1624 00a7 19       		.uleb128 0x19
+ 1625 00a8 49       		.uleb128 0x49
+ 1626 00a9 13       		.uleb128 0x13
+ 1627 00aa 8701     		.uleb128 0x87
+ 1628 00ac 19       		.uleb128 0x19
+ 1629 00ad 11       		.uleb128 0x11
+ 1630 00ae 01       		.uleb128 0x1
+ 1631 00af 12       		.uleb128 0x12
+ 1632 00b0 06       		.uleb128 0x6
+ 1633 00b1 40       		.uleb128 0x40
+ 1634 00b2 18       		.uleb128 0x18
+ 1635 00b3 9742     		.uleb128 0x2117
+ 1636 00b5 19       		.uleb128 0x19
+ 1637 00b6 01       		.uleb128 0x1
+ 1638 00b7 13       		.uleb128 0x13
+ 1639 00b8 00       		.byte	0
+ 1640 00b9 00       		.byte	0
+ 1641 00ba 0C       		.uleb128 0xc
+ 1642 00bb 898201   		.uleb128 0x4109
+ 1643 00be 01       		.byte	0x1
+ 1644 00bf 11       		.uleb128 0x11
+ 1645 00c0 01       		.uleb128 0x1
+ 1646 00c1 31       		.uleb128 0x31
+ 1647 00c2 13       		.uleb128 0x13
+ 1648 00c3 00       		.byte	0
+ 1649 00c4 00       		.byte	0
+ 1650 00c5 0D       		.uleb128 0xd
+ 1651 00c6 34       		.uleb128 0x34
+ 1652 00c7 00       		.byte	0
+ 1653 00c8 03       		.uleb128 0x3
+ 1654 00c9 0E       		.uleb128 0xe
+ 1655 00ca 3A       		.uleb128 0x3a
+ 1656 00cb 0B       		.uleb128 0xb
+ 1657 00cc 3B       		.uleb128 0x3b
+ 1658 00cd 05       		.uleb128 0x5
+ 1659 00ce 49       		.uleb128 0x49
+ 1660 00cf 13       		.uleb128 0x13
+ 1661 00d0 3F       		.uleb128 0x3f
+ 1662 00d1 19       		.uleb128 0x19
+ 1663 00d2 3C       		.uleb128 0x3c
+ 1664 00d3 19       		.uleb128 0x19
+ 1665 00d4 00       		.byte	0
+ARM GAS  C:\Users\Darwin\AppData\Local\Temp\cceXYrWy.s 			page 33
+
+
+ 1666 00d5 00       		.byte	0
+ 1667 00d6 0E       		.uleb128 0xe
+ 1668 00d7 35       		.uleb128 0x35
+ 1669 00d8 00       		.byte	0
+ 1670 00d9 49       		.uleb128 0x49
+ 1671 00da 13       		.uleb128 0x13
+ 1672 00db 00       		.byte	0
+ 1673 00dc 00       		.byte	0
+ 1674 00dd 0F       		.uleb128 0xf
+ 1675 00de 34       		.uleb128 0x34
+ 1676 00df 00       		.byte	0
+ 1677 00e0 03       		.uleb128 0x3
+ 1678 00e1 08       		.uleb128 0x8
+ 1679 00e2 3A       		.uleb128 0x3a
+ 1680 00e3 0B       		.uleb128 0xb
+ 1681 00e4 3B       		.uleb128 0x3b
+ 1682 00e5 0B       		.uleb128 0xb
+ 1683 00e6 49       		.uleb128 0x49
+ 1684 00e7 13       		.uleb128 0x13
+ 1685 00e8 3F       		.uleb128 0x3f
+ 1686 00e9 19       		.uleb128 0x19
+ 1687 00ea 02       		.uleb128 0x2
+ 1688 00eb 18       		.uleb128 0x18
+ 1689 00ec 00       		.byte	0
+ 1690 00ed 00       		.byte	0
+ 1691 00ee 10       		.uleb128 0x10
+ 1692 00ef 34       		.uleb128 0x34
+ 1693 00f0 00       		.byte	0
+ 1694 00f1 03       		.uleb128 0x3
+ 1695 00f2 0E       		.uleb128 0xe
+ 1696 00f3 3A       		.uleb128 0x3a
+ 1697 00f4 0B       		.uleb128 0xb
+ 1698 00f5 3B       		.uleb128 0x3b
+ 1699 00f6 0B       		.uleb128 0xb
+ 1700 00f7 49       		.uleb128 0x49
+ 1701 00f8 13       		.uleb128 0x13
+ 1702 00f9 3F       		.uleb128 0x3f
+ 1703 00fa 19       		.uleb128 0x19
+ 1704 00fb 02       		.uleb128 0x2
+ 1705 00fc 18       		.uleb128 0x18
+ 1706 00fd 00       		.byte	0
+ 1707 00fe 00       		.byte	0
+ 1708 00ff 11       		.uleb128 0x11
+ 1709 0100 2E       		.uleb128 0x2e
+ 1710 0101 00       		.byte	0
+ 1711 0102 3F       		.uleb128 0x3f
+ 1712 0103 19       		.uleb128 0x19
+ 1713 0104 3C       		.uleb128 0x3c
+ 1714 0105 19       		.uleb128 0x19
+ 1715 0106 6E       		.uleb128 0x6e
+ 1716 0107 0E       		.uleb128 0xe
+ 1717 0108 03       		.uleb128 0x3
+ 1718 0109 0E       		.uleb128 0xe
+ 1719 010a 3A       		.uleb128 0x3a
+ 1720 010b 0B       		.uleb128 0xb
+ 1721 010c 3B       		.uleb128 0x3b
+ 1722 010d 0B       		.uleb128 0xb
+ARM GAS  C:\Users\Darwin\AppData\Local\Temp\cceXYrWy.s 			page 34
+
+
+ 1723 010e 00       		.byte	0
+ 1724 010f 00       		.byte	0
+ 1725 0110 00       		.byte	0
+ 1726              		.section	.debug_aranges,"",%progbits
+ 1727 0000 34000000 		.4byte	0x34
+ 1728 0004 0200     		.2byte	0x2
+ 1729 0006 00000000 		.4byte	.Ldebug_info0
+ 1730 000a 04       		.byte	0x4
+ 1731 000b 00       		.byte	0
+ 1732 000c 0000     		.2byte	0
+ 1733 000e 0000     		.2byte	0
+ 1734 0010 00000000 		.4byte	.LFB63
+ 1735 0014 80000000 		.4byte	.LFE63-.LFB63
+ 1736 0018 00000000 		.4byte	.LFB64
+ 1737 001c 80000000 		.4byte	.LFE64-.LFB64
+ 1738 0020 00000000 		.4byte	.LFB65
+ 1739 0024 E4000000 		.4byte	.LFE65-.LFB65
+ 1740 0028 00000000 		.4byte	.LFB66
+ 1741 002c A0000000 		.4byte	.LFE66-.LFB66
+ 1742 0030 00000000 		.4byte	0
+ 1743 0034 00000000 		.4byte	0
+ 1744              		.section	.debug_ranges,"",%progbits
+ 1745              	.Ldebug_ranges0:
+ 1746 0000 00000000 		.4byte	.LFB63
+ 1747 0004 80000000 		.4byte	.LFE63
+ 1748 0008 00000000 		.4byte	.LFB64
+ 1749 000c 80000000 		.4byte	.LFE64
+ 1750 0010 00000000 		.4byte	.LFB65
+ 1751 0014 E4000000 		.4byte	.LFE65
+ 1752 0018 00000000 		.4byte	.LFB66
+ 1753 001c A0000000 		.4byte	.LFE66
+ 1754 0020 00000000 		.4byte	0
+ 1755 0024 00000000 		.4byte	0
+ 1756              		.section	.debug_line,"",%progbits
+ 1757              	.Ldebug_line0:
+ 1758 0000 63020000 		.section	.debug_str,"MS",%progbits,1
+ 1758      0200D601 
+ 1758      00000201 
+ 1758      FB0E0D00 
+ 1758      01010101 
+ 1759              	.LASF34:
+ 1760 0000 4C45445F 		.ascii	"LED_Write\000"
+ 1760      57726974 
+ 1760      6500
+ 1761              	.LASF31:
+ 1762 000a 506B645F 		.ascii	"Pkd_anterior\000"
+ 1762      616E7465 
+ 1762      72696F72 
+ 1762      00
+ 1763              	.LASF9:
+ 1764 0017 5F5F696E 		.ascii	"__int32_t\000"
+ 1764      7433325F 
+ 1764      7400
+ 1765              	.LASF19:
+ 1766 0021 4469736D 		.ascii	"DisminuirInt\000"
+ 1766      696E7569 
+ 1766      72496E74 
+ARM GAS  C:\Users\Darwin\AppData\Local\Temp\cceXYrWy.s 			page 35
+
+
+ 1766      00
+ 1767              	.LASF14:
+ 1768 002e 646F7562 		.ascii	"double\000"
+ 1768      6C6500
+ 1769              	.LASF43:
+ 1770 0035 51756164 		.ascii	"QuadDec_Start\000"
+ 1770      4465635F 
+ 1770      53746172 
+ 1770      7400
+ 1771              	.LASF10:
+ 1772 0043 696E7433 		.ascii	"int32_t\000"
+ 1772      325F7400 
+ 1773              	.LASF13:
+ 1774 004b 666C6F61 		.ascii	"float\000"
+ 1774      7400
+ 1775              	.LASF24:
+ 1776 0051 636F756E 		.ascii	"counter\000"
+ 1776      74657200 
+ 1777              	.LASF45:
+ 1778 0059 6973725F 		.ascii	"isr_Aumentar_StartEx\000"
+ 1778      41756D65 
+ 1778      6E746172 
+ 1778      5F537461 
+ 1778      72744578 
+ 1779              	.LASF48:
+ 1780 006e 474E5520 		.ascii	"GNU C11 5.4.1 20160609 (release) [ARM/embedded-5-br"
+ 1780      43313120 
+ 1780      352E342E 
+ 1780      31203230 
+ 1780      31363036 
+ 1781 00a1 616E6368 		.ascii	"anch revision 237715] -mcpu=cortex-m3 -mthumb -g -O"
+ 1781      20726576 
+ 1781      6973696F 
+ 1781      6E203233 
+ 1781      37373135 
+ 1782 00d4 67202D66 		.ascii	"g -ffunction-sections -ffat-lto-objects\000"
+ 1782      66756E63 
+ 1782      74696F6E 
+ 1782      2D736563 
+ 1782      74696F6E 
+ 1783              	.LASF23:
+ 1784 00fc 636F6E74 		.ascii	"control_auto\000"
+ 1784      726F6C5F 
+ 1784      6175746F 
+ 1784      00
+ 1785              	.LASF12:
+ 1786 0109 696E7431 		.ascii	"int16\000"
+ 1786      3600
+ 1787              	.LASF5:
+ 1788 010f 6C6F6E67 		.ascii	"long unsigned int\000"
+ 1788      20756E73 
+ 1788      69676E65 
+ 1788      6420696E 
+ 1788      7400
+ 1789              	.LASF3:
+ 1790 0121 73686F72 		.ascii	"short unsigned int\000"
+ 1790      7420756E 
+ARM GAS  C:\Users\Darwin\AppData\Local\Temp\cceXYrWy.s 			page 36
+
+
+ 1790      7369676E 
+ 1790      65642069 
+ 1790      6E7400
+ 1791              	.LASF26:
+ 1792 0134 636F6E74 		.ascii	"control\000"
+ 1792      726F6C00 
+ 1793              	.LASF32:
+ 1794 013c 50574D5F 		.ascii	"PWM_Motor_WriteCompare\000"
+ 1794      4D6F746F 
+ 1794      725F5772 
+ 1794      69746543 
+ 1794      6F6D7061 
+ 1795              	.LASF42:
+ 1796 0153 74696D65 		.ascii	"timer_clock_Start\000"
+ 1796      725F636C 
+ 1796      6F636B5F 
+ 1796      53746172 
+ 1796      7400
+ 1797              	.LASF21:
+ 1798 0165 49544D5F 		.ascii	"ITM_RxBuffer\000"
+ 1798      52784275 
+ 1798      66666572 
+ 1798      00
+ 1799              	.LASF46:
+ 1800 0172 6973725F 		.ascii	"isr_Disminuir_StartEx\000"
+ 1800      4469736D 
+ 1800      696E7569 
+ 1800      725F5374 
+ 1800      61727445 
+ 1801              	.LASF1:
+ 1802 0188 756E7369 		.ascii	"unsigned char\000"
+ 1802      676E6564 
+ 1802      20636861 
+ 1802      7200
+ 1803              	.LASF40:
+ 1804 0196 50574D5F 		.ascii	"PWM_Motor_Start\000"
+ 1804      4D6F746F 
+ 1804      725F5374 
+ 1804      61727400 
+ 1805              	.LASF28:
+ 1806 01a6 6572726F 		.ascii	"error_anterior\000"
+ 1806      725F616E 
+ 1806      74657269 
+ 1806      6F7200
+ 1807              	.LASF11:
+ 1808 01b5 75696E74 		.ascii	"uint16\000"
+ 1808      313600
+ 1809              	.LASF18:
+ 1810 01bc 41756D65 		.ascii	"AumentarInt\000"
+ 1810      6E746172 
+ 1810      496E7400 
+ 1811              	.LASF2:
+ 1812 01c8 73686F72 		.ascii	"short int\000"
+ 1812      7420696E 
+ 1812      7400
+ 1813              	.LASF20:
+ 1814 01d2 4D756573 		.ascii	"Muestreo\000"
+ARM GAS  C:\Users\Darwin\AppData\Local\Temp\cceXYrWy.s 			page 37
+
+
+ 1814      7472656F 
+ 1814      00
+ 1815              	.LASF37:
+ 1816 01db 4C43445F 		.ascii	"LCD_PrintString\000"
+ 1816      5072696E 
+ 1816      74537472 
+ 1816      696E6700 
+ 1817              	.LASF39:
+ 1818 01eb 51756164 		.ascii	"QuadDec_GetCounter\000"
+ 1818      4465635F 
+ 1818      47657443 
+ 1818      6F756E74 
+ 1818      657200
+ 1819              	.LASF22:
+ 1820 01fe 636F6E74 		.ascii	"control_manual\000"
+ 1820      726F6C5F 
+ 1820      6D616E75 
+ 1820      616C00
+ 1821              	.LASF50:
+ 1822 020d 433A5C55 		.ascii	"C:\\Users\\Darwin\\Documents\\git\\control_heli_pso"
+ 1822      73657273 
+ 1822      5C446172 
+ 1822      77696E5C 
+ 1822      446F6375 
+ 1823 023b 635C576F 		.ascii	"c\\Workspace01\\Design01.cydsn\000"
+ 1823      726B7370 
+ 1823      61636530 
+ 1823      315C4465 
+ 1823      7369676E 
+ 1824              	.LASF51:
+ 1825 0258 6D61696E 		.ascii	"main\000"
+ 1825      00
+ 1826              	.LASF44:
+ 1827 025d 54696D65 		.ascii	"Timer_Start\000"
+ 1827      725F5374 
+ 1827      61727400 
+ 1828              	.LASF8:
+ 1829 0269 756E7369 		.ascii	"unsigned int\000"
+ 1829      676E6564 
+ 1829      20696E74 
+ 1829      00
+ 1830              	.LASF7:
+ 1831 0276 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 1831      206C6F6E 
+ 1831      6720756E 
+ 1831      7369676E 
+ 1831      65642069 
+ 1832              	.LASF36:
+ 1833 028d 4C43445F 		.ascii	"LCD_Position\000"
+ 1833      506F7369 
+ 1833      74696F6E 
+ 1833      00
+ 1834              	.LASF38:
+ 1835 029a 4C43445F 		.ascii	"LCD_PrintU32Number\000"
+ 1835      5072696E 
+ 1835      74553332 
+ 1835      4E756D62 
+ARM GAS  C:\Users\Darwin\AppData\Local\Temp\cceXYrWy.s 			page 38
+
+
+ 1835      657200
+ 1836              	.LASF30:
+ 1837 02ad 506B695F 		.ascii	"Pki_anterior\000"
+ 1837      616E7465 
+ 1837      72696F72 
+ 1837      00
+ 1838              	.LASF41:
+ 1839 02ba 4C43445F 		.ascii	"LCD_Start\000"
+ 1839      53746172 
+ 1839      7400
+ 1840              	.LASF29:
+ 1841 02c4 506B705F 		.ascii	"Pkp_anterior\000"
+ 1841      616E7465 
+ 1841      72696F72 
+ 1841      00
+ 1842              	.LASF33:
+ 1843 02d1 52657365 		.ascii	"Reset_PWM_Write\000"
+ 1843      745F5057 
+ 1843      4D5F5772 
+ 1843      69746500 
+ 1844              	.LASF17:
+ 1845 02e1 73697A65 		.ascii	"sizetype\000"
+ 1845      74797065 
+ 1845      00
+ 1846              	.LASF27:
+ 1847 02ea 6572726F 		.ascii	"error\000"
+ 1847      7200
+ 1848              	.LASF6:
+ 1849 02f0 6C6F6E67 		.ascii	"long long int\000"
+ 1849      206C6F6E 
+ 1849      6720696E 
+ 1849      7400
+ 1850              	.LASF49:
+ 1851 02fe 6D61696E 		.ascii	"main.c\000"
+ 1851      2E6300
+ 1852              	.LASF15:
+ 1853 0305 63686172 		.ascii	"char\000"
+ 1853      00
+ 1854              	.LASF35:
+ 1855 030a 4C43445F 		.ascii	"LCD_WriteControl\000"
+ 1855      57726974 
+ 1855      65436F6E 
+ 1855      74726F6C 
+ 1855      00
+ 1856              	.LASF25:
+ 1857 031b 7265665F 		.ascii	"ref_counter\000"
+ 1857      636F756E 
+ 1857      74657200 
+ 1858              	.LASF47:
+ 1859 0327 6973725F 		.ascii	"isr_Ts_StartEx\000"
+ 1859      54735F53 
+ 1859      74617274 
+ 1859      457800
+ 1860              	.LASF4:
+ 1861 0336 6C6F6E67 		.ascii	"long int\000"
+ 1861      20696E74 
+ 1861      00
+ARM GAS  C:\Users\Darwin\AppData\Local\Temp\cceXYrWy.s 			page 39
+
+
+ 1862              	.LASF16:
+ 1863 033f 6C6F6E67 		.ascii	"long double\000"
+ 1863      20646F75 
+ 1863      626C6500 
+ 1864              	.LASF0:
+ 1865 034b 7369676E 		.ascii	"signed char\000"
+ 1865      65642063 
+ 1865      68617200 
+ 1866              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 5.4.1 20160609 (release) [ARM/embedded-5-bran
