@@ -100,48 +100,6 @@
 <VisibleNodeIds>
 <v>Workspace01</v>
 <v>Workspace01\Design01</v>
-<v>Workspace01\Design01\CortexM3</v>
-<v>Workspace01\Design01\CortexM3\ARM_GCC_541</v>
-<v>Workspace01\Design01\CortexM3\ARM_GCC_541\Debug</v>
-<v>Workspace01\Design01\CortexM3\ARM_GCC_541\Debug\Listing Files</v>
-<v>Workspace01\Design01\CortexM3\ARM_GCC_541\Debug\Listing Files\Aumentar.lst</v>
-<v>Workspace01\Design01\CortexM3\ARM_GCC_541\Debug\Listing Files\Cm3Start.lst</v>
-<v>Workspace01\Design01\CortexM3\ARM_GCC_541\Debug\Listing Files\cy_em_eeprom.lst</v>
-<v>Workspace01\Design01\CortexM3\ARM_GCC_541\Debug\Listing Files\CyBootAsmGnu.lst</v>
-<v>Workspace01\Design01\CortexM3\ARM_GCC_541\Debug\Listing Files\CyDmac.lst</v>
-<v>Workspace01\Design01\CortexM3\ARM_GCC_541\Debug\Listing Files\cyfitter_cfg.lst</v>
-<v>Workspace01\Design01\CortexM3\ARM_GCC_541\Debug\Listing Files\CyFlash.lst</v>
-<v>Workspace01\Design01\CortexM3\ARM_GCC_541\Debug\Listing Files\CyLib.lst</v>
-<v>Workspace01\Design01\CortexM3\ARM_GCC_541\Debug\Listing Files\cymetadata.lst</v>
-<v>Workspace01\Design01\CortexM3\ARM_GCC_541\Debug\Listing Files\cyPm.lst</v>
-<v>Workspace01\Design01\CortexM3\ARM_GCC_541\Debug\Listing Files\CySpc.lst</v>
-<v>Workspace01\Design01\CortexM3\ARM_GCC_541\Debug\Listing Files\cyutils.lst</v>
-<v>Workspace01\Design01\CortexM3\ARM_GCC_541\Debug\Listing Files\Disminuir.lst</v>
-<v>Workspace01\Design01\CortexM3\ARM_GCC_541\Debug\Listing Files\encoder_A.lst</v>
-<v>Workspace01\Design01\CortexM3\ARM_GCC_541\Debug\Listing Files\encoder_B.lst</v>
-<v>Workspace01\Design01\CortexM3\ARM_GCC_541\Debug\Listing Files\isr_Aumentar.lst</v>
-<v>Workspace01\Design01\CortexM3\ARM_GCC_541\Debug\Listing Files\isr_Disminuir.lst</v>
-<v>Workspace01\Design01\CortexM3\ARM_GCC_541\Debug\Listing Files\isr_Ts.lst</v>
-<v>Workspace01\Design01\CortexM3\ARM_GCC_541\Debug\Listing Files\LCD.lst</v>
-<v>Workspace01\Design01\CortexM3\ARM_GCC_541\Debug\Listing Files\LCD_LCDPort.lst</v>
-<v>Workspace01\Design01\CortexM3\ARM_GCC_541\Debug\Listing Files\LCD_PM.lst</v>
-<v>Workspace01\Design01\CortexM3\ARM_GCC_541\Debug\Listing Files\LED.lst</v>
-<v>Workspace01\Design01\CortexM3\ARM_GCC_541\Debug\Listing Files\main.lst</v>
-<v>Workspace01\Design01\CortexM3\ARM_GCC_541\Debug\Listing Files\MOTOR.lst</v>
-<v>Workspace01\Design01\CortexM3\ARM_GCC_541\Debug\Listing Files\Pin_1.lst</v>
-<v>Workspace01\Design01\CortexM3\ARM_GCC_541\Debug\Listing Files\Pin_2.lst</v>
-<v>Workspace01\Design01\CortexM3\ARM_GCC_541\Debug\Listing Files\PWM_Motor.lst</v>
-<v>Workspace01\Design01\CortexM3\ARM_GCC_541\Debug\Listing Files\PWM_Motor_PM.lst</v>
-<v>Workspace01\Design01\CortexM3\ARM_GCC_541\Debug\Listing Files\QuadDec.lst</v>
-<v>Workspace01\Design01\CortexM3\ARM_GCC_541\Debug\Listing Files\QuadDec_Cnt16.lst</v>
-<v>Workspace01\Design01\CortexM3\ARM_GCC_541\Debug\Listing Files\QuadDec_Cnt16_PM.lst</v>
-<v>Workspace01\Design01\CortexM3\ARM_GCC_541\Debug\Listing Files\QuadDec_PM.lst</v>
-<v>Workspace01\Design01\CortexM3\ARM_GCC_541\Debug\Listing Files\Reset_pin.lst</v>
-<v>Workspace01\Design01\CortexM3\ARM_GCC_541\Debug\Listing Files\Reset_PWM.lst</v>
-<v>Workspace01\Design01\CortexM3\ARM_GCC_541\Debug\Listing Files\Timer.lst</v>
-<v>Workspace01\Design01\CortexM3\ARM_GCC_541\Debug\Listing Files\timer_clock.lst</v>
-<v>Workspace01\Design01\CortexM3\ARM_GCC_541\Debug\Listing Files\Timer_PM.lst</v>
-<v>Workspace01\Design01\CortexM3\ARM_GCC_541\Debug\Design01.elf</v>
 </VisibleNodeIds>
 </CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237>
 </TreeStates>
@@ -208,7 +166,7 @@
   Copyright (c) 2001-2016 Actipro Software LLC.  All rights reserved.
   http://www.actiprosoftware.com
 
---><DocumentLayout Version="1.0"><LayoutData><TabbedMdiRootContainer Orientation="Horizontal"><TabbedMdiContainer Size="935, 838" SelectedTabbedMdiWindow="b4892182-98ac-47d8-9fc0-dcd38b7baacc"><ToolWindow Key="Start Page:bd4649ab-da6b-4d04-a663-c722b8bf99db:Start Page" Guid="b29a3133-9434-450e-8827-ab77638af4c0" /><ToolWindow Key="CyWorkSpaceExplorer:99392a55-ec98-49fc-92ba-eec97acaad89:Workspace Explorer" Guid="a4756fb9-a280-4070-9d09-c1fe612f8843" /><DocumentWindow Key="C:\Users\Darwin\Documents\git\control_heli_psoc\Workspace01\Design01.cydsn\Design01.cydwr" Guid="6458c8ce-7ee6-4091-8aed-e0d2a7b2c344" /><DocumentWindow Key="C:\Users\Darwin\Documents\git\control_heli_psoc\Workspace01\Design01.cydsn\main.c" Guid="b4892182-98ac-47d8-9fc0-dcd38b7baacc" /><DocumentWindow Key="C:\Users\Darwin\Documents\git\control_heli_psoc\Workspace01\Design01.cydsn\TopDesign\TopDesign.cysch" Guid="4fcd40aa-1944-40dd-8d92-a00c9797a3c5" /></TabbedMdiContainer></TabbedMdiRootContainer><FloatingContainers /></LayoutData></DocumentLayout>]]></OpenDocsLayout>
+--><DocumentLayout Version="1.0"><LayoutData><TabbedMdiRootContainer Orientation="Horizontal"><TabbedMdiContainer Size="935, 554" SelectedTabbedMdiWindow="b4892182-98ac-47d8-9fc0-dcd38b7baacc"><ToolWindow Key="Start Page:bd4649ab-da6b-4d04-a663-c722b8bf99db:Start Page" Guid="b29a3133-9434-450e-8827-ab77638af4c0" /><ToolWindow Key="CyWorkSpaceExplorer:99392a55-ec98-49fc-92ba-eec97acaad89:Workspace Explorer" Guid="a4756fb9-a280-4070-9d09-c1fe612f8843" /><DocumentWindow Key="C:\Users\Darwin\Documents\git\control_heli_psoc\Workspace01\Design01.cydsn\Design01.cydwr" Guid="6458c8ce-7ee6-4091-8aed-e0d2a7b2c344" /><DocumentWindow Key="C:\Users\Darwin\Documents\git\control_heli_psoc\Workspace01\Design01.cydsn\main.c" Guid="b4892182-98ac-47d8-9fc0-dcd38b7baacc" /><DocumentWindow Key="C:\Users\Darwin\Documents\git\control_heli_psoc\Workspace01\Design01.cydsn\TopDesign\TopDesign.cysch" Guid="4fcd40aa-1944-40dd-8d92-a00c9797a3c5" /></TabbedMdiContainer></TabbedMdiRootContainer><FloatingContainers /></LayoutData></DocumentLayout>]]></OpenDocsLayout>
 <config v="" />
 <AutoUpdate v="true" />
 </CyGuid_843a90a4-0c4b-4e44-991d-05e7fb117a21>

@@ -12,21 +12,21 @@
 #include "project.h"
 
 /* Declaración de variables */
-float Ts=0.005;
+float Ts=0.01; /* Periodo de muestreo de 10ms */
 int16 control_manual=120;
 int16 control_auto=100;
-int counter=0;
-int ref_counter=80;
+int angulo=0;
+int ref_angulo=81;
 /* seleccion de control */
 int16 control=1;    
 /* Variables de control */
-float PkP=0.982;/*tiene lógica, probar constantes al verificar funcionamiento*/
-float PkI=0.1555;
-float PkD=0.02554;
-float N=165.9;
+float radio = 0.1;
+float PkP=0.3;
+float PkI=0.001;/**************IMPORTANTE REVISAR EN LABORATORIO (talvez hay que aumentarlo, ya que tiene una reaccion muy lenta)**************/
+float PkD=1000;
 volatile float error,error_anterior;
 volatile float Pkp,Pki,Pkd;
-volatile float Pkp_anterior=0,Pki_anterior=0,Pkd_anterior=0;;
+volatile float Pki_anterior=0;
 
 
 /* Métodos de interrupción */
@@ -51,7 +51,7 @@ CY_ISR(AumentarInt)
         LCD_Position(1,0);
         LCD_PrintString("angulo:");
         LCD_Position(1,10);
-        LCD_PrintNumber(counter);
+        LCD_PrintNumber(angulo);
         
     }
 }
@@ -77,13 +77,14 @@ CY_ISR(DisminuirInt)
         LCD_Position(1,0);
         LCD_PrintString("angulo:");
         LCD_Position(1,10);
-        LCD_PrintNumber(counter);
+        LCD_PrintNumber(angulo);
     }
 }
 
 CY_ISR(Muestreo)
 {
-    counter=QuadDec_GetCounter();
+    /*****falta agregar constantes para medir el ángulo en grados******/
+    angulo=QuadDec_GetCounter();
     
     LCD_ClearDisplay();
     LCD_Position(0,0);
@@ -97,28 +98,24 @@ CY_ISR(Muestreo)
     if (control==1)
     /* calculo de la salida de control automático */
     {
-        error=ref_counter-counter;
+        error=radio*(ref_angulo-angulo);
         Pkp=PkP*error;
-        Pki=PkI*(error+Pki_anterior);
-         /*Pkd=(PkD*N*(error-error_anterior)+PkD_anterior)/(1+N*Ts);
-        control_auto=Pkp+Pki+Pkd;
-        control_auto=(control_auto+7.4221)/0.0481;
-        Prevenciones
-        if(control_auto>200){control_auto=200;}
-        if(control_auto<120){control_auto=120;}*/
-        
-        Pkp_anterior=Pkp;
+        Pki=Pki_anterior+PkI*error;
+        Pkd=PkD*radio*(error_anterior-error)/Ts;
+        control_auto=165+Pkp+Pki+Pkd;
+        /* Prevenciones (prevenciones de visualizacion en psoc)*/
+        /***Para hacer pruebas con la planta cambiar limites a 120 y 200***/
+        if(control_auto>32000){control_auto=32000;}
+        if(control_auto<0){control_auto=0;}
+
         Pki_anterior=Pki;
-        Pkd_anterior=Pkd;
         error_anterior=error;
-        
-        control_auto=165+Pkp;
         LCD_PrintNumber(control_auto);
     }
     LCD_Position(1,0);
     LCD_PrintString("angulo:");
     LCD_Position(1,10);
-    LCD_PrintNumber(counter);
+    LCD_PrintNumber(angulo);
     
 }
 
@@ -148,7 +145,7 @@ int main(void)
     LCD_Position(1,0);
     LCD_PrintString("angulo:");
     LCD_Position(1,10);
-    LCD_PrintNumber(counter);
+    LCD_PrintNumber(angulo);
     
     CyGlobalIntEnable; /* Enable global interrupts. */
     
