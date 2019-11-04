@@ -15,6 +15,7 @@
 float Ts=0.01; /* Periodo de muestreo de 10ms */
 int16 control_manual=120;
 int16 control_auto=100;
+volatile float control_anterior=0;
 int angulo=0;
 int ref_angulo=81;
 /* seleccion de control */
@@ -101,13 +102,17 @@ CY_ISR(Muestreo)
         error=radio*(ref_angulo-angulo);
         Pkp=PkP*error;
         Pki=Pki_anterior+PkI*error;
-        Pkd=PkD*radio*(error_anterior-error)/Ts;
+        Pkd=PkD*(error_anterior-error)/Ts;
         control_auto=165+Pkp+Pki+Pkd;
         /* Prevenciones (prevenciones de visualizacion en psoc)*/
         /***Para hacer pruebas con la planta cambiar limites a 120 y 200***/
         if(control_auto>32000){control_auto=32000;}
         if(control_auto<0){control_auto=0;}
-
+        /**Indicador LED***/
+        if(control_auto<control_anterior){LED_Write(0);}
+        if(control_auto>control_anterior){LED_Write(1);}
+        control_anterior=control_auto;
+        
         Pki_anterior=Pki;
         error_anterior=error;
         LCD_PrintNumber(control_auto);
