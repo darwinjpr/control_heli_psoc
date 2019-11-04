@@ -2,7 +2,7 @@
 --	Conversion of Design01.v to vh2:
 --
 --	Cypress Semiconductor - WARP Version 6.3 IR 41
---	Sat Nov 02 19:20:32 2019
+--	Mon Nov 04 14:13:00 2019
 --
 
 USE cypress.cypress.all;
@@ -749,6 +749,16 @@ SIGNAL tmpFB_0__Pin_2_net_0 : bit;
 SIGNAL tmpIO_0__Pin_2_net_0 : bit;
 TERMINAL tmpSIOVREF__Pin_2_net_0 : bit;
 SIGNAL tmpINTERRUPT_0__Pin_2_net_0 : bit;
+SIGNAL Net_1304 : bit;
+SIGNAL Net_1313 : bit;
+SIGNAL \Timer_inicio:Net_260\ : bit;
+SIGNAL \Timer_inicio:Net_266\ : bit;
+SIGNAL Net_1305 : bit;
+SIGNAL \Timer_inicio:Net_51\ : bit;
+SIGNAL \Timer_inicio:Net_261\ : bit;
+SIGNAL \Timer_inicio:Net_57\ : bit;
+SIGNAL Net_1306 : bit;
+SIGNAL \Timer_inicio:Net_102\ : bit;
 SIGNAL \PWM_Motor:PWMUDB:min_kill_reg\\D\ : bit;
 SIGNAL \PWM_Motor:PWMUDB:prevCapture\\D\ : bit;
 SIGNAL \PWM_Motor:PWMUDB:trig_last\\D\ : bit;
@@ -2127,6 +2137,30 @@ Pin_2:cy_psoc3_pins_v1_10
 		out_clock_en=>one,
 		out_reset=>zero,
 		interrupt=>tmpINTERRUPT_0__Pin_2_net_0);
+isr_inicio:cy_isr_v1_0
+	GENERIC MAP(int_type=>"00",
+		is_nmi=>'0')
+	PORT MAP(int_signal=>Net_1304);
+\Timer_inicio:TimerHW\:cy_psoc3_timer_v1_0
+	GENERIC MAP(cy_registers=>"")
+	PORT MAP(clock=>Net_1313,
+		kill=>zero,
+		enable=>one,
+		capture=>zero,
+		timer_reset=>zero,
+		tc=>Net_1304,
+		compare=>\Timer_inicio:Net_261\,
+		interrupt=>\Timer_inicio:Net_57\);
+Clock_lento:cy_clock_v1_0
+	GENERIC MAP(cy_registers=>"",
+		id=>"214186eb-33ef-4076-a008-b18790f80158",
+		source_clock_id=>"",
+		divisor=>0,
+		period=>"1000000000000",
+		is_direct=>'0',
+		is_digital=>'1')
+	PORT MAP(clock_out=>Net_1313,
+		dig_domain_out=>open);
 \PWM_Motor:PWMUDB:min_kill_reg\:cy_dsrff
 	PORT MAP(d=>one,
 		s=>zero,

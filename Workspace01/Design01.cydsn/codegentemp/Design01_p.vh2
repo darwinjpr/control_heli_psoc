@@ -1,5 +1,5 @@
 -- Project:   Design01
--- Generated: 11/02/2019 19:20:33
+-- Generated: 11/04/2019 14:13:02
 -- PSoC Creator  4.2
 
 ENTITY Design01 IS
@@ -63,6 +63,10 @@ ARCHITECTURE __DEFAULT__ OF Design01 IS
     SIGNAL Net_1301 : bit;
     SIGNAL Net_1302 : bit;
     SIGNAL Net_1303 : bit;
+    SIGNAL Net_1304 : bit;
+    SIGNAL Net_1313 : bit;
+    ATTRIBUTE global_signal OF Net_1313 : SIGNAL IS true;
+    SIGNAL Net_1313_local : bit;
     SIGNAL Pin_1(0)__PA : bit;
     SIGNAL Pin_2(0)__PA : bit;
     SIGNAL Reset_PWM(0)__PA : bit;
@@ -132,6 +136,8 @@ ARCHITECTURE __DEFAULT__ OF Design01 IS
     SIGNAL \QuadDec:bQuadDec:state_1\ : bit;
     SIGNAL \Timer:Net_261\ : bit;
     SIGNAL \Timer:Net_57\ : bit;
+    SIGNAL \Timer_inicio:Net_261\ : bit;
+    SIGNAL \Timer_inicio:Net_57\ : bit;
     SIGNAL __ONE__ : bit;
     ATTRIBUTE POWER OF __ONE__ : SIGNAL IS true;
     SIGNAL __ZERO__ : bit;
@@ -143,6 +149,7 @@ ARCHITECTURE __DEFAULT__ OF Design01 IS
     SIGNAL zero : bit;
     ATTRIBUTE GROUND OF zero : SIGNAL IS true;
     SIGNAL \ClockBlock.dclk_glb_ff_0__sig\ : bit;
+    SIGNAL \ClockBlock.dclk_glb_ff_1__sig\ : bit;
     SIGNAL \PWM_Motor:PWMUDB:sP16:pwmdp:u0.ce0__sig\ : bit;
     SIGNAL \PWM_Motor:PWMUDB:sP16:pwmdp:u0.cl0__sig\ : bit;
     SIGNAL \PWM_Motor:PWMUDB:sP16:pwmdp:u0.z0__sig\ : bit;
@@ -580,7 +587,10 @@ BEGIN
             dsi_glb_div => open,
             dclk_glb_0 => Net_10,
             dclk_0 => Net_10_local,
-            dclk_glb_ff_0 => \ClockBlock.dclk_glb_ff_0__sig\);
+            dclk_glb_1 => Net_1313,
+            dclk_1 => Net_1313_local,
+            dclk_glb_ff_0 => \ClockBlock.dclk_glb_ff_0__sig\,
+            dclk_glb_ff_1 => \ClockBlock.dclk_glb_ff_1__sig\);
 
     \LCD:LCDPort\:logicalport
         GENERIC MAP(
@@ -2220,6 +2230,27 @@ BEGIN
             tc => Net_1303,
             cmp => \Timer:Net_261\,
             irq => \Timer:Net_57\);
+
+    isr_inicio:interrupt
+        GENERIC MAP(
+            int_type => "00",
+            is_nmi => 0)
+        PORT MAP(
+            interrupt => Net_1304,
+            clock => ClockBlock_BUS_CLK);
+
+    \Timer_inicio:TimerHW\:timercell
+        GENERIC MAP(
+            cy_registers => "")
+        PORT MAP(
+            clock => \ClockBlock.dclk_glb_ff_1__sig\,
+            kill => open,
+            enable => __ONE__,
+            capture => open,
+            timer_reset => open,
+            tc => Net_1304,
+            cmp => \Timer_inicio:Net_261\,
+            irq => \Timer_inicio:Net_57\);
 
     \PWM_Motor:PWMUDB:runmode_enable\:macrocell
         GENERIC MAP(

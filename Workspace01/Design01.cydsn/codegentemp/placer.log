@@ -6,7 +6,7 @@
 
 #Build Date:         Dec  5 2017 15:35:27
 
-#File Generated:     Nov 2 2019 19:20:33
+#File Generated:     Nov 4 2019 14:13:02
 
 #Purpose:            
 
@@ -79,7 +79,9 @@ analysis after routing.
 ######################################################################
                      Clock Summary 
 ======================================================================
-Number of clocks: 7
+Number of clocks: 9
+Clock: Clock_lento          | Frequency: N/A       | Target:   0.0 MHz
+Clock: Clock_lento(fixed-function) | Frequency: N/A       | Target:   0.0 MHz
 Clock: CyBUS_CLK            | Frequency: N/A       | Target:  24.0 MHz
 Clock: CyILO                | Frequency: N/A       | Target:   0.0 MHz
 Clock: CyIMO                | Frequency: N/A       | Target:   3.0 MHz
@@ -98,7 +100,9 @@ Phase 7
 ######################################################################
                      Clock Summary 
 ======================================================================
-Number of clocks: 7
+Number of clocks: 9
+Clock: Clock_lento          | Frequency: N/A       | Target:   0.0 MHz
+Clock: Clock_lento(fixed-function) | Frequency: N/A       | Target:   0.0 MHz
 Clock: CyBUS_CLK            | Frequency: N/A       | Target:  24.0 MHz
 Clock: CyILO                | Frequency: N/A       | Target:   0.0 MHz
 Clock: CyIMO                | Frequency: N/A       | Target:   3.0 MHz
@@ -140,7 +144,9 @@ analysis after routing.
 ######################################################################
                      Clock Summary 
 ======================================================================
-Number of clocks: 7
+Number of clocks: 9
+Clock: Clock_lento          | Frequency: N/A       | Target:   0.0 MHz
+Clock: Clock_lento(fixed-function) | Frequency: N/A       | Target:   0.0 MHz
 Clock: CyBUS_CLK            | Frequency: N/A       | Target:  24.0 MHz
 Clock: CyILO                | Frequency: N/A       | Target:   0.0 MHz
 Clock: CyIMO                | Frequency: N/A       | Target:   3.0 MHz

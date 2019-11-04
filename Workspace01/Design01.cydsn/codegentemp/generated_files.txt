@@ -68,6 +68,13 @@
   <file name="C:\Users\Darwin\Documents\git\control_heli_psoc\Workspace01\Design01.cydsn\codegentemp\Pin_2_aliases.h" value="HEADER;;;;;Pin_2" />
   <file name="C:\Users\Darwin\Documents\git\control_heli_psoc\Workspace01\Design01.cydsn\codegentemp\Pin_2.c" value="SOURCE_C;CortexM3;;;;Pin_2" />
   <file name="C:\Users\Darwin\Documents\git\control_heli_psoc\Workspace01\Design01.cydsn\codegentemp\Pin_2.h" value="HEADER;;;;;Pin_2" />
+  <file name="C:\Users\Darwin\Documents\git\control_heli_psoc\Workspace01\Design01.cydsn\codegentemp\isr_inicio.c" value="SOURCE_C;CortexM3;;;;isr_inicio" />
+  <file name="C:\Users\Darwin\Documents\git\control_heli_psoc\Workspace01\Design01.cydsn\codegentemp\isr_inicio.h" value="HEADER;;;;;isr_inicio" />
+  <file name="C:\Users\Darwin\Documents\git\control_heli_psoc\Workspace01\Design01.cydsn\codegentemp\Timer_inicio.c" value="SOURCE_C;CortexM3;;;;Timer_inicio" />
+  <file name="C:\Users\Darwin\Documents\git\control_heli_psoc\Workspace01\Design01.cydsn\codegentemp\Timer_inicio.h" value="HEADER;;;;;Timer_inicio" />
+  <file name="C:\Users\Darwin\Documents\git\control_heli_psoc\Workspace01\Design01.cydsn\codegentemp\Timer_inicio_PM.c" value="SOURCE_C;CortexM3;;;;Timer_inicio" />
+  <file name="C:\Users\Darwin\Documents\git\control_heli_psoc\Workspace01\Design01.cydsn\codegentemp\Clock_lento.c" value="SOURCE_C;CortexM3;;;;Clock_lento" />
+  <file name="C:\Users\Darwin\Documents\git\control_heli_psoc\Workspace01\Design01.cydsn\codegentemp\Clock_lento.h" value="HEADER;;;;;Clock_lento" />
   <file name="C:\Users\Darwin\Documents\git\control_heli_psoc\Workspace01\Design01.cydsn\codegentemp\LCD_LCDPort_aliases.h" value="HEADER;;;;;LCD_LCDPort" />
   <file name="C:\Users\Darwin\Documents\git\control_heli_psoc\Workspace01\Design01.cydsn\codegentemp\LCD_LCDPort.c" value="SOURCE_C;CortexM3;;;;LCD_LCDPort" />
   <file name="C:\Users\Darwin\Documents\git\control_heli_psoc\Workspace01\Design01.cydsn\codegentemp\LCD_LCDPort.h" value="HEADER;;;;;LCD_LCDPort" />

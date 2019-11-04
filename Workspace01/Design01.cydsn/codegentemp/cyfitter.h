@@ -234,16 +234,16 @@
 #define QuadDec_bQuadDec_Stsreg__0__POS 0
 #define QuadDec_bQuadDec_Stsreg__1__MASK 0x02u
 #define QuadDec_bQuadDec_Stsreg__1__POS 1
-#define QuadDec_bQuadDec_Stsreg__16BIT_STATUS_AUX_CTL_REG CYREG_B0_UDB05_06_ACTL
-#define QuadDec_bQuadDec_Stsreg__16BIT_STATUS_REG CYREG_B0_UDB05_06_ST
+#define QuadDec_bQuadDec_Stsreg__16BIT_STATUS_AUX_CTL_REG CYREG_B0_UDB01_02_ACTL
+#define QuadDec_bQuadDec_Stsreg__16BIT_STATUS_REG CYREG_B0_UDB01_02_ST
 #define QuadDec_bQuadDec_Stsreg__2__MASK 0x04u
 #define QuadDec_bQuadDec_Stsreg__2__POS 2
 #define QuadDec_bQuadDec_Stsreg__3__MASK 0x08u
 #define QuadDec_bQuadDec_Stsreg__3__POS 3
 #define QuadDec_bQuadDec_Stsreg__MASK 0x0Fu
-#define QuadDec_bQuadDec_Stsreg__MASK_REG CYREG_B0_UDB05_MSK
-#define QuadDec_bQuadDec_Stsreg__STATUS_AUX_CTL_REG CYREG_B0_UDB05_ACTL
-#define QuadDec_bQuadDec_Stsreg__STATUS_REG CYREG_B0_UDB05_ST
+#define QuadDec_bQuadDec_Stsreg__MASK_REG CYREG_B0_UDB01_MSK
+#define QuadDec_bQuadDec_Stsreg__STATUS_AUX_CTL_REG CYREG_B0_UDB01_ACTL
+#define QuadDec_bQuadDec_Stsreg__STATUS_REG CYREG_B0_UDB01_ST
 #define QuadDec_Cnt16_CounterUDB_sC16_counterdp_u0__16BIT_A0_REG CYREG_B0_UDB02_03_A0
 #define QuadDec_Cnt16_CounterUDB_sC16_counterdp_u0__16BIT_A1_REG CYREG_B0_UDB02_03_A1
 #define QuadDec_Cnt16_CounterUDB_sC16_counterdp_u0__16BIT_D0_REG CYREG_B0_UDB02_03_D0
@@ -597,6 +597,27 @@
 #define encoder_B__SHIFT 1u
 #define encoder_B__SLW CYREG_PRT0_SLW
 
+/* isr_inicio */
+#define isr_inicio__INTC_CLR_EN_REG CYREG_NVIC_CLRENA0
+#define isr_inicio__INTC_CLR_PD_REG CYREG_NVIC_CLRPEND0
+#define isr_inicio__INTC_MASK 0x08u
+#define isr_inicio__INTC_NUMBER 3u
+#define isr_inicio__INTC_PRIOR_NUM 7u
+#define isr_inicio__INTC_PRIOR_REG CYREG_NVIC_PRI_3
+#define isr_inicio__INTC_SET_EN_REG CYREG_NVIC_SETENA0
+#define isr_inicio__INTC_SET_PD_REG CYREG_NVIC_SETPEND0
+
+/* Clock_lento */
+#define Clock_lento__CFG0 CYREG_CLKDIST_DCFG1_CFG0
+#define Clock_lento__CFG1 CYREG_CLKDIST_DCFG1_CFG1
+#define Clock_lento__CFG2 CYREG_CLKDIST_DCFG1_CFG2
+#define Clock_lento__CFG2_SRC_SEL_MASK 0x07u
+#define Clock_lento__INDEX 0x01u
+#define Clock_lento__PM_ACT_CFG CYREG_PM_ACT_CFG2
+#define Clock_lento__PM_ACT_MSK 0x02u
+#define Clock_lento__PM_STBY_CFG CYREG_PM_STBY_CFG2
+#define Clock_lento__PM_STBY_MSK 0x02u
+
 /* timer_clock */
 #define timer_clock__CFG0 CYREG_CLKDIST_DCFG0_CFG0
 #define timer_clock__CFG1 CYREG_CLKDIST_DCFG0_CFG1
@@ -607,6 +628,24 @@
 #define timer_clock__PM_ACT_MSK 0x01u
 #define timer_clock__PM_STBY_CFG CYREG_PM_STBY_CFG2
 #define timer_clock__PM_STBY_MSK 0x01u
+
+/* Timer_inicio */
+#define Timer_inicio_TimerHW__CAP0 CYREG_TMR1_CAP0
+#define Timer_inicio_TimerHW__CAP1 CYREG_TMR1_CAP1
+#define Timer_inicio_TimerHW__CFG0 CYREG_TMR1_CFG0
+#define Timer_inicio_TimerHW__CFG1 CYREG_TMR1_CFG1
+#define Timer_inicio_TimerHW__CFG2 CYREG_TMR1_CFG2
+#define Timer_inicio_TimerHW__CNT_CMP0 CYREG_TMR1_CNT_CMP0
+#define Timer_inicio_TimerHW__CNT_CMP1 CYREG_TMR1_CNT_CMP1
+#define Timer_inicio_TimerHW__PER0 CYREG_TMR1_PER0
+#define Timer_inicio_TimerHW__PER1 CYREG_TMR1_PER1
+#define Timer_inicio_TimerHW__PM_ACT_CFG CYREG_PM_ACT_CFG3
+#define Timer_inicio_TimerHW__PM_ACT_MSK 0x02u
+#define Timer_inicio_TimerHW__PM_STBY_CFG CYREG_PM_STBY_CFG3
+#define Timer_inicio_TimerHW__PM_STBY_MSK 0x02u
+#define Timer_inicio_TimerHW__RT0 CYREG_TMR1_RT0
+#define Timer_inicio_TimerHW__RT1 CYREG_TMR1_RT1
+#define Timer_inicio_TimerHW__SR0 CYREG_TMR1_SR0
 
 /* isr_Aumentar */
 #define isr_Aumentar__INTC_CLR_EN_REG CYREG_NVIC_CLRENA0
@@ -793,7 +832,7 @@
 #define CYDEV_ECC_ENABLE 0
 #define CYDEV_HEAP_SIZE 0x80
 #define CYDEV_INSTRUCT_CACHE_ENABLED 1
-#define CYDEV_INTR_RISING 0x00000007u
+#define CYDEV_INTR_RISING 0x0000000Fu
 #define CYDEV_IS_EXPORTING_CODE 0
 #define CYDEV_IS_IMPORTING_CODE 0
 #define CYDEV_PROJ_TYPE 0
