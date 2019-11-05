@@ -17,14 +17,14 @@ int16 control_manual=120;
 int16 control_auto=100;
 volatile float control_anterior=0;
 int angulo=0;
-int ref_angulo=81;
+int ref_angulo=162;
 /* seleccion de control */
 int16 control=1;    
 /* Variables de control */
-float radio = 0.1;
-float PkP=0.3;
-float PkI=0.001;/**************IMPORTANTE REVISAR EN LABORATORIO (talvez hay que aumentarlo, ya que tiene una reaccion muy lenta)**************/
-float PkD=1000;
+float radio = 0.15;
+float PkP=10;
+float PkI=0.01;/*************IMPORTANTE REVISAR EN LABORATORIO (talvez hay que aumentarlo, ya que tiene una reaccion muy lenta)**************/
+float PkD=500;
 volatile float error,error_anterior;
 volatile float Pkp,Pki,Pkd;
 volatile float Pki_anterior=0;
@@ -108,15 +108,20 @@ CY_ISR(Muestreo)
             error=radio*(ref_angulo-angulo);
             Pkp=PkP*error;
             Pki=Pki_anterior+PkI*error;
-            Pkd=PkD*(error_anterior-error)/Ts;
-            control_auto=165+Pkp+Pki+Pkd;
+            Pkd=PkD*(error-error_anterior)/Ts;
+            control_auto= 125+Pkp+Pki+Pkd;
             /* Prevenciones (prevenciones de visualizacion en psoc)*/
             /***Para hacer pruebas con la planta cambiar limites a 120 y 200***/
-            if(control_auto>32000){control_auto=32000;}
-            if(control_auto<0){control_auto=0;}
+            if(control_auto>200){control_auto=200;}
+            if(control_auto<0){control_auto=125;}
             /**Indicador LED***/
             if(control_auto<control_anterior){LED_Write(0);}
             if(control_auto>control_anterior){LED_Write(1);}
+            
+            PWM_Motor_WriteCompare(control_auto);
+            Reset_PWM_Write(1);
+            Reset_PWM_Write(0);
+            
             control_anterior=control_auto;
             
             Pki_anterior=Pki;

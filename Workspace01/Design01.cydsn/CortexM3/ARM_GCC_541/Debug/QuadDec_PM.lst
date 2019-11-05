@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\Darwin\AppData\Local\Temp\cc61T3eo.s 			page 1
+ARM GAS  C:\Users\evind\AppData\Local\Temp\ccQ4sJSh.s 			page 1
 
 
    1              		.syntax unified
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\Darwin\AppData\Local\Temp\cc61T3eo.s 			page 1
   28:Generated_Source\PSoC5/QuadDec_PM.c **** *  Saves the current user configuration of the component.
   29:Generated_Source\PSoC5/QuadDec_PM.c **** *
   30:Generated_Source\PSoC5/QuadDec_PM.c **** * Parameters:
-ARM GAS  C:\Users\Darwin\AppData\Local\Temp\cc61T3eo.s 			page 2
+ARM GAS  C:\Users\evind\AppData\Local\Temp\ccQ4sJSh.s 			page 2
 
 
   31:Generated_Source\PSoC5/QuadDec_PM.c **** *  None.
@@ -118,7 +118,7 @@ ARM GAS  C:\Users\Darwin\AppData\Local\Temp\cc61T3eo.s 			page 1
   62:Generated_Source\PSoC5/QuadDec_PM.c **** *******************************************************************************/
   63:Generated_Source\PSoC5/QuadDec_PM.c **** void QuadDec_RestoreConfig(void) 
   64:Generated_Source\PSoC5/QuadDec_PM.c **** {
-ARM GAS  C:\Users\Darwin\AppData\Local\Temp\cc61T3eo.s 			page 3
+ARM GAS  C:\Users\evind\AppData\Local\Temp\ccQ4sJSh.s 			page 3
 
 
   51              		.loc 1 64 0
@@ -178,7 +178,7 @@ ARM GAS  C:\Users\Darwin\AppData\Local\Temp\cc61T3eo.s 			page 1
   96:Generated_Source\PSoC5/QuadDec_PM.c **** void QuadDec_Sleep(void) 
   97:Generated_Source\PSoC5/QuadDec_PM.c **** {
   74              		.loc 1 97 0
-ARM GAS  C:\Users\Darwin\AppData\Local\Temp\cc61T3eo.s 			page 4
+ARM GAS  C:\Users\evind\AppData\Local\Temp\ccQ4sJSh.s 			page 4
 
 
   75              		.cfi_startproc
@@ -238,7 +238,7 @@ ARM GAS  C:\Users\Darwin\AppData\Local\Temp\cc61T3eo.s 			page 1
  118              		.type	QuadDec_Wakeup, %function
  119              	QuadDec_Wakeup:
  120              	.LFB3:
-ARM GAS  C:\Users\Darwin\AppData\Local\Temp\cc61T3eo.s 			page 5
+ARM GAS  C:\Users\evind\AppData\Local\Temp\ccQ4sJSh.s 			page 5
 
 
  109:Generated_Source\PSoC5/QuadDec_PM.c **** }
@@ -298,7 +298,7 @@ ARM GAS  C:\Users\Darwin\AppData\Local\Temp\cc61T3eo.s 			page 1
  145:Generated_Source\PSoC5/QuadDec_PM.c ****         QuadDec_Enable();
  139              		.loc 1 145 0
  140 0010 FFF7FEFF 		bl	QuadDec_Enable
-ARM GAS  C:\Users\Darwin\AppData\Local\Temp\cc61T3eo.s 			page 6
+ARM GAS  C:\Users\evind\AppData\Local\Temp\ccQ4sJSh.s 			page 6
 
 
  141              	.LVL6:
@@ -332,8 +332,8 @@ ARM GAS  C:\Users\Darwin\AppData\Local\Temp\cc61T3eo.s 			page 1
  169 000b 01       		.uleb128 0x1
  170 000c 96000000 		.4byte	.LASF26
  171 0010 0C       		.byte	0xc
- 172 0011 48010000 		.4byte	.LASF27
- 173 0015 24020000 		.4byte	.LASF28
+ 172 0011 78010000 		.4byte	.LASF27
+ 173 0015 41010000 		.4byte	.LASF28
  174 0019 00000000 		.4byte	.Ldebug_ranges0+0
  175 001d 00000000 		.4byte	0
  176 0021 00000000 		.4byte	.Ldebug_line0
@@ -344,21 +344,21 @@ ARM GAS  C:\Users\Darwin\AppData\Local\Temp\cc61T3eo.s 			page 1
  181 002c 03       		.uleb128 0x3
  182 002d 04       		.byte	0x4
  183 002e 07       		.byte	0x7
- 184 002f 7B010000 		.4byte	.LASF0
+ 184 002f AB010000 		.4byte	.LASF0
  185 0033 03       		.uleb128 0x3
  186 0034 08       		.byte	0x8
  187 0035 05       		.byte	0x5
- 188 0036 D7010000 		.4byte	.LASF1
+ 188 0036 07020000 		.4byte	.LASF1
  189 003a 03       		.uleb128 0x3
  190 003b 08       		.byte	0x8
  191 003c 04       		.byte	0x4
- 192 003d 18020000 		.4byte	.LASF2
+ 192 003d 48020000 		.4byte	.LASF2
  193 0041 03       		.uleb128 0x3
  194 0042 01       		.byte	0x1
  195 0043 06       		.byte	0x6
- 196 0044 6F020000 		.4byte	.LASF3
+ 196 0044 54020000 		.4byte	.LASF3
  197 0048 03       		.uleb128 0x3
-ARM GAS  C:\Users\Darwin\AppData\Local\Temp\cc61T3eo.s 			page 7
+ARM GAS  C:\Users\evind\AppData\Local\Temp\ccQ4sJSh.s 			page 7
 
 
  198 0049 01       		.byte	0x1
@@ -367,7 +367,7 @@ ARM GAS  C:\Users\Darwin\AppData\Local\Temp\cc61T3eo.s 			page 1
  201 004f 03       		.uleb128 0x3
  202 0050 02       		.byte	0x2
  203 0051 05       		.byte	0x5
- 204 0052 EA010000 		.4byte	.LASF5
+ 204 0052 1A020000 		.4byte	.LASF5
  205 0056 03       		.uleb128 0x3
  206 0057 02       		.byte	0x2
  207 0058 07       		.byte	0x7
@@ -375,7 +375,7 @@ ARM GAS  C:\Users\Darwin\AppData\Local\Temp\cc61T3eo.s 			page 1
  209 005d 03       		.uleb128 0x3
  210 005e 04       		.byte	0x4
  211 005f 05       		.byte	0x5
- 212 0060 03020000 		.4byte	.LASF7
+ 212 0060 33020000 		.4byte	.LASF7
  213 0064 03       		.uleb128 0x3
  214 0065 04       		.byte	0x4
  215 0066 07       		.byte	0x7
@@ -383,15 +383,15 @@ ARM GAS  C:\Users\Darwin\AppData\Local\Temp\cc61T3eo.s 			page 1
  217 006b 03       		.uleb128 0x3
  218 006c 08       		.byte	0x8
  219 006d 07       		.byte	0x7
- 220 006e 88010000 		.4byte	.LASF9
+ 220 006e B8010000 		.4byte	.LASF9
  221 0072 03       		.uleb128 0x3
  222 0073 04       		.byte	0x4
  223 0074 07       		.byte	0x7
- 224 0075 CE010000 		.4byte	.LASF10
+ 224 0075 FE010000 		.4byte	.LASF10
  225 0079 03       		.uleb128 0x3
  226 007a 01       		.byte	0x1
  227 007b 08       		.byte	0x8
- 228 007c E5010000 		.4byte	.LASF11
+ 228 007c 15020000 		.4byte	.LASF11
  229 0080 04       		.uleb128 0x4
  230 0081 3B010000 		.4byte	.LASF14
  231 0085 02       		.byte	0x2
@@ -404,7 +404,7 @@ ARM GAS  C:\Users\Darwin\AppData\Local\Temp\cc61T3eo.s 			page 1
  238 0093 03       		.uleb128 0x3
  239 0094 08       		.byte	0x8
  240 0095 04       		.byte	0x4
- 241 0096 41010000 		.4byte	.LASF13
+ 241 0096 71010000 		.4byte	.LASF13
  242 009a 04       		.uleb128 0x4
  243 009b 24010000 		.4byte	.LASF15
  244 009f 02       		.byte	0x2
@@ -418,10 +418,10 @@ ARM GAS  C:\Users\Darwin\AppData\Local\Temp\cc61T3eo.s 			page 1
  252 00ae 3D       		.byte	0x3d
  253 00af C0000000 		.4byte	0xc0
  254 00b3 07       		.uleb128 0x7
-ARM GAS  C:\Users\Darwin\AppData\Local\Temp\cc61T3eo.s 			page 8
+ARM GAS  C:\Users\evind\AppData\Local\Temp\ccQ4sJSh.s 			page 8
 
 
- 255 00b4 0C020000 		.4byte	.LASF29
+ 255 00b4 3C020000 		.4byte	.LASF29
  256 00b8 03       		.byte	0x3
  257 00b9 3F       		.byte	0x3f
  258 00ba 80000000 		.4byte	0x80
@@ -433,7 +433,7 @@ ARM GAS  C:\Users\Darwin\AppData\Local\Temp\cc61T3eo.s 			page 1
  264 00c6 40       		.byte	0x40
  265 00c7 AB000000 		.4byte	0xab
  266 00cb 09       		.uleb128 0x9
- 267 00cc BB010000 		.4byte	.LASF17
+ 267 00cc EB010000 		.4byte	.LASF17
  268 00d0 01       		.byte	0x1
  269 00d1 25       		.byte	0x25
  270 00d2 00000000 		.4byte	.LFB0
@@ -475,10 +475,10 @@ ARM GAS  C:\Users\Darwin\AppData\Local\Temp\cc61T3eo.s 			page 1
  306 012c CB000000 		.4byte	0xcb
  307 0130 00       		.byte	0
  308 0131 09       		.uleb128 0x9
- 309 0132 F4010000 		.4byte	.LASF20
+ 309 0132 24020000 		.4byte	.LASF20
  310 0136 01       		.byte	0x1
  311 0137 81       		.byte	0x81
-ARM GAS  C:\Users\Darwin\AppData\Local\Temp\cc61T3eo.s 			page 9
+ARM GAS  C:\Users\evind\AppData\Local\Temp\ccQ4sJSh.s 			page 9
 
 
  312 0138 00000000 		.4byte	.LFB3
@@ -497,7 +497,7 @@ ARM GAS  C:\Users\Darwin\AppData\Local\Temp\cc61T3eo.s 			page 1
  325 015d 9F010000 		.4byte	0x19f
  326 0161 00       		.byte	0
  327 0162 0B       		.uleb128 0xb
- 328 0163 6C010000 		.4byte	.LASF30
+ 328 0163 9C010000 		.4byte	.LASF30
  329 0167 01       		.byte	0x1
  330 0168 15       		.byte	0x15
  331 0169 C0000000 		.4byte	0xc0
@@ -510,8 +510,8 @@ ARM GAS  C:\Users\Darwin\AppData\Local\Temp\cc61T3eo.s 			page 1
  338 017c 04       		.byte	0x4
  339 017d 72       		.byte	0x72
  340 017e 0C       		.uleb128 0xc
- 341 017f 9F010000 		.4byte	.LASF22
- 342 0183 9F010000 		.4byte	.LASF22
+ 341 017f CF010000 		.4byte	.LASF22
+ 342 0183 CF010000 		.4byte	.LASF22
  343 0187 04       		.byte	0x4
  344 0188 73       		.byte	0x73
  345 0189 0C       		.uleb128 0xc
@@ -520,8 +520,8 @@ ARM GAS  C:\Users\Darwin\AppData\Local\Temp\cc61T3eo.s 			page 1
  348 0192 03       		.byte	0x3
  349 0193 49       		.byte	0x49
  350 0194 0C       		.uleb128 0xc
- 351 0195 7B020000 		.4byte	.LASF24
- 352 0199 7B020000 		.4byte	.LASF24
+ 351 0195 60020000 		.4byte	.LASF24
+ 352 0199 60020000 		.4byte	.LASF24
  353 019d 04       		.byte	0x4
  354 019e 71       		.byte	0x71
  355 019f 0C       		.uleb128 0xc
@@ -538,7 +538,7 @@ ARM GAS  C:\Users\Darwin\AppData\Local\Temp\cc61T3eo.s 			page 1
  366 0003 25       		.uleb128 0x25
  367 0004 0E       		.uleb128 0xe
  368 0005 13       		.uleb128 0x13
-ARM GAS  C:\Users\Darwin\AppData\Local\Temp\cc61T3eo.s 			page 10
+ARM GAS  C:\Users\evind\AppData\Local\Temp\ccQ4sJSh.s 			page 10
 
 
  369 0006 0B       		.uleb128 0xb
@@ -598,7 +598,7 @@ ARM GAS  C:\Users\Darwin\AppData\Local\Temp\cc61T3eo.s 			page 1
  423 003c 00       		.byte	0
  424 003d 06       		.uleb128 0x6
  425 003e 13       		.uleb128 0x13
-ARM GAS  C:\Users\Darwin\AppData\Local\Temp\cc61T3eo.s 			page 11
+ARM GAS  C:\Users\evind\AppData\Local\Temp\ccQ4sJSh.s 			page 11
 
 
  426 003f 01       		.byte	0x1
@@ -658,7 +658,7 @@ ARM GAS  C:\Users\Darwin\AppData\Local\Temp\cc61T3eo.s 			page 1
  480 0075 12       		.uleb128 0x12
  481 0076 06       		.uleb128 0x6
  482 0077 40       		.uleb128 0x40
-ARM GAS  C:\Users\Darwin\AppData\Local\Temp\cc61T3eo.s 			page 12
+ARM GAS  C:\Users\evind\AppData\Local\Temp\ccQ4sJSh.s 			page 12
 
 
  483 0078 18       		.uleb128 0x18
@@ -718,7 +718,7 @@ ARM GAS  C:\Users\Darwin\AppData\Local\Temp\cc61T3eo.s 			page 1
  537 000b 00       		.byte	0
  538 000c 0000     		.2byte	0
  539 000e 0000     		.2byte	0
-ARM GAS  C:\Users\Darwin\AppData\Local\Temp\cc61T3eo.s 			page 13
+ARM GAS  C:\Users\evind\AppData\Local\Temp\ccQ4sJSh.s 			page 13
 
 
  540 0010 00000000 		.4byte	.LFB0
@@ -778,7 +778,7 @@ ARM GAS  C:\Users\Darwin\AppData\Local\Temp\cc61T3eo.s 			page 1
  574      52657374 
  574      6F726543 
  574      6F6E6669 
-ARM GAS  C:\Users\Darwin\AppData\Local\Temp\cc61T3eo.s 			page 14
+ARM GAS  C:\Users\evind\AppData\Local\Temp\ccQ4sJSh.s 			page 14
 
 
  575              	.LASF25:
@@ -828,101 +828,96 @@ ARM GAS  C:\Users\Darwin\AppData\Local\Temp\cc61T3eo.s 			page 1
  591              	.LASF14:
  592 013b 75696E74 		.ascii	"uint8\000"
  592      3800
- 593              	.LASF13:
- 594 0141 646F7562 		.ascii	"double\000"
- 594      6C6500
- 595              	.LASF27:
- 596 0148 47656E65 		.ascii	"Generated_Source\\PSoC5\\QuadDec_PM.c\000"
- 596      72617465 
- 596      645F536F 
- 596      75726365 
- 596      5C50536F 
- 597              	.LASF30:
-ARM GAS  C:\Users\Darwin\AppData\Local\Temp\cc61T3eo.s 			page 15
+ 593              	.LASF28:
+ 594 0141 463A5C63 		.ascii	"F:\\control_heli_psoc\\Workspace01\\Design01.cydsn\000"
+ 594      6F6E7472 
+ 594      6F6C5F68 
+ 594      656C695F 
+ 594      70736F63 
+ 595              	.LASF13:
+ 596 0171 646F7562 		.ascii	"double\000"
+ 596      6C6500
+ 597              	.LASF27:
+ARM GAS  C:\Users\evind\AppData\Local\Temp\ccQ4sJSh.s 			page 15
 
 
- 598 016c 51756164 		.ascii	"QuadDec_backup\000"
- 598      4465635F 
- 598      6261636B 
- 598      757000
- 599              	.LASF0:
- 600 017b 756E7369 		.ascii	"unsigned int\000"
- 600      676E6564 
- 600      20696E74 
- 600      00
- 601              	.LASF9:
- 602 0188 6C6F6E67 		.ascii	"long long unsigned int\000"
- 602      206C6F6E 
- 602      6720756E 
- 602      7369676E 
- 602      65642069 
- 603              	.LASF22:
- 604 019f 51756164 		.ascii	"QuadDec_Cnt16_RestoreConfig\000"
- 604      4465635F 
- 604      436E7431 
- 604      365F5265 
- 604      73746F72 
- 605              	.LASF17:
- 606 01bb 51756164 		.ascii	"QuadDec_SaveConfig\000"
+ 598 0178 47656E65 		.ascii	"Generated_Source\\PSoC5\\QuadDec_PM.c\000"
+ 598      72617465 
+ 598      645F536F 
+ 598      75726365 
+ 598      5C50536F 
+ 599              	.LASF30:
+ 600 019c 51756164 		.ascii	"QuadDec_backup\000"
+ 600      4465635F 
+ 600      6261636B 
+ 600      757000
+ 601              	.LASF0:
+ 602 01ab 756E7369 		.ascii	"unsigned int\000"
+ 602      676E6564 
+ 602      20696E74 
+ 602      00
+ 603              	.LASF9:
+ 604 01b8 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 604      206C6F6E 
+ 604      6720756E 
+ 604      7369676E 
+ 604      65642069 
+ 605              	.LASF22:
+ 606 01cf 51756164 		.ascii	"QuadDec_Cnt16_RestoreConfig\000"
  606      4465635F 
- 606      53617665 
- 606      436F6E66 
- 606      696700
- 607              	.LASF10:
- 608 01ce 73697A65 		.ascii	"sizetype\000"
- 608      74797065 
- 608      00
- 609              	.LASF1:
- 610 01d7 6C6F6E67 		.ascii	"long long int\000"
- 610      206C6F6E 
- 610      6720696E 
- 610      7400
- 611              	.LASF11:
- 612 01e5 63686172 		.ascii	"char\000"
- 612      00
- 613              	.LASF5:
- 614 01ea 73686F72 		.ascii	"short int\000"
- 614      7420696E 
- 614      7400
- 615              	.LASF20:
- 616 01f4 51756164 		.ascii	"QuadDec_Wakeup\000"
- 616      4465635F 
- 616      57616B65 
- 616      757000
- 617              	.LASF7:
- 618 0203 6C6F6E67 		.ascii	"long int\000"
- 618      20696E74 
- 618      00
- 619              	.LASF29:
- 620 020c 656E6162 		.ascii	"enableState\000"
- 620      6C655374 
- 620      61746500 
- 621              	.LASF2:
-ARM GAS  C:\Users\Darwin\AppData\Local\Temp\cc61T3eo.s 			page 16
+ 606      436E7431 
+ 606      365F5265 
+ 606      73746F72 
+ 607              	.LASF17:
+ 608 01eb 51756164 		.ascii	"QuadDec_SaveConfig\000"
+ 608      4465635F 
+ 608      53617665 
+ 608      436F6E66 
+ 608      696700
+ 609              	.LASF10:
+ 610 01fe 73697A65 		.ascii	"sizetype\000"
+ 610      74797065 
+ 610      00
+ 611              	.LASF1:
+ 612 0207 6C6F6E67 		.ascii	"long long int\000"
+ 612      206C6F6E 
+ 612      6720696E 
+ 612      7400
+ 613              	.LASF11:
+ 614 0215 63686172 		.ascii	"char\000"
+ 614      00
+ 615              	.LASF5:
+ 616 021a 73686F72 		.ascii	"short int\000"
+ 616      7420696E 
+ 616      7400
+ 617              	.LASF20:
+ 618 0224 51756164 		.ascii	"QuadDec_Wakeup\000"
+ 618      4465635F 
+ 618      57616B65 
+ 618      757000
+ 619              	.LASF7:
+ 620 0233 6C6F6E67 		.ascii	"long int\000"
+ 620      20696E74 
+ARM GAS  C:\Users\evind\AppData\Local\Temp\ccQ4sJSh.s 			page 16
 
 
- 622 0218 6C6F6E67 		.ascii	"long double\000"
- 622      20646F75 
- 622      626C6500 
- 623              	.LASF28:
- 624 0224 433A5C55 		.ascii	"C:\\Users\\Darwin\\Documents\\git\\control_heli_pso"
- 624      73657273 
- 624      5C446172 
- 624      77696E5C 
- 624      446F6375 
- 625 0252 635C576F 		.ascii	"c\\Workspace01\\Design01.cydsn\000"
- 625      726B7370 
- 625      61636530 
- 625      315C4465 
- 625      7369676E 
- 626              	.LASF3:
- 627 026f 7369676E 		.ascii	"signed char\000"
- 627      65642063 
- 627      68617200 
- 628              	.LASF24:
- 629 027b 51756164 		.ascii	"QuadDec_Cnt16_Enable\000"
- 629      4465635F 
- 629      436E7431 
- 629      365F456E 
- 629      61626C65 
- 630              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 5.4.1 20160609 (release) [ARM/embedded-5-bran
+ 620      00
+ 621              	.LASF29:
+ 622 023c 656E6162 		.ascii	"enableState\000"
+ 622      6C655374 
+ 622      61746500 
+ 623              	.LASF2:
+ 624 0248 6C6F6E67 		.ascii	"long double\000"
+ 624      20646F75 
+ 624      626C6500 
+ 625              	.LASF3:
+ 626 0254 7369676E 		.ascii	"signed char\000"
+ 626      65642063 
+ 626      68617200 
+ 627              	.LASF24:
+ 628 0260 51756164 		.ascii	"QuadDec_Cnt16_Enable\000"
+ 628      4465635F 
+ 628      436E7431 
+ 628      365F456E 
+ 628      61626C65 
+ 629              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 5.4.1 20160609 (release) [ARM/embedded-5-bran
