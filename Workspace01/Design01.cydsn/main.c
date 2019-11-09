@@ -19,7 +19,7 @@ volatile float control_anterior=0;
 int angulo=0;
 int ref_angulo=162;
 /* seleccion de control */
-int16 control=1;    
+int16 control=0;    
 /* Variables de control */
 float radio = 0.15;
 float PkP=10;
