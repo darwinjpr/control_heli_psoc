@@ -1,5 +1,5 @@
 /*******************************************************************************
-* File Name: Disminuir.h  
+* File Name: Automatic.h  
 * Version 2.20
 *
 * Description:
@@ -15,8 +15,8 @@
 * the software package with which this file was provided.
 *******************************************************************************/
 
-#if !defined(CY_PINS_Disminuir_ALIASES_H) /* Pins Disminuir_ALIASES_H */
-#define CY_PINS_Disminuir_ALIASES_H
+#if !defined(CY_PINS_Automatic_ALIASES_H) /* Pins Automatic_ALIASES_H */
+#define CY_PINS_Automatic_ALIASES_H
 
 #include "cytypes.h"
 #include "cyfitter.h"
@@ -25,12 +25,12 @@
 /***************************************
 *              Constants        
 ***************************************/
-#define Disminuir_0			(Disminuir__0__PC)
-#define Disminuir_0_INTR	((uint16)((uint16)0x0001u << Disminuir__0__SHIFT))
+#define Automatic_0			(Automatic__0__PC)
+#define Automatic_0_INTR	((uint16)((uint16)0x0001u << Automatic__0__SHIFT))
 
-#define Disminuir_INTR_ALL	 ((uint16)(Disminuir_0_INTR))
+#define Automatic_INTR_ALL	 ((uint16)(Automatic_0_INTR))
 
-#endif /* End Pins Disminuir_ALIASES_H */
+#endif /* End Pins Automatic_ALIASES_H */
 
 
 /* [] END OF FILE */

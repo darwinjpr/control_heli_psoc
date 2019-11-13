@@ -251,17 +251,19 @@
   <Data key="DataVersionKey" value="2" />
   <Group key="DWRInstGuidMapping">
     <Group key="Pin">
-      <Data key="0c8f3667-1a19-40d8-a5d6-4aab08c75eb9" value="Disminuir" />
+      <Data key="0c8f3667-1a19-40d8-a5d6-4aab08c75eb9" value="Automatic" />
       <Data key="8bb17a5f-6c3b-4203-b108-1cec550fd44c" value="Pin_2" />
       <Data key="8d318d8b-cf7b-4b6b-b02c-ab1c5c49d0ba" value="encoder_A" />
       <Data key="36e9f33d-e08c-4db5-89c8-0d02db2365c2/ed092b9b-d398-4703-be89-cebf998501f6" value="LCD_LCDPort" />
-      <Data key="46c5afad-1aa6-4b6f-b1b9-0b06e4475ef3" value="Aumentar" />
+      <Data key="46c5afad-1aa6-4b6f-b1b9-0b06e4475ef3" value="Manual" />
       <Data key="7526c9e2-819a-40aa-8e41-3a8ba0baef7f" value="Pin_1" />
       <Data key="b3ebeb67-f5e1-447b-93ce-3672a87f96aa" value="Reset_PWM" />
       <Data key="c90af697-21a3-4084-a005-62221c7602e3" value="Reset_pin" />
+      <Data key="d144ce8a-e0c2-4b1f-bda7-2604a24ebc09" value="encoder_A_1" />
       <Data key="e31c4c65-110b-4f94-be90-7b66203c672e" value="encoder_B" />
       <Data key="e851a3b9-efb8-48be-bbb8-b303b216c393" value="LED" />
       <Data key="f11d53ee-92f7-4f2a-ac37-df4812408651" value="MOTOR" />
+      <Data key="fc260201-0ecf-430b-b058-f66d9f0e8a3b" value="encoder_A_2" />
     </Group>
   </Group>
   <Group key="EEPROM">
@@ -3406,6 +3408,11 @@
         <Data key="Port Format" value="0,6" />
       </Group>
     </Group>
+    <Group key="d144ce8a-e0c2-4b1f-bda7-2604a24ebc09">
+      <Group key="0">
+        <Data key="Port Format" value="3,0" />
+      </Group>
+    </Group>
     <Group key="e31c4c65-110b-4f94-be90-7b66203c672e">
       <Group key="0">
         <Data key="Port Format" value="0,1" />
@@ -3419,6 +3426,11 @@
     <Group key="f11d53ee-92f7-4f2a-ac37-df4812408651">
       <Group key="0">
         <Data key="Port Format" value="3,6" />
+      </Group>
+    </Group>
+    <Group key="fc260201-0ecf-430b-b058-f66d9f0e8a3b">
+      <Group key="0">
+        <Data key="Port Format" value="3,1" />
       </Group>
     </Group>
     <Group key="UnAssigned Pins" />

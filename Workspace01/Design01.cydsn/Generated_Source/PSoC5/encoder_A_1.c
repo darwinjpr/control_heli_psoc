@@ -1,5 +1,5 @@
 /*******************************************************************************
-* File Name: Disminuir.c  
+* File Name: encoder_A_1.c  
 * Version 2.20
 *
 * Description:
@@ -15,15 +15,15 @@
 *******************************************************************************/
 
 #include "cytypes.h"
-#include "Disminuir.h"
+#include "encoder_A_1.h"
 
 /* APIs are not generated for P15[7:6] on PSoC 5 */
 #if !(CY_PSOC5A &&\
-	 Disminuir__PORT == 15 && ((Disminuir__MASK & 0xC0) != 0))
+	 encoder_A_1__PORT == 15 && ((encoder_A_1__MASK & 0xC0) != 0))
 
 
 /*******************************************************************************
-* Function Name: Disminuir_Write
+* Function Name: encoder_A_1_Write
 ****************************************************************************//**
 *
 * \brief Writes the value to the physical port (data output register), masking
@@ -52,17 +52,17 @@
 *  this function.
 *
 * \funcusage
-*  \snippet Disminuir_SUT.c usage_Disminuir_Write
+*  \snippet encoder_A_1_SUT.c usage_encoder_A_1_Write
 *******************************************************************************/
-void Disminuir_Write(uint8 value)
+void encoder_A_1_Write(uint8 value)
 {
-    uint8 staticBits = (Disminuir_DR & (uint8)(~Disminuir_MASK));
-    Disminuir_DR = staticBits | ((uint8)(value << Disminuir_SHIFT) & Disminuir_MASK);
+    uint8 staticBits = (encoder_A_1_DR & (uint8)(~encoder_A_1_MASK));
+    encoder_A_1_DR = staticBits | ((uint8)(value << encoder_A_1_SHIFT) & encoder_A_1_MASK);
 }
 
 
 /*******************************************************************************
-* Function Name: Disminuir_SetDriveMode
+* Function Name: encoder_A_1_SetDriveMode
 ****************************************************************************//**
 *
 * \brief Sets the drive mode for each of the Pins component's pins.
@@ -85,16 +85,16 @@ void Disminuir_Write(uint8 value)
 *  APIs (primary method) or disable interrupts around this function.
 *
 * \funcusage
-*  \snippet Disminuir_SUT.c usage_Disminuir_SetDriveMode
+*  \snippet encoder_A_1_SUT.c usage_encoder_A_1_SetDriveMode
 *******************************************************************************/
-void Disminuir_SetDriveMode(uint8 mode)
+void encoder_A_1_SetDriveMode(uint8 mode)
 {
-	CyPins_SetPinDriveMode(Disminuir_0, mode);
+	CyPins_SetPinDriveMode(encoder_A_1_0, mode);
 }
 
 
 /*******************************************************************************
-* Function Name: Disminuir_Read
+* Function Name: encoder_A_1_Read
 ****************************************************************************//**
 *
 * \brief Reads the associated physical port (pin status register) and masks 
@@ -108,16 +108,16 @@ void Disminuir_SetDriveMode(uint8 mode)
 *  The current value for the pins in the component as a right justified number.
 *
 * \funcusage
-*  \snippet Disminuir_SUT.c usage_Disminuir_Read  
+*  \snippet encoder_A_1_SUT.c usage_encoder_A_1_Read  
 *******************************************************************************/
-uint8 Disminuir_Read(void)
+uint8 encoder_A_1_Read(void)
 {
-    return (Disminuir_PS & Disminuir_MASK) >> Disminuir_SHIFT;
+    return (encoder_A_1_PS & encoder_A_1_MASK) >> encoder_A_1_SHIFT;
 }
 
 
 /*******************************************************************************
-* Function Name: Disminuir_ReadDataReg
+* Function Name: encoder_A_1_ReadDataReg
 ****************************************************************************//**
 *
 * \brief Reads the associated physical port's data output register and masks 
@@ -126,8 +126,8 @@ uint8 Disminuir_Read(void)
 *
 * The data output register controls the signal applied to the physical pin in 
 * conjunction with the drive mode parameter. This is not the same as the 
-* preferred Disminuir_Read() API because the 
-* Disminuir_ReadDataReg() reads the data register instead of the status 
+* preferred encoder_A_1_Read() API because the 
+* encoder_A_1_ReadDataReg() reads the data register instead of the status 
 * register. For output pins this is a useful function to determine the value 
 * just written to the pin.
 *
@@ -136,19 +136,19 @@ uint8 Disminuir_Read(void)
 *  justified number for the component instance.
 *
 * \funcusage
-*  \snippet Disminuir_SUT.c usage_Disminuir_ReadDataReg 
+*  \snippet encoder_A_1_SUT.c usage_encoder_A_1_ReadDataReg 
 *******************************************************************************/
-uint8 Disminuir_ReadDataReg(void)
+uint8 encoder_A_1_ReadDataReg(void)
 {
-    return (Disminuir_DR & Disminuir_MASK) >> Disminuir_SHIFT;
+    return (encoder_A_1_DR & encoder_A_1_MASK) >> encoder_A_1_SHIFT;
 }
 
 
 /* If interrupt is connected for this Pins component */ 
-#if defined(Disminuir_INTSTAT) 
+#if defined(encoder_A_1_INTSTAT) 
 
     /*******************************************************************************
-    * Function Name: Disminuir_SetInterruptMode
+    * Function Name: encoder_A_1_SetInterruptMode
     ****************************************************************************//**
     *
     * \brief Configures the interrupt mode for each of the Pins component's
@@ -161,12 +161,12 @@ uint8 Disminuir_ReadDataReg(void)
     * \param position
     *  The pin position as listed in the Pins component. You may OR these to be 
     *  able to configure the interrupt mode of multiple pins within a Pins 
-    *  component. Or you may use Disminuir_INTR_ALL to configure the
+    *  component. Or you may use encoder_A_1_INTR_ALL to configure the
     *  interrupt mode of all the pins in the Pins component.       
-    *  - Disminuir_0_INTR       (First pin in the list)
-    *  - Disminuir_1_INTR       (Second pin in the list)
+    *  - encoder_A_1_0_INTR       (First pin in the list)
+    *  - encoder_A_1_1_INTR       (Second pin in the list)
     *  - ...
-    *  - Disminuir_INTR_ALL     (All pins in Pins component)
+    *  - encoder_A_1_INTR_ALL     (All pins in Pins component)
     *
     * \param mode
     *  Interrupt mode for the selected pins. Valid options are documented in
@@ -182,19 +182,19 @@ uint8 Disminuir_ReadDataReg(void)
     *  port.
     *
     * \funcusage
-    *  \snippet Disminuir_SUT.c usage_Disminuir_SetInterruptMode
+    *  \snippet encoder_A_1_SUT.c usage_encoder_A_1_SetInterruptMode
     *******************************************************************************/
-    void Disminuir_SetInterruptMode(uint16 position, uint16 mode)
+    void encoder_A_1_SetInterruptMode(uint16 position, uint16 mode)
     {
-		if((position & Disminuir_0_INTR) != 0u) 
+		if((position & encoder_A_1_0_INTR) != 0u) 
 		{ 
-			 Disminuir_0_INTTYPE_REG = (uint8)mode; 
+			 encoder_A_1_0_INTTYPE_REG = (uint8)mode; 
 		}
     }
     
     
     /*******************************************************************************
-    * Function Name: Disminuir_ClearInterrupt
+    * Function Name: encoder_A_1_ClearInterrupt
     ****************************************************************************//**
     *
     * \brief Clears any active interrupts attached with the component and returns 
@@ -211,11 +211,11 @@ uint8 Disminuir_ReadDataReg(void)
     *  those associated with the Pins component.
     *
     * \funcusage
-    *  \snippet Disminuir_SUT.c usage_Disminuir_ClearInterrupt
+    *  \snippet encoder_A_1_SUT.c usage_encoder_A_1_ClearInterrupt
     *******************************************************************************/
-    uint8 Disminuir_ClearInterrupt(void)
+    uint8 encoder_A_1_ClearInterrupt(void)
     {
-        return (Disminuir_INTSTAT & Disminuir_MASK) >> Disminuir_SHIFT;
+        return (encoder_A_1_INTSTAT & encoder_A_1_MASK) >> encoder_A_1_SHIFT;
     }
 
 #endif /* If Interrupts Are Enabled for this Pins component */ 
