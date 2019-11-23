@@ -1,3 +1,3 @@
 # control_heli_psoc
 
-en el master para visuaizar el branch
+Proyecto completo de controlador para un 'helicóptero' donde se controla solamente el ángulo pitch. Véase el archivo /Workspace01/main.c 
